@@ -1,0 +1,94 @@
+/* Poppins Font Family  */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.slick-dots li button:before {
+    content: "" !important;
+
+}
+
+.slick-dots li {
+   width:4rem 
+}
+
+
+.slick-dots li button {
+    cursor: pointer;
+    background: #FFFFFF;
+    height: 0.1px;
+    width: 60px;
+    padding: 1px;
+    opacity: 0.8;
+}
+.slick-dots li button:active {
+    cursor: pointer;
+    background: #FFFFFF;
+    width: 60px;
+    padding: 1px;
+}
+
+
+
+
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Extrabold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Extralight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CabinetGrotesk';
+    src: url('/fonts/CabinetGrotesk-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: 'CabinetGrotesk', sans-serif;
+}
+
+
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
