@@ -6,12 +6,18 @@ import { Preloader } from "../components";
 import Login from "../pages/login";
 
 const Contact = lazy(() => import("../pages/login"));
+const SignUp = lazy(() => import("../pages/signup"));
 
 const routes = [
   {
     path: "/",
     path: PATHS.Login,
     element: <Login />,
+  },
+  {
+    path: "/sign-up",
+    path: PATHS.SignUp,
+    element: <SignUp />,
   },
 ];
 

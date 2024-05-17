@@ -1,19 +1,24 @@
 import React from "react";
 import { useFormik } from "formik";
-import { loginInputs } from "../../data";
+import { inputs } from "../../data";
 import { formSchema } from "../../utils/helper/Schema";
-import { google, joinUs, loginBg, logo } from "../../assets";
+import {
+  google,
+  joinUs,
+  loginBg,
+  logo,
+  signAvatar,
+  signbg,
+} from "../../assets";
 import AutoSlider from "../../components/custom-slider";
-import { Link } from "react-router-dom";
-
-const Login = () => {
+const SignUp = () => {
   const imagesData = [
     {
       avatar: joinUs,
     },
 
     {
-      avatar: joinUs,
+      avatar: signAvatar,
     },
     {
       avatar: joinUs,
@@ -22,7 +27,10 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       password: "",
-      name: "",
+      confirmPassword: "",
+
+      firstName: "",
+      lastName: "",
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
@@ -30,18 +38,17 @@ const Login = () => {
       resetForm();
     },
   });
-
   return (
     <section className=" h-[100vh] gap-12 grid grid-cols-2 ">
-      <div className=" max-w-screen-sm w-full mx-auto gap-6 py-20">
+      <div className=" max-w-screen-sm w-full mx-auto gap-6 py-16">
         <img src={logo} className="pb-6" />
-        <h1 className="text-[22px] font-semibold">Log in</h1>
+        <h1 className="text-[22px] font-semibold">Sign up</h1>
         <span className="text-[18px] font-normal text-[#696969] ">
           Log in to continue Myscienceland!{" "}
         </span>
         <button className="flex justify-center gap-2 mt-6 bg-[#F3F6F8] items-center px-6 max-w-[20rem] w-[100%] text-[16px] font-normal mb-6 text-[#2A2A2A] rounded-sm py-2">
           <img src={google} alt="Logo" className="" />
-          Log in with Google
+          Sign in with Google
         </button>
         <div class="flex items-center justify-center mb-6">
           <div class="border-t border-b border-[#696969] opacity-10 flex-grow h-0"></div>
@@ -49,7 +56,7 @@ const Login = () => {
           <div class="border-t border-b border-[#696969] opacity-10 flex-grow h-0"></div>
         </div>
         <form className="  " onSubmit={formik.handleSubmit}>
-          {loginInputs.map((input) => (
+          {inputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
               <label
                 className="text-[#000000] text-[18px] font-medium"
@@ -62,7 +69,7 @@ const Login = () => {
                 type={input.type}
                 placeholder={input.placeholder}
                 name={input.name}
-                className="border h-10 px-2 border-[] rounded-sm"
+                className="border h-10 px-2 border-[#696969] border-opacity-55 rounded-sm"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values[input.name]}
@@ -72,42 +79,29 @@ const Login = () => {
               )}
             </div>
           ))}
-          <div className="flex justify-between items-center">
+
+          <div className="flex justify-center gap-2 items-center">
             <div>
               <input id="firstName" name="firstName" type="checkbox" />
-              <label
-                className="text-[14px] font-medium text-[#303033] pl-2"
-                for="vehicle1"
-              >
-                Remember Me{" "}
-              </label>
             </div>
-            <a
-              href="/forgot-password"
-              className="py-5 px-3 text-[14px] text-[#FF0606] hover:text-[#9C3022] underline p-0 m-0"
-            >
-              Forgot your password?
-            </a>
+            <h2 className="text-[18px]  text-[#868293] font-normal text-center py-5">
+              By creating account you agree to our{" "}
+              <span className="underline text-[18px] font-normal cursor-pointer  text-primary">
+                Terms & Conditions and Privacy Polic
+              </span>
+            </h2>
           </div>
           <button
-            className="text-[#fff] text-[14px] border border-transparent font-normal hover:border hover:border-primary hover:bg-transparent hover:text-[#303033] bg-primary py-2 w-full"
+            className="text-[#fff] text-[14px] border border-transparent mt-6 font-normal hover:border hover:border-primary hover:bg-transparent hover:text-[#303033] bg-primary py-2 w-full"
             type="submit"
           >
-            Login
+            Create Account
           </button>
-          <h2 className="text-[18px]  text-[#868293] font-normal text-center py-5">
-            Don’t have an account?
-            <Link to="/sign-up">
-              <span className="underline text-[18px] font-normal cursor-pointer  text-primary">
-                SignUp
-              </span>
-            </Link>
-          </h2>
         </form>
       </div>
       <div
         style={{
-          backgroundImage: `url(${loginBg})`,
+          backgroundImage: `url(${signbg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           display: "flex",
@@ -123,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
