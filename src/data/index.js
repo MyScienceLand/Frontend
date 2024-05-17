@@ -1,5 +1,3 @@
-import PATHS from "../routes/path";
-
 const inputs = [
   {
     id: 1,
@@ -18,9 +16,9 @@ const inputs = [
 ];
 
 const navLinks = [
-  { id: 1, label: "Home", path: PATHS.home },
-  { id: 2, label: "About", path: PATHS.about },
-  { id: 3, label: "Contact", path: PATHS.contact },
+  { id: 1, label: "Home" },
+  { id: 2, label: "About" },
+  { id: 3, label: "Contact" },
 ];
 
 export { inputs, navLinks };
