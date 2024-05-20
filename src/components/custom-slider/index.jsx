@@ -34,14 +34,6 @@ const AutoSlider = ({ imagesData }) => {
     ],
   };
 
-  const goToPrevSlide = () => {
-    sliderRef.current.slickPrev();
-  };
-
-  const goToNextSlide = () => {
-    sliderRef.current.slickNext();
-  };
-
   return (
     <div className="py-[100px] max-w-[456px] h-[590px] rounded-lg bg-mygradient1 bg-opacity-25 pb-11">
       <Slider ref={sliderRef} {...settings} className="custom-slider">

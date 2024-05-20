@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { BASE_URL } from "../config/config";
-import { token } from "../constants";
+import { baseUrl, token } from "../constants";
 
 const useFetch = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
@@ -12,7 +11,7 @@ const useFetch = (endpoint, options = {}) => {
     setError(null);
 
     try {
-      const response = await fetch(`${BASE_URL}${endpoint}`, {
+      const response = await fetch(`${baseUrl}${endpoint}`, {
         ...options,
         headers: {
           ...options.headers,
@@ -21,7 +20,7 @@ const useFetch = (endpoint, options = {}) => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
@@ -31,7 +30,7 @@ const useFetch = (endpoint, options = {}) => {
     } finally {
       setLoading(false);
     }
-  }, [endpoint, options]);
+  }, [endpoint, options, baseUrl, token]);
 
   useEffect(() => {
     fetchData();
@@ -41,3 +40,8 @@ const useFetch = (endpoint, options = {}) => {
 };
 
 export default useFetch;
+
+/**
+ *
+ * const { data, loading, error, refetch } = useFetch('/endpoint');
+ */

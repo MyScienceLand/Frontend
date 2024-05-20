@@ -2,7 +2,7 @@
 
 import React, { useContext } from "react";
 import { IconButton } from "@mui/material";
-import { ThemeContext } from "../../../theme/ThemeContext";
+import { ThemeContext } from "../../theme/ThemeContext";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 const ThemeToggleButton = () => {

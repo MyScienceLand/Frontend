@@ -1,9 +1,10 @@
-import { Typography } from "@mui/material";
 import React from "react";
 
 function Dashboard() {
   return (
     <div>
+      {/* <FullScreenLoading /> */}
+      <div></div>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia et
       repellendus vitae rerum dolores veritatis perspiciatis consequuntur,
       sequi, illum dicta nihil maiores assumenda! Cupiditate at deserunt illo
