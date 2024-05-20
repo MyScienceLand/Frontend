@@ -117,7 +117,7 @@ const Login = () => {
           paddingRight: "164px",
         }}
       >
-        <AutoSlider imagesData={imagesData} />
+        <AutoSlider imagesData={imagesData} Heading="Login" />
       </div>
     </section>
   );

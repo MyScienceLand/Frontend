@@ -111,7 +111,7 @@ const SignUp = () => {
           paddingRight: "164px",
         }}
       >
-        <AutoSlider imagesData={imagesData} />
+        <AutoSlider imagesData={imagesData} Heading="Sign up" />
       </div>
     </section>
   );

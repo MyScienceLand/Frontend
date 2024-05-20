@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { BiHeading } from "react-icons/bi";
 
-const AutoSlider = ({ imagesData }) => {
+const AutoSlider = ({ imagesData, Heading }) => {
   const sliderRef = useRef(null);
 
   const settings = {
@@ -52,7 +53,9 @@ const AutoSlider = ({ imagesData }) => {
                 <img src={item.avatar} alt={item.name} />
               </div>
               <div className="flex justify-center items-center flex-col gap-2">
-                <h1 className="text-[22px] font-semibold text-white">Log In</h1>
+                <h1 className="text-[22px] font-semibold text-white">
+                  {Heading}
+                </h1>
                 <p className="text-[16px] text-center mb-12 font-normal text-white">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.

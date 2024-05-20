@@ -47,10 +47,19 @@ const loginInputs = [
     name: "password",
   },
 ];
+const otpInputs = [
+  {
+    id: 1,
+    type: "text",
+    label: "Enter Email Or Mobile Number",
+    placeholder: "Enter Email Or Mobile Number",
+    name: "username",
+  },
+];
 const navLinks = [
   { id: 1, label: "Home", path: PATHS.home },
   { id: 2, label: "About", path: PATHS.about },
   { id: 3, label: "Contact", path: PATHS.contact },
 ];
 
-export { inputs, navLinks, loginInputs };
+export { inputs, navLinks, loginInputs, otpInputs };

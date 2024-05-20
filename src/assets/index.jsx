@@ -4,6 +4,8 @@ import loginBg from "../assets/logibg.png";
 import joinUs from "../assets/joinus.png";
 import signbg from "../assets/signbg.png";
 import signAvatar from "../assets/signavatar.png";
+import Errorimg from "../assets/Error.png";
+import Lock from "../assets/lock.png";
 
 export { google };
 export { logo };
@@ -11,3 +13,5 @@ export { loginBg };
 export { joinUs };
 export { signAvatar };
 export { signbg };
+export { Errorimg };
+export { Lock };
