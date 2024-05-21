@@ -1,5 +1,3 @@
-import PATHS from "../routes/path";
-
 const inputs = [
   {
     id: 2,
@@ -56,10 +54,21 @@ const otpInputs = [
     name: "username",
   },
 ];
-const navLinks = [
-  { id: 1, label: "Home", path: PATHS.home },
-  { id: 2, label: "About", path: PATHS.about },
-  { id: 3, label: "Contact", path: PATHS.contact },
+const resetForm = [
+  {
+    id: 1,
+    type: "password",
+    label: "Password",
+    placeholder: "Enter Password",
+    name: "password",
+  },
+  {
+    id: 2,
+    type: "password",
+    label: "Confirm Password",
+    placeholder: "Confirm Password",
+    name: "confirm_password",
+  },
 ];
 
-export { inputs, navLinks, loginInputs, otpInputs };
+export { inputs, loginInputs, otpInputs, resetForm };

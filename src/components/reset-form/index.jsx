@@ -1,13 +1,13 @@
 import React from "react";
 import { useFormik } from "formik";
-import { otpInputs } from "../../data";
+import { resetForm } from "../../data";
 import { formSchema } from "../../utils/helper/Schema";
 import { google, joinUs, loginBg, logo } from "../../assets";
 import AutoSlider from "../../components/custom-slider";
 import { Link } from "react-router-dom";
 import { HiArrowLongLeft } from "react-icons/hi2";
 
-const ForgotPassword = () => {
+const ResetForm = () => {
   const imagesData = [
     {
       avatar: joinUs,
@@ -39,19 +39,17 @@ const ForgotPassword = () => {
         <div className="flex pt-20 justify-center flex-col">
           <p className="flex justify-start gap-2 cursor-pointer mt-6 items-center">
             <HiArrowLongLeft />
-            Back To New Password
+            Back To OTP
           </p>
           <h1 className="text-primary font-medium text-[18px] mt-4">
-            Forgot Pssword ?
+            Reset Your Password
           </h1>
           <span className="text-[#696969] mb-4 text-[18px] font-normal">
-            {" "}
-            Enter the email address or mobile number associated with your
-            account.
+            Please enter your new password
           </span>
           <form className="  " onSubmit={formik.handleSubmit}>
-            {otpInputs.map((input) => (
-              <div key={input.id} className="mt-6 flex flex-col gap-2">
+            {resetForm.map((input) => (
+              <div key={input.id} className=" flex flex-col gap-2">
                 <label
                   className="text-[#000000] text-[18px] font-medium"
                   htmlFor={input.id}
@@ -75,7 +73,6 @@ const ForgotPassword = () => {
                 )}
               </div>
             ))}
-
             <button
               className="text-[#fff] text-[14px] border border-transparent font-normal hover:border hover:border-primary hover:bg-transparent hover:text-[#303033] bg-primary py-2 w-full"
               type="submit"
@@ -87,11 +84,13 @@ const ForgotPassword = () => {
       </div>
       <div className="bg-primary">
         <div className="flex h-screen justify-center items-center">
-          <h1 className="text-[54px] text-white font-bold">Forgot password!</h1>
+          <h1 className="text-[54px] text-white font-bold">
+            Reset your password
+          </h1>
         </div>
       </div>
     </section>
   );
 };
 
-export default ForgotPassword;
+export default ResetForm;

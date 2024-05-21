@@ -6,6 +6,7 @@ import signbg from "../assets/signbg.png";
 import signAvatar from "../assets/signavatar.png";
 import Errorimg from "../assets/Error.png";
 import Lock from "../assets/lock.png";
+import otps from "../assets/otp.png";
 
 export { google };
 export { logo };
@@ -15,3 +16,4 @@ export { signAvatar };
 export { signbg };
 export { Errorimg };
 export { Lock };
+export { otps };
