@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./screens/global/Layout/Layout";
-import ContentWarper from "./screens/global/ContentWarper/ContentWarper";
-import Dashboard from "./screens/Dashboard/Dashboard";
-import Content from "./screens/Content/Content";
-import Quiz from "./screens/Quiz/Quiz";
-import Login from "./screens/Auth/Login/Login";
-import { token } from "./constants";
-import SignUp from "./screens/Auth/SignUp/SignUp";
-import Error404Page from "./screens/Error404Page/Error404Page";
+import React, { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import ResetPasswordSuccess from './components/ResetPasswordSuccess/ResetPasswordSuccess';
+import { token } from './constants';
+import ForgotPassword from './screens/Auth/ForgotPassword/ForgotPassword';
+import Login from './screens/Auth/Login/Login';
+import OtpVerification from './screens/Auth/OtpVerification/OtpVerification';
+import ResetPasswordForm from './screens/Auth/ResetPasswordForm/ResetPasswordForm';
+import SignUp from './screens/Auth/SignUp/SignUp';
+import Content from './screens/Content/Content';
+import Dashboard from './screens/Dashboard/Dashboard';
+import Error404Page from './screens/Error404Page/Error404Page';
+import Quiz from './screens/Quiz/Quiz';
+import ContentWarper from './screens/global/ContentWarper/ContentWarper';
+import Layout from './screens/global/Layout/Layout';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -25,14 +29,14 @@ function App() {
   };
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape" && isFullScreen) {
+      if (event.key === 'Escape' && isFullScreen) {
         setIsFullScreen(false);
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isFullScreen]);
   return (
@@ -42,7 +46,7 @@ function App() {
           handleDrawerOpen={handleDrawerOpen}
           handleDrawerClose={handleDrawerClose}
           open={open}
-          display={token ? "flex" : "none"}
+          display={token ? 'flex' : 'none'}
           toggleFullScreen={toggleFullScreen}
           isFullScreen={isFullScreen}
         />
@@ -55,6 +59,26 @@ function App() {
         <Route
           path="/Signup"
           element={!token ? <SignUp /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/forgot-password"
+          element={!token ? <ForgotPassword /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/reset-success"
+          element={!token ? <ResetPasswordSuccess /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/otp-verification"
+          element={!token ? <OtpVerification /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/reset-password"
+          element={!token ? <ResetPasswordForm /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/success-reset-password"
+          element={!token ? <ResetPasswordSuccess /> : <Navigate to="/" />}
         />
         <Route
           path="/*"

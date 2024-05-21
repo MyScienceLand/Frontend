@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { baseUrl, token } from "../constants";
+import { useCallback, useState } from 'react';
+import { baseUrl, token } from '../constants';
 
 const usePost = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
@@ -13,10 +13,10 @@ const usePost = (endpoint, options = {}) => {
 
       try {
         const response = await fetch(`${baseUrl}${endpoint}`, {
-          method: "POST",
+          method: 'POST',
           ...options,
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             ...options.headers,
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +45,8 @@ export default usePost;
 
 /**
  *
- *   const { data, loading, error, postData } = usePost("/submit");
+ *   
+  const { data, loading, error, postData } = usePost("/submit");
 
   const handleSubmit = (e) => {
     e.preventDefault();
