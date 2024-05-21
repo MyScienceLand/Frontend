@@ -68,7 +68,7 @@ const Otps = () => {
             </div>
             <p className="text-[#696969] text-[14px] font-medium">
               Didn't get the code? 
-              <span className="text-primary text-[14px] pl-2 font-medium">
+              <span className="text-primary cursor-pointer text-[14px] pl-2 font-medium">
                 Resend{" "}
               </span>
             </p>{" "}

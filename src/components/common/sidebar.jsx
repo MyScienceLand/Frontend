@@ -14,6 +14,9 @@
 */
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
+import { VscBellDot } from "react-icons/vsc";
+import { IoExpandSharp } from "react-icons/io5";
+
 import {
   Bars3Icon,
   BellIcon,
@@ -212,7 +215,7 @@ export default function Sidebar() {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white pb-4">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto  bg-white pb-4">
             <div className="flex h-16 justify-center my-8 shrink-0 items-center">
               <img className="" src={logo} alt="Your Company" />
             </div>
@@ -292,17 +295,25 @@ export default function Sidebar() {
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
                   type="button"
-                  className="-m-2.5 p-2.5 bg-secondary text-white text-gray-400 hover:text-gray-500"
+                  className="-m-2.5 px-8 py-2 flex justify-center gap-2 items-center bg-secondary text-white text-gray-400 hover:text-gray-500"
                 >
                   <IoAddCircleOutline />
                   Add Preferences
+                </button>
+
+                <button
+                  type="button"
+                  className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <IoExpandSharp className="h-6 w-6" aria-hidden="true" />
                 </button>
                 <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <VscBellDot className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Separator */}
@@ -321,12 +332,6 @@ export default function Sidebar() {
                       alt=""
                     />
                     <span className="hidden lg:flex lg:items-center">
-                      <span
-                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
-                        aria-hidden="true"
-                      >
-                        Tom Cook
-                      </span>
                       <ChevronDownIcon
                         className="ml-2 h-5 w-5 text-gray-400"
                         aria-hidden="true"
