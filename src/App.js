@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess/ResetPasswordSuccess';
-import { token } from './constants';
+// import { token } from './constants';
+import { useNavigate } from 'react-router-dom';
 import ForgotPassword from './screens/Auth/ForgotPassword/ForgotPassword';
 import Login from './screens/Auth/Login/Login';
 import OtpVerification from './screens/Auth/OtpVerification/OtpVerification';
@@ -17,7 +18,8 @@ import Layout from './screens/global/Layout/Layout';
 function App() {
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -39,6 +41,13 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isFullScreen]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [token]);
   return (
     <div className="app">
       {!isFullScreen && (

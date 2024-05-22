@@ -1,8 +1,8 @@
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   JoinUs,
   PurpleLogoWithText,
@@ -12,14 +12,17 @@ import {
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
 import { signupInputs } from '../../../data';
+import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
 import { formSchema } from '../../../utils/helper/Schema';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [confirmPrivacy, setConfirmPrivacy] = useState(false);
+  const [confirmPrivacy, setConfirmPrivacy] = useState(true);
+  const { data, loading, error, postData } = usePost('/auth/signup');
 
+  const navigate = useNavigate();
   const imagesData = [
     { avatar: SignUpImage },
     { avatar: JoinUs },
@@ -29,7 +32,7 @@ const SignUp = () => {
   const formik = useFormik({
     initialValues: {
       password: '',
-      confirmPassword: '',
+      email: '',
       firstName: '',
       lastName: '',
     },
@@ -46,7 +49,22 @@ const SignUp = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
-  console.log(formik.values);
+  useEffect(() => {
+    console.log('useEffect data', data);
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [data]);
+  const handelRegisterUser = async (e) => {
+    e.preventDefault();
+    if (formik.values.password !== formik.values.confirmPassword) {
+      alert('Password and Confirm Password should be same');
+      return;
+    }
+    console.log(formik.values);
+  };
+  console.log(confirmPrivacy);
   return (
     <section className="bg-white h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
@@ -56,7 +74,7 @@ const SignUp = () => {
           Welcome & Join us by creating a free account !
         </span>
 
-        <form className="" onSubmit={formik.handleSubmit}>
+        <form className="" onSubmit={(e) => handelRegisterUser(e)}>
           {signupInputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
               <label
@@ -140,6 +158,7 @@ const SignUp = () => {
                 type="checkbox"
                 onChange={() => setConfirmPrivacy(!confirmPrivacy)}
                 value={confirmPrivacy}
+                checked={confirmPrivacy}
               />
             </div>
             <h2 className="text-[18px] text-[var(--text-color)] font-normal text-center py-5">
@@ -150,7 +169,11 @@ const SignUp = () => {
             </h2>
           </div>
 
-          <Button title="Create Account" type="submit" />
+          <Button
+            title="Create Account"
+            type="submit"
+            onClick={(e) => handelRegisterUser(e)}
+          />
           <h2 className="text-[18px] text-[var(--text-color)] font-normal text-center py-5">
             {/* Already have an account? */}
             <Link

@@ -60,8 +60,8 @@ const otpInputs = [
   {
     id: 1,
     type: 'text',
-    label: 'Enter Email Or Mobile Number',
-    placeholder: 'Enter Email Or Mobile Number',
+    label: 'Enter Email',
+    placeholder: 'Enter Email',
     name: 'username',
   },
 ];

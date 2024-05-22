@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
-import { baseUrl, token } from '../constants';
+import { baseUrl } from '../constants';
 
 const usePost = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const token = localStorage.getItem('token');
   const postData = useCallback(
     async (body) => {
       setLoading(true);
@@ -22,7 +23,6 @@ const usePost = (endpoint, options = {}) => {
           },
           body: JSON.stringify(body),
         });
-
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -35,7 +35,7 @@ const usePost = (endpoint, options = {}) => {
         setLoading(false);
       }
     },
-    [endpoint, options, baseUrl, token]
+    [endpoint]
   );
 
   return { data, loading, error, postData };

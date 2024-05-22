@@ -6,7 +6,7 @@ import { Otp, PurpleLogoWithText } from '../../../assets';
 import Button from '../../../components/common/buttons/Button/Button';
 
 const OtpVerification = () => {
-  const [otp, setOtp] = useState(new Array(4)?.fill(''));
+  const [otp, setOtp] = useState(new Array(6)?.fill(''));
   const navigate = useNavigate();
 
   const handleChange = (element, index) => {
@@ -50,13 +50,13 @@ const OtpVerification = () => {
           </span>
           <form onSubmit={formik.handleSubmit}>
             <p className="text-primary text-[14px] mt-6 font-medium">
-              Enter 4 Digits Code
+              Enter 6 Digits Code
             </p>
             <div className="flex justify-between gap-2">
               {otp.map((data, index) => {
                 return (
                   <input
-                    className="w-36 h-12 mt-2 mb-2 text-center text-xl border border-primary rounded "
+                    className="w-24 h-12 mt-2 mb-2 text-center text-xl border border-primary rounded "
                     type="text"
                     name={`otp${index}`}
                     maxLength="1"

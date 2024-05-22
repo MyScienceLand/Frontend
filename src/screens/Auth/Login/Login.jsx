@@ -1,8 +1,8 @@
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   JoinUs,
   NightScene,
@@ -12,11 +12,14 @@ import {
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
 import { loginInputs } from '../../../data/index';
+import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
 import { formSchema } from '../../../utils/helper/Schema';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  // const [response, setResponse] = useState(null);
+  const { data, loading, error, postData } = usePost('/auth/login');
   const imagesData = [
     {
       avatar: JoinUs,
@@ -29,17 +32,14 @@ const Login = () => {
       avatar: JoinUs,
     },
   ];
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
       password: '',
-      name: '',
+      email: '',
     },
     validationSchema: formSchema,
-    onSubmit: (values, { resetForm }) => {
-      console.log(values + 'submitted');
-      resetForm();
-    },
   });
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -47,6 +47,23 @@ const Login = () => {
 
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
+  };
+
+  useEffect(() => {
+    localStorage.setItem(
+      'token',
+      data?.data?.access_token !== undefined ? data?.data?.access_token : ''
+    );
+    console.log('useEffect data', data);
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [data]);
+
+  const handleLoginUser = async (e) => {
+    e.preventDefault();
+    await postData(formik.values);
   };
   return (
     <section className="bg-white h-[100vh] gap-12 grid grid-cols-2 ">
@@ -57,7 +74,7 @@ const Login = () => {
           Log in to continue MyScienceLand!
         </span>
 
-        <form className=" " onSubmit={(e) => formik.handleSubmit(e)}>
+        <form className=" " onSubmit={(e) => handleLoginUser(e)}>
           {loginInputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
               <label
@@ -131,9 +148,13 @@ const Login = () => {
             </Link>
           </div>
 
-          <Button title="Log In" type="submit" onClick={formik.handleSubmit} />
+          <Button
+            title="Log In"
+            type="submit"
+            onClick={(e) => handleLoginUser(e)}
+          />
           <h2 className="text-[18px]  text-[var(--text-color)] font-normal text-center py-5">
-            {/* Don’t have an account? */}
+            Don’t have an account?
             <Link
               to={'/Signup'}
               className="underline text-[18px] font-normal cursor-pointer   text-[var(--secondary-color)]"
