@@ -7,6 +7,21 @@ import signAvatar from "../assets/signavatar.png";
 import Errorimg from "../assets/Error.png";
 import Lock from "../assets/lock.png";
 import otps from "../assets/otp.png";
+import studentBg from "../assets/bg.png";
+import student from "../assets/Student.png";
+import physics from "../assets/physics.png";
+import lab from "../assets/lab.png";
+import bio from "../assets/bilogy.png";
+import uper from "../assets/uper.png";
+
+export { uper };
+export { studentBg };
+export { student };
+export { physics };
+
+export { lab };
+
+export { bio };
 
 export { google };
 export { logo };

@@ -7,6 +7,7 @@ import ErrorPage from "../components/404";
 import ResetPassword from "../components/reset-password";
 import ResetForm from "../components/reset-form";
 import Otps from "../components/otp-verification";
+import Sidebar from "../components/common/sidebar";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -36,10 +37,14 @@ const routes = [
     path: "/otp",
     element: <Otps />,
   },
+  // {
+  //   path: "/",
+  //   element: <DefaultLayout />,
+  //   children: [{ path: "/student-dashboard", element: <StudentDashboard /> }],
+  // },
   {
-    path: "/",
-    element: <DefaultLayout />,
-    children: [{ path: "/student-dashboard", element: <StudentDashboard /> }],
+    path: "/student-dsshboard",
+    element: <Sidebar />,
   },
 ];
 

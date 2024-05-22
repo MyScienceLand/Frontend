@@ -4,12 +4,12 @@ import Sidebar from "../components/common/sidebar";
 const DefaultLayout = () => {
   return (
     <>
-      <div className="grid grid-cols-[2fr-6fr]">
-        <Sidebar />
+      <div className="">
         <div>
-          <div className="max-w-[1600px] bg-[#F6F7FB] mx-8">
-            <Outlet />
-          </div>
+          <Sidebar />
+        </div>
+        <div className=" ">
+          <Outlet />
         </div>
       </div>
     </>

@@ -86,7 +86,9 @@ body {
 }
 
 
-
+.width-divider {
+    width: calc(100% - 288px);
+}
 
 
 @tailwind base;
