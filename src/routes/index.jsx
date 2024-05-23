@@ -38,11 +38,7 @@ const routes = [
     path: "/otp",
     element: <Otps />,
   },
-  // {
-  //   path: "/",
-  //   element: <DefaultLayout />,
-  //   children: [{ path: "/student-dashboard", element: <StudentDashboard /> }],
-  // },
+
   {
     path: "/student-dsshboard",
     element: <Sidebar />,

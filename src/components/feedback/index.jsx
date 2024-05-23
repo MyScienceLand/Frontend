@@ -18,7 +18,7 @@ const FeedBack = () => {
         <h1 className="text-[18px] font-medium">Feedback</h1>
       </div>
       <div className="bg-white px-6 py-4">
-        <div className="flex justify-start items-center gap-6">
+        <div className="flex justify-start mb-12 items-center gap-6">
           <p className="text-[18px] font-medium text-secondary">Score</p>
           <span className="bg-primary text-white px-4 py-1">-9621</span>
         </div>

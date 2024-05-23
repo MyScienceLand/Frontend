@@ -14,6 +14,13 @@ import lab from "../assets/lab.png";
 import bio from "../assets/bilogy.png";
 import uper from "../assets/uper.png";
 import cross from "../assets/cross.png";
+import Quiz from "../assets/Quiz.png";
+import Content from "../assets/Content.png";
+import Dashboard from "../assets/Dashboard.png";
+
+export { Quiz };
+export { Content };
+export { Dashboard };
 
 export { uper };
 export { studentBg };
