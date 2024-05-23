@@ -8,6 +8,7 @@ import ResetPassword from "../components/reset-password";
 import ResetForm from "../components/reset-form";
 import Otps from "../components/otp-verification";
 import Sidebar from "../components/common/sidebar";
+import OtpError from "../components/otp-error";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -45,6 +46,10 @@ const routes = [
   {
     path: "/student-dsshboard",
     element: <Sidebar />,
+  },
+  {
+    path: "/otp-error",
+    element: <OtpError />,
   },
 ];
 

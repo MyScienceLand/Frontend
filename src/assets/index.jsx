@@ -13,11 +13,13 @@ import physics from "../assets/physics.png";
 import lab from "../assets/lab.png";
 import bio from "../assets/bilogy.png";
 import uper from "../assets/uper.png";
+import cross from "../assets/cross.png";
 
 export { uper };
 export { studentBg };
 export { student };
 export { physics };
+export { cross };
 
 export { lab };
 

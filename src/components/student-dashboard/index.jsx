@@ -4,6 +4,8 @@ import { array } from "yup";
 import Chart from "../../components/common/chart";
 import ApexChart from "../../components/common/chart";
 import BarChart from "../common/barchart";
+import CustomTable from "../common/customTable";
+import FeedBack from "../feedback";
 const StudentDashboard = () => {
   const cardsArray = [
     {
@@ -68,11 +70,11 @@ const StudentDashboard = () => {
                 <div key={index} className={item?.className}>
                   {" "}
                   <div className="flex justify-end mt-4">
-                    <button className="py-2 px-4 rounded-md bg-white">
+                    <button className="py-1  px-4 rounded-md bg-white">
                       Courses
                     </button>
                   </div>
-                  <div className="flex justify-center items-center gap-2">
+                  <div className="flex justify-start items-center gap-2">
                     <img src={item?.image} alt={item?.text} />{" "}
                     <div>
                       <span className="text-white">{item.text}</span>
@@ -91,9 +93,14 @@ const StudentDashboard = () => {
               );
             })}
         </div>
+        {/* table section */}
+        <div className="grid grid-cols-[1fr_1fr] gap-6">
+          <CustomTable />
+          <FeedBack />
+        </div>
 
         {/* chart-sec */}
-        <div className="">
+        <div className="grid grid-cols-[1fr_1fr] mt-20  gap-6">
           <ApexChart />
           <BarChart />
         </div>

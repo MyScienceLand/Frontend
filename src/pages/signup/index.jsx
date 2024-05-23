@@ -39,8 +39,8 @@ const SignUp = () => {
     },
   });
   return (
-    <section className=" h-[100vh] gap-12 grid grid-cols-2 ">
-      <div className=" max-w-screen-sm w-full mx-auto gap-6 py-16">
+    <section className="h-[100vh] gap-12 grid grid-cols-2 ">
+      <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
         <img src={logo} className="pb-6" />
         <h1 className="text-[22px] font-semibold">Sign up</h1>
         <span className="text-[18px] font-normal text-[#696969] ">
