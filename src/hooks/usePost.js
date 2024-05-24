@@ -23,10 +23,12 @@ const usePost = (endpoint, options = {}) => {
           },
           body: JSON.stringify(body),
         });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
 
+        if (!response.ok) {
+          // console.log('response not ok ');
+          const errorResponse = await response.json();
+          throw new Error(errorResponse.message);
+        }
         const result = await response.json();
         setData(result);
       } catch (err) {

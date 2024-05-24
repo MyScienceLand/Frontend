@@ -2,6 +2,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   JoinUs,
@@ -9,6 +10,7 @@ import {
   PurpleLogoWithText,
   SignUpImage,
 } from '../../../assets';
+import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
 import { loginInputs } from '../../../data/index';
@@ -18,6 +20,7 @@ import { formSchema } from '../../../utils/helper/Schema';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const dispatch = useDispatch();
   // const [response, setResponse] = useState(null);
   const { data, loading, error, postData } = usePost('/auth/login');
   const imagesData = [
@@ -50,16 +53,27 @@ const Login = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem(
-      'token',
-      data?.data?.access_token !== undefined ? data?.data?.access_token : ''
-    );
-    console.log('useEffect data', data);
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/');
+    console.log(error);
+    if (error) {
+      ToastNotification.error(error);
+      // dispatch(
+      //   registerUser({ email: formik.values.email, otpType: 'resendOtp' })
+      // );
+      // setTimeout(() => {
+      //   navigate('/otp-verification');
+      // }, 1000);
+    } else if (data && data?.data?.isVerify === true) {
+      console.log(data, 'in set local storage');
+      ToastNotification.success(data.message);
+      localStorage.setItem(
+        'token',
+        data?.data?.access_token !== undefined ? data?.data?.access_token : ''
+      );
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 10);
     }
-  }, [data]);
+  }, [data, navigate, error]);
 
   const handleLoginUser = async (e) => {
     e.preventDefault();

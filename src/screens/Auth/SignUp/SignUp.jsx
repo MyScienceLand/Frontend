@@ -2,6 +2,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   JoinUs,
@@ -9,19 +10,20 @@ import {
   SignUpImage,
   signUpBg,
 } from '../../../assets';
+import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
 import { signupInputs } from '../../../data';
 import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
+import { registerUser } from '../../../redux/slices/authSlice';
 import { formSchema } from '../../../utils/helper/Schema';
-
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPrivacy, setConfirmPrivacy] = useState(true);
   const { data, loading, error, postData } = usePost('/auth/signup');
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const imagesData = [
     { avatar: SignUpImage },
@@ -50,21 +52,34 @@ const SignUp = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
   useEffect(() => {
-    console.log('useEffect data', data);
+    if (error) {
+      ToastNotification.error(error);
+    }
+    if (data) {
+      ToastNotification.success(data?.data?.message);
+      dispatch(registerUser({ ...formik.values, otpType: 'signup' }));
+      setTimeout(() => {
+        navigate('/otp-verification');
+      }, 3000);
+    }
     const token = localStorage.getItem('token');
     if (token) {
       navigate('/');
     }
-  }, [data]);
+  }, [data, error]);
   const handelRegisterUser = async (e) => {
     e.preventDefault();
     if (formik.values.password !== formik.values.confirmPassword) {
       alert('Password and Confirm Password should be same');
       return;
     }
-    console.log(formik.values);
+
+    postData({
+      ...formik.values,
+      role: 'student',
+      termsAndCondition: confirmPrivacy,
+    });
   };
-  console.log(confirmPrivacy);
   return (
     <section className="bg-white h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">

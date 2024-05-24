@@ -1,13 +1,18 @@
 import { useFormik } from 'formik'; // Assuming you are using Formik for form handling
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Otp, PurpleLogoWithText } from '../../../assets';
 import Button from '../../../components/common/buttons/Button/Button';
-
+import usePost from '../../../hooks/usePost';
 const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6)?.fill(''));
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  const { data, loading, error, postData } = usePost(
+    user.otpType === 'signup' ? '/auth/verify/otp' : '/auth/resend/otp'
+  );
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -31,6 +36,31 @@ const OtpVerification = () => {
     },
   });
 
+  useEffect(() => {
+    console.log('useEffect data', data);
+    console.log(error);
+    if (error) {
+      alert(error);
+    }
+    if (data) {
+      alert(data?.data?.message);
+      localStorage.setItem(
+        'token',
+        data?.data?.access_token !== undefined ? data?.data?.access_token : ''
+      );
+    }
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [data, error]);
+
+  const handelVerifyOtp = () => {
+    const otpValue = otp.join('');
+    postData({ otp: otpValue, email: user.email });
+    // console.log(user);
+  };
+
   return (
     <section className="h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
@@ -46,7 +76,7 @@ const OtpVerification = () => {
           <img src={Otp} className="mt-4 mb-6" alt="Otp" />
           <span className="text-[var(--text-color)] mt-6 text-[18px] ">
             Please enter the OTP (one time password) to verify your account. A
-            Code has been sent to +1*******000
+            Code has been sent to your email: {user.email}
           </span>
           <form onSubmit={formik.handleSubmit}>
             <p className="text-primary text-[14px] mt-6 font-medium">
@@ -78,11 +108,7 @@ const OtpVerification = () => {
               </Link>
             </p>
 
-            <Button
-              type="submit "
-              title="Verify"
-              onClick={() => navigate('/reset-password')}
-            />
+            <Button type="submit " title="Verify" onClick={handelVerifyOtp} />
           </form>
         </div>
       </div>
