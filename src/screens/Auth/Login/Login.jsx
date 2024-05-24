@@ -56,12 +56,6 @@ const Login = () => {
     console.log(error);
     if (error) {
       ToastNotification.error(error);
-      // dispatch(
-      //   registerUser({ email: formik.values.email, otpType: 'resendOtp' })
-      // );
-      // setTimeout(() => {
-      //   navigate('/otp-verification');
-      // }, 1000);
     } else if (data && data?.data?.isVerify === true) {
       console.log(data, 'in set local storage');
       ToastNotification.success(data.message);

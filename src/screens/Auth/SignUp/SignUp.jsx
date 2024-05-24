@@ -81,11 +81,11 @@ const SignUp = () => {
     });
   };
   return (
-    <section className="bg-white h-[100vh] gap-12 grid grid-cols-2">
+    <section className="bg-[--primary-color] h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
         <img src={PurpleLogoWithText} className="pb-6" alt="Logo" />
         <h1 className="text-[22px] font-semibold">Sign up</h1>
-        <span className="text-[18px] font-normal text-[#696969]">
+        <span className="text-[18px] font-normal text-[--text-color]">
           Welcome & Join us by creating a free account !
         </span>
 
@@ -105,7 +105,7 @@ const SignUp = () => {
                     type={showPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
-                    className="border h-10 px-2 border-[#696969] border-opacity-55 rounded-sm w-full pr-10"
+                    className="border h-10 px-2 border-[--text-color] border-opacity-55 rounded-sm w-full pr-10"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values[input.name]}
@@ -130,7 +130,7 @@ const SignUp = () => {
                     type={showConfirmPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
-                    className="border h-10 px-2 border-[#696969] border-opacity-55 rounded-sm w-full pr-10"
+                    className="border h-10 px-2 border-[--text-color] border-opacity-55 rounded-sm w-full pr-10"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values[input.name]}

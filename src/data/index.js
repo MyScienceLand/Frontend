@@ -62,7 +62,7 @@ const otpInputs = [
     type: 'text',
     label: 'Enter Email',
     placeholder: 'Enter Email',
-    name: 'username',
+    name: 'email',
   },
 ];
 

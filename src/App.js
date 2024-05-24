@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ForgotPassword from './screens/Auth/ForgotPassword/ForgotPassword';
 import Login from './screens/Auth/Login/Login';
+import OtpError from './screens/Auth/OtpError/OtpError';
 import OtpVerification from './screens/Auth/OtpVerification/OtpVerification';
 import ResetPasswordForm from './screens/Auth/ResetPasswordForm/ResetPasswordForm';
 import SignUp from './screens/Auth/SignUp/SignUp';
@@ -90,6 +91,10 @@ function App() {
         <Route
           path="/success-reset-password"
           element={!token ? <ResetPasswordSuccess /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/otp-error"
+          element={!token ? <OtpError /> : <Navigate to="/" />}
         />
         <Route
           path="/*"

@@ -11,7 +11,7 @@ const ResetPasswordForm = () => {
   const formik = useFormik({
     initialValues: {
       password: '',
-      name: '',
+      confirmPassword: '',
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
@@ -21,6 +21,9 @@ const ResetPasswordForm = () => {
   });
   const navigate = useNavigate();
 
+  const handelRestePassword = (e) => {
+    console.log(formik.values);
+  };
   return (
     <section className=" h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
       <div className=" max-w-screen-sm w-full mx-auto gap-6 py-8">
@@ -39,7 +42,7 @@ const ResetPasswordForm = () => {
           <span className="text-[var(--text-color)] mb-4 text-[18px] font-normal">
             Please enter your new password
           </span>
-          <form className="  " onSubmit={formik.handleSubmit}>
+          <form className="  " onSubmit={(e) => handelRestePassword(e)}>
             {resetFormInputs.map((input) => (
               <div key={input.id} className=" flex flex-col gap-2">
                 <label
@@ -69,7 +72,7 @@ const ResetPasswordForm = () => {
             <Button
               type="submit"
               title={'Continue'}
-              onClick={() => navigate('/success-reset-password')}
+              onClick={(e) => handelRestePassword(e)}
             />
           </form>
         </div>

@@ -4,7 +4,9 @@ import { HiArrowLongLeft } from 'react-icons/hi2';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Otp, PurpleLogoWithText } from '../../../assets';
+import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
+
 import usePost from '../../../hooks/usePost';
 const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6)?.fill(''));
@@ -13,7 +15,7 @@ const OtpVerification = () => {
   const { data, loading, error, postData } = usePost(
     user.otpType === 'signup' ? '/auth/verify/otp' : '/auth/resend/otp'
   );
-
+  console.log(user);
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
 
@@ -30,20 +32,23 @@ const OtpVerification = () => {
       otp: '',
       // Add other form fields if necessary
     },
-    onSubmit: (values) => {
-      // Handle form submission
-      console.log('Form values:', values);
-    },
+    onSubmit: (values) => {},
   });
 
   useEffect(() => {
     console.log('useEffect data', data);
     console.log(error);
     if (error) {
-      alert(error);
+      ToastNotification.error(error);
+      setTimeout(() => {
+        navigate('/otp-error');
+      }, 10);
     }
     if (data) {
-      alert(data?.data?.message);
+      ToastNotification.success(data?.data?.message);
+      if (user.otpType === 'forgetPassword') {
+        navigate('/reset-password');
+      }
       localStorage.setItem(
         'token',
         data?.data?.access_token !== undefined ? data?.data?.access_token : ''
@@ -58,7 +63,6 @@ const OtpVerification = () => {
   const handelVerifyOtp = () => {
     const otpValue = otp.join('');
     postData({ otp: otpValue, email: user.email });
-    // console.log(user);
   };
 
   return (
@@ -66,10 +70,13 @@ const OtpVerification = () => {
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
         <img src={PurpleLogoWithText} alt="Logo" className="pb-6 mb-20" />
         <div className="">
-          <p className="flex justify-start gap-2 cursor-pointer mt-6 items-center">
+          <Link
+            to={'/'}
+            className="flex justify-start gap-2 cursor-pointer mt-6 items-center"
+          >
             <HiArrowLongLeft />
             Back To Forgot Password
-          </p>
+          </Link>
           <h1 className="text-primary font-medium text-[18px] mt-4">
             Two-Step Verification
           </h1>
