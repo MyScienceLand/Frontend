@@ -36,6 +36,7 @@ import {
 import { Content, Dashboard, Quiz, logo } from "../../assets";
 import { IoAddCircleOutline } from "react-icons/io5";
 import StudentDashboard from "../student-dashboard";
+import EmptyDashboard from "../empty-dashboard";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: Dashboard, current: true },
@@ -360,9 +361,10 @@ export default function Sidebar() {
             </div>
           </div>
 
-          <main className="py-4">
-            <div className="px-4 mt-16 sm:px-6 lg:px-12">
-              <StudentDashboard />
+          <main className="bg-[#f0f1f7] h-[100vh]">
+            <div className="px-4 py-4 sm:px-6 lg:px-12">
+              {/* <StudentDashboard /> */}
+              <EmptyDashboard />
             </div>
           </main>
         </div>
