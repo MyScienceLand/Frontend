@@ -13,6 +13,7 @@ import {
 import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
+import { authLogoWidth } from '../../../constants';
 import { loginInputs } from '../../../data/index';
 import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
@@ -76,7 +77,12 @@ const Login = () => {
   return (
     <section className="bg-white h-[100vh] gap-12 grid grid-cols-2 ">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-20">
-        <img src={PurpleLogoWithText} className="pb-6" alt="Logo" />
+        <img
+          src={PurpleLogoWithText}
+          className="pb-6"
+          alt="Logo"
+          width={authLogoWidth}
+        />
         <h1 className="text-[22px] font-semibold">Log in</h1>
         <span className="text-[18px] font-normal text-[var(--text-color)] ">
           Log in to continue MyScienceLand!
@@ -98,7 +104,7 @@ const Login = () => {
                     type={showPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
-                    className="border h-10 px-2 border-[] rounded-sm w-full pr-10"
+                    className="border h-10 px-2 border-[var(--text-color)] rounded-sm w-full pr-10"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values[input.name]}

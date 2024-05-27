@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { baseUrl, token } from "../constants";
+import { useCallback, useEffect, useState } from 'react';
+import { baseUrl, token } from '../constants';
 
 const useFetch = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
@@ -17,6 +17,7 @@ const useFetch = (endpoint, options = {}) => {
           ...options.headers,
           Authorization: `Bearer ${token}`,
         },
+        credentials: 'include', // Include cookies in the request
       });
 
       if (!response.ok) {
@@ -24,6 +25,7 @@ const useFetch = (endpoint, options = {}) => {
       }
 
       const result = await response.json();
+
       setData(result);
     } catch (err) {
       setError(err.message);

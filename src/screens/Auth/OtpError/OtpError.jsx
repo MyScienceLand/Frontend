@@ -7,7 +7,7 @@ const OtpError = () => {
   return (
     <div className=" h-screen">
       <div className="px-8 py-6">
-        <img src={PurpleLogoWithText} alt="Logo" />
+        <img src={PurpleLogoWithText} alt="Logo" width={100} />
       </div>
       <div className="container flex flex-col px-26 justify-center items-center pt-20">
         <img src={CrossIcon} alt="cross icon" />

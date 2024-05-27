@@ -79,7 +79,7 @@ const resetFormInputs = [
     type: 'password',
     label: 'Confirm Password',
     placeholder: 'Confirm Password',
-    name: 'confirm_password',
+    name: 'confirmPassword',
   },
 ];
 export { loginInputs, navLinks, otpInputs, resetFormInputs, signupInputs };

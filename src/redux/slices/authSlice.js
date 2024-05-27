@@ -14,9 +14,17 @@ const authSlice = createSlice({
     registerStart(state) {
       state.status = 'loading';
     },
+    // registerUser(state, action) {
+    //   state.status = 'succeeded';
+    //   state.user = action.payload;
+    //   state.error = null;
+    // },
     registerUser(state, action) {
       state.status = 'succeeded';
-      state.user = action.payload;
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
       state.error = null;
     },
     registerFailure(state, action) {

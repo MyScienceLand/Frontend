@@ -1,20 +1,21 @@
 import { useFormik } from 'formik'; // Assuming you are using Formik for form handling
 import React, { useEffect, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Otp, PurpleLogoWithText } from '../../../assets';
 import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
 
+import { authLogoWidth } from '../../../constants';
 import usePost from '../../../hooks/usePost';
+import { registerUser } from '../../../redux/slices/authSlice';
 const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6)?.fill(''));
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const { data, loading, error, postData } = usePost(
-    user.otpType === 'signup' ? '/auth/verify/otp' : '/auth/resend/otp'
-  );
+  const { data, loading, error, postData } = usePost('/auth/verify/otp');
+  const dispatch = useDispatch();
   console.log(user);
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -64,11 +65,16 @@ const OtpVerification = () => {
     const otpValue = otp.join('');
     postData({ otp: otpValue, email: user.email });
   };
-
+  // forgetPassword
+  const handelForgetPasswordOtp = () => {
+    const otpValue = otp.join('');
+    dispatch(registerUser({ forgetPasswordOtp: otpValue }));
+    navigate('/reset-password');
+  };
   return (
     <section className="h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
-        <img src={PurpleLogoWithText} alt="Logo" className="pb-6 mb-20" />
+        <img src={PurpleLogoWithText} alt="Logo" width={authLogoWidth} />
         <div className="">
           <Link
             to={'/'}
@@ -115,7 +121,15 @@ const OtpVerification = () => {
               </Link>
             </p>
 
-            <Button type="submit " title="Verify" onClick={handelVerifyOtp} />
+            <Button
+              type="submit "
+              title="Verify"
+              onClick={
+                user.otpType === 'signup'
+                  ? handelVerifyOtp
+                  : handelForgetPasswordOtp
+              }
+            />
           </form>
         </div>
       </div>

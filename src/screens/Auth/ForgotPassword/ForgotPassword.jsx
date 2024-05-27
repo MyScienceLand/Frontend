@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PurpleLogoWithText } from '../../../assets';
 import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
+import { authLogoWidth } from '../../../constants';
 import { otpInputs } from '../../../data';
 import usePost from '../../../hooks/usePost';
 import { registerUser } from '../../../redux/slices/authSlice';
@@ -46,8 +47,13 @@ const ForgotPassword = () => {
   return (
     <section className=" h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
       <div className=" max-w-screen-sm w-full mx-auto gap-6 py-8 ">
-        <img src={PurpleLogoWithText} className="pb-6 mb-20" alt="Logo" />
-        <div className="flex pt-20 justify-center flex-col">
+        <img
+          src={PurpleLogoWithText}
+          className=" mt-20"
+          alt="Logo"
+          width={authLogoWidth}
+        />
+        <div className="flex pt-5 justify-center flex-col">
           <Link
             to={'/login'}
             className="flex justify-start gap-2 mt-6 items-center"

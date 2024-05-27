@@ -13,6 +13,7 @@ import {
 import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
+import { authLogoWidth } from '../../../constants';
 import { signupInputs } from '../../../data';
 import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
@@ -83,7 +84,12 @@ const SignUp = () => {
   return (
     <section className="bg-[--primary-color] h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
-        <img src={PurpleLogoWithText} className="pb-6" alt="Logo" />
+        <img
+          src={PurpleLogoWithText}
+          className="pb-6"
+          alt="Logo"
+          width={authLogoWidth}
+        />
         <h1 className="text-[22px] font-semibold">Sign up</h1>
         <span className="text-[18px] font-normal text-[--text-color]">
           Welcome & Join us by creating a free account !
@@ -190,7 +196,7 @@ const SignUp = () => {
             onClick={(e) => handelRegisterUser(e)}
           />
           <h2 className="text-[18px] text-[var(--text-color)] font-normal text-center py-5">
-            {/* Already have an account? */}
+            Already have an account?
             <Link
               to={'/login'}
               className="underline text-[18px] font-normal cursor-pointer text-[var(--secondary-color)]"

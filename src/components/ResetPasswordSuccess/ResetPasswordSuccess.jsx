@@ -1,30 +1,3 @@
-// import React from 'react';
-// import { HiArrowLongLeft } from 'react-icons/hi2';
-// import { Lock } from '../../assets/index';
-// import Button from '../common/buttons/Button/Button';
-
-// const ResetPasswordSuccess = () => {
-//   return (
-//     <div className="container h-screen gap-4 flex justify-center flex-col items-center">
-//       <img src={Lock} alt="Lock" />
-//       <h1 className="text-[54px] text-[var(--text-color)] font-medium">
-//         Successful Password Reset!
-//       </h1>
-//       <p className="text-[24px] text-center text-[var(--text-color)] font-normal">
-//         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-//         tempor incididunt ut labore et dolore magna aliqua.
-//       </p>
-
-//       <Button title="Continue" />
-//       <p className="flex justify-center gap-2 items-center">
-//         <HiArrowLongLeft />
-//         Back To New Password
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default ResetPasswordSuccess;
 import React from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
