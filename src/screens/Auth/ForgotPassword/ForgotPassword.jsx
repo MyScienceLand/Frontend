@@ -105,7 +105,9 @@ const ForgotPassword = () => {
       </div>
       <div className="bg-[var(--secondary-color)]">
         <div className="flex h-screen justify-center items-center">
-          <h1 className="text-[54px] text-white font-bold">Forgot password!</h1>
+          <h1 className="text-[54px] text-[var(--primary-color)] font-bold">
+            Forgot password!
+          </h1>
         </div>
       </div>
     </section>

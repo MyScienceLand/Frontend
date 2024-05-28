@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import EmptyDataFields from '../../EmptyDataFields/EmptyDataFields';
 
 const generateDayWiseTimeSeries = (baseVal, count, yrange) => {
   let series = [];
@@ -67,12 +68,18 @@ const ApexChart = () => {
   });
 
   return (
-    <ReactApexChart
-      options={options}
-      series={series}
-      type="area"
-      height={350}
-    />
+    <>
+      {series[0].data.length > 0 ? (
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="area"
+          height={350}
+        />
+      ) : (
+        <EmptyDataFields />
+      )}
+    </>
   );
 };
 

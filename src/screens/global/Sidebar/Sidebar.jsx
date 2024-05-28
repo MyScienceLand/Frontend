@@ -81,7 +81,9 @@ export default function Sidebar({ handleDrawerClose, open }) {
   return (
     <Drawer variant="permanent" open={open} className="sidebar">
       <DrawerHeader>
-        <div className={`flex md:flex-col  my-5 me-4 items-center`}>
+        <div
+          className={`flex md:flex-col  my-5 me-${open ? 4 : 0} items-center`}
+        >
           <img src={PurpleLogoWithText} alt="" width={130} />
           {/* {open && <p className="">MYSCIENCELAND</p>} */}
         </div>

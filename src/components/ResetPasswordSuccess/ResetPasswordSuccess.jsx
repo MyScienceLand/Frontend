@@ -6,9 +6,9 @@ import Button from '../common/buttons/Button/Button';
 
 const ResetPasswordSuccess = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-6 bg-white ">
+    <div className="flex flex-col items-center justify-center h-screen gap-6 bg-[var(--primary-color)] ">
       <img src={Lock} alt="Lock" className="w-28 h-28" />
-      <h1 className="text-3xl font-semibold text-purple-700">
+      <h1 className="text-3xl font-semibold text-[var(--secondary-color)]">
         Successful Password Reset!
       </h1>
       <p className="text-center text-gray-600 max-w-md">
@@ -20,7 +20,7 @@ const ResetPasswordSuccess = () => {
       </div>
       <Link
         to="/"
-        className="flex items-center gap-2 mt-4 text-purple-700 cursor-pointer"
+        className="flex items-center gap-2 mt-4 text-[var(--secondary-color)] cursor-pointer"
       >
         <HiArrowLongLeft />
         Back To New Login

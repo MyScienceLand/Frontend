@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import EmptyDataFields from '../../EmptyDataFields/EmptyDataFields';
 
 const BarChart = () => {
   const [chartData, setChartData] = useState({
@@ -68,15 +69,23 @@ const BarChart = () => {
 
   return (
     <div className="mt-6">
-      <div id="chart">
-        <ReactApexChart
-          options={chartData.options}
-          series={chartData.series}
-          type="bar"
-          height={350}
-        />
-      </div>
-      <div id="html-dist"></div>
+      {chartData.series.length > 0 ? (
+        <>
+          <div id="chart">
+            <ReactApexChart
+              options={chartData.options}
+              series={chartData.series}
+              type="bar"
+              height={350}
+            />
+          </div>
+          <div id="html-dist"></div>
+        </>
+      ) : (
+        <EmptyDataFields />
+      )}
+
+      {/* <h1>{chartData.series.length}</h1> */}
     </div>
   );
 };

@@ -1,18 +1,18 @@
 // CustomModal.js
-import React from "react";
-import PropTypes from "prop-types";
-import { Modal, Box, Typography, IconButton, Divider } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import "../../../../index.scss";
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Divider, IconButton, Modal, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import '../../../../index.scss';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   minWidth: 450,
-  width: "auto",
-  bgcolor: "var(--primary-color)",
+  width: 'auto',
+  bgcolor: 'var(--primary-color)',
   borderRadius: 5,
   boxShadow: 24,
 };
@@ -38,14 +38,14 @@ const CustomModal = ({ open, onClose, title, children }) => {
           <IconButton
             onClick={onClose}
             style={{
-              backgroundColor: "var(--secondary-color)",
+              backgroundColor: 'var(--secondary-color)',
               width: 12,
               height: 12,
               padding: 10,
               marginRight: 10,
             }}
           >
-            <CloseIcon sx={{ width: 18, color: "var(--primary-color)" }} />
+            <CloseIcon sx={{ width: 18, color: 'var(--primary-color)' }} />
           </IconButton>
         </Box>
         <Divider />
@@ -65,13 +65,14 @@ CustomModal.propTypes = {
 };
 
 CustomModal.defaultProps = {
-  title: "",
+  title: '',
 };
 
 export default CustomModal;
 
 /**
- *   const [modalOpen, setModalOpen] = useState(false);
+ *   
+ const [modalOpen, setModalOpen] = useState(false);
 
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);

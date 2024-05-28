@@ -51,8 +51,10 @@ const AutoSlider = ({ imagesData }) => {
                 />
               </div>
               <div className="flex justify-center items-center flex-col gap-2">
-                <h1 className="text-[22px] font-semibold text-white">Log In</h1>
-                <p className="text-[16px] text-center mb-12 font-normal text-white">
+                <h1 className="text-[22px] font-semibold text-[var(--primary-color)]">
+                  Log In
+                </h1>
+                <p className="text-[16px] text-center mb-12 font-normal text-[var(--primary-color)]">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim quis nostrud exercitation ullamco laboris nisi ut

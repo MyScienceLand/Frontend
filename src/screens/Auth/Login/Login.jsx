@@ -75,7 +75,7 @@ const Login = () => {
     await postData(formik.values);
   };
   return (
-    <section className="bg-white h-[100vh] gap-12 grid grid-cols-2 ">
+    <section className="bg-[var(--primary-color)] h-[100vh] gap-12 grid grid-cols-2 ">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-20">
         <img
           src={PurpleLogoWithText}
