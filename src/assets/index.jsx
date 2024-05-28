@@ -17,6 +17,9 @@ import cross from "../assets/cross.png";
 import Quiz from "../assets/Quiz.png";
 import Content from "../assets/Content.png";
 import Dashboard from "../assets/Dashboard.png";
+import check from "../assets/Check.png";
+
+export { check };
 
 export { Quiz };
 export { Content };

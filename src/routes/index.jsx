@@ -10,6 +10,7 @@ import Otps from "../components/otp-verification";
 import Sidebar from "../components/common/sidebar";
 import OtpError from "../components/otp-error";
 import QuizContent from "../components/quiz-content";
+import CourseContent from "../components/course-content";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -51,6 +52,10 @@ const routes = [
   {
     path: "/quiz",
     element: <QuizContent />,
+  },
+  {
+    path: "/course-content",
+    element: <CourseContent />,
   },
 ];
 

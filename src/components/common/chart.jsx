@@ -37,6 +37,7 @@ const ApexChart = () => {
       type: "area",
       height: 350,
       stacked: true,
+      toolbar: false,
       events: {
         selection: function (chart, e) {
           console.log(new Date(e.xaxis.min));
@@ -67,12 +68,22 @@ const ApexChart = () => {
   });
 
   return (
-    <ReactApexChart
-      options={options}
-      series={series}
-      type="area"
-      height={350}
-    />
+    <div>
+      {" "}
+      <div className="bg-[#f8f8f8] px-4  rounded py-4 ">
+        <h1 className="text-[18px] px-4 font-medium">Your Progress</h1>
+      </div>
+      <div style={{ background: "#ffff" }}>
+        <diiv className="border border-[#696969]">
+          <ReactApexChart
+            options={options}
+            series={series}
+            type="area"
+            height={350}
+          />
+        </diiv>
+      </div>
+    </div>
   );
 };
 

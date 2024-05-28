@@ -12,20 +12,27 @@ const BarChart = () => {
         name: "Revenue",
         data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
       },
+      {
+        name: "Revenue",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
     ],
     options: {
       chart: {
         type: "bar",
         height: 350,
       },
+      legend: {
+        show: false, // Initially show legend
+      },
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "30%",
+          columnWidth: "40%",
           endingShape: "rounded",
         },
       },
-      colors: ["#1A202F", "#1A202F"],
+      colors: ["#006c8d", "#B731D2", "#007352"],
       dataLabels: {
         enabled: false,
       },
@@ -35,23 +42,9 @@ const BarChart = () => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-        ],
+        categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       },
-      yaxis: {
-        title: {
-          text: "$ (thousands)",
-        },
-      },
+
       fill: {
         opacity: 1,
       },
@@ -67,13 +60,18 @@ const BarChart = () => {
 
   return (
     <div>
-      <div id="chart">
-        <ReactApexChart
-          options={chartData.options}
-          series={chartData.series}
-          type="bar"
-          height={350}
-        />
+      <div>
+        <div className="bg-[#f8f8f8] px-4  rounded py-4 mt-6">
+          <h1 className="text-[18px] px-4 font-medium">Your Progress</h1>
+        </div>
+        <div id="chart" className="bg-[#ffffff] ">
+          <ReactApexChart
+            options={chartData.options}
+            series={chartData.series}
+            type="bar"
+            height={350}
+          />
+        </div>
       </div>
       <div id="html-dist"></div>
     </div>

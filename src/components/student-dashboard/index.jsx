@@ -68,13 +68,13 @@ const StudentDashboard = () => {
         {/* table section */}
         <div className="grid grid-cols-[1fr_1fr] gap-6">
           <CustomTable />
-          <FeedBack />
+          <BarChart />
         </div>
 
         {/* chart-sec */}
-        <div className="grid grid-cols-[1fr_1fr] mt-20  gap-6">
+        <div className=" grid grid-cols-[1fr_1fr] gap-6 mt-8 bg-[#f0f1f7] ">
           <ApexChart />
-          <BarChart />
+          <FeedBack />
         </div>
       </div>
     </div>

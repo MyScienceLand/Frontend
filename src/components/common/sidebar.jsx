@@ -37,6 +37,8 @@ import { Content, Dashboard, Quiz, logo } from "../../assets";
 import { IoAddCircleOutline } from "react-icons/io5";
 import StudentDashboard from "../student-dashboard";
 import EmptyDashboard from "../empty-dashboard";
+import DialogBox from "./dialogbox";
+import CourseContent from "../course-content";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: Dashboard, current: true },
@@ -59,6 +61,7 @@ function classNames(...classes) {
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -284,14 +287,7 @@ export default function Sidebar() {
                 />
               </form>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
-                <button
-                  type="button"
-                  className="-m-2.5 px-8 py-2 flex justify-center gap-2 items-center bg-secondary text-white text-gray-400 hover:text-gray-500"
-                >
-                  <IoAddCircleOutline />
-                  Add Preferences
-                </button>
-
+                <DialogBox />
                 <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
@@ -361,10 +357,11 @@ export default function Sidebar() {
             </div>
           </div>
 
-          <main className="bg-[#f0f1f7] h-[100vh]">
-            <div className="px-4 py-4 sm:px-6 lg:px-12">
+          <main className="bg-[#f0f1f7] ">
+            <div className=" ">
               {/* <StudentDashboard /> */}
-              <EmptyDashboard />
+              {/* <EmptyDashboard /> */}
+              <CourseContent />
             </div>
           </main>
         </div>
