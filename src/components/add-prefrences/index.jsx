@@ -38,9 +38,9 @@ const AddPrefrences = ({ handleClose, handleOpen }) => {
         />
       </div>
       <div className="flex flex-col justify-start">
-        <Dropdown dropdownItems={dropdownItems} />
-        <Dropdown dropdownItems={dropdownItems} />
-        <Dropdown dropdownItems={dropdownItems} />
+        <Dropdown dropdownItems={dropdownItems} label="Qualification" />
+        <Dropdown dropdownItems={dropdownItems} label="Subjects" />
+        <Dropdown dropdownItems={dropdownItems} label="Exam Board" />
       </div>
       <div className="flex justify-center flex-col gap-4 mt-4">
         <button
@@ -53,10 +53,10 @@ const AddPrefrences = ({ handleClose, handleOpen }) => {
           Add More
         </button>
       </div>
-      <h1 className="text-secondary text-[18px] font-bold mt-4">
+      <h1 className="text-secondary text-center text-[18px] font-bold mt-4">
         Your Selected Subjects
       </h1>
-      <div className="grid grid-cols-[1fr_1fr_1fr] mt-4">
+      <div className="grid grid-cols-[1fr_1fr_1fr] text-center mt-4">
         <div>
           <p className="text-[18px] font-medium text-[#696969]">(a Levels)</p>
           <p className="text-[18px] font-medium text-[#696969]">(GCSE)</p>

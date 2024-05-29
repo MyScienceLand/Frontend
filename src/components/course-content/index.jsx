@@ -35,9 +35,7 @@ const CourseContent = () => {
 
   return (
     <div className="px-12">
-      <h1 className="text-secondary text-[28px] py-6 font-medium">
-        Course Content
-      </h1>
+      <h1 className="text-[28px] font-medium text-secondary">Course Content</h1>
       <div className=" flex space-x-6">
         {sectionData.map((section, sectionIndex) => (
           <div

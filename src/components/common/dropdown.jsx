@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Dropdown = ({ dropdownItems }) => {
+const Dropdown = ({ dropdownItems, label }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -35,6 +35,9 @@ const Dropdown = ({ dropdownItems }) => {
 
   return (
     <div>
+      <label className="px-4 text-[16px] font-medium text-[#2a2a2a]">
+        {label}
+      </label>
       <div className="p-4 sm:p-6 xl:p-2">
         <div className="relative mb-50">
           <Link

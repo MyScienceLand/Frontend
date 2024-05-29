@@ -71,10 +71,14 @@ export default function Sidebar() {
   console.log(pathName.includes("/quiz"));
   const shouldRenderSidebar =
     pathName.includes("/student-dashboard") ||
-    pathName.includes("/course-content");
+    pathName.includes("/course-content") ||
+    pathName.includes("/next-quiz") ||
+    pathName.includes("/quiz-desktop");
   const shouldRenderNavBar =
     pathName.includes("/student-dashboard") ||
-    pathName.includes("/course-content");
+    pathName.includes("/course-content") ||
+    pathName.includes("/next-quiz") ||
+    pathName.includes("/quiz-desktop");
   return (
     <>
       {/*
@@ -274,7 +278,9 @@ export default function Sidebar() {
         <div
           className={`${
             pathName.includes("/student-dashboard") ||
-            pathName.includes("/course-content")
+            pathName.includes("/course-content") ||
+            pathName.includes("/next-quiz") ||
+            pathName.includes("/quiz-desktop")
               ? "lg:pl-72"
               : null
           }`}
@@ -390,8 +396,6 @@ export default function Sidebar() {
           )}
 
           <div className="bg-[#f0f1f7] px-8 py-6">
-            {/* <StudentDashboard /> */}
-            {/* <EmptyDashboard /> */}
             <DefaultLayout>{Children}</DefaultLayout>
           </div>
         </div>
