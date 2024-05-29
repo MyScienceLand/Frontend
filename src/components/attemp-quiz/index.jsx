@@ -1,7 +1,7 @@
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
-const AtemptQuiz = () => {
+const AtemptQuiz = ({ handleClose }) => {
   return (
     <div>
       <h1 className="text-[18px] font-medium">Please Attempt Primarily Quiz</h1>
@@ -52,11 +52,13 @@ const AtemptQuiz = () => {
       <p className="text-[18px] font-medium">
         Please click on selected Subjects to attempting primarily Quiz
       </p>
-      <div className="">
-        <button className="text-[18px] text-center font-normal w-full mt-4 text-white bg-primary py-1">
-          Start
-        </button>
-      </div>
+
+      <button
+        onClick={handleClose}
+        className="text-[18px] text-center font-normal w-full mt-4 text-white bg-primary py-1"
+      >
+        Start
+      </button>
     </div>
   );
 };

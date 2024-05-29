@@ -1,18 +1,10 @@
-import { Outlet } from "react-router-dom";
-import Sidebar from "../components/common/sidebar";
+import Routes from "../routes";
 
 const DefaultLayout = () => {
   return (
-    <>
-      <div className="">
-        <div>
-          <Sidebar />
-        </div>
-        <div className=" ">
-          <Outlet />
-        </div>
-      </div>
-    </>
+    <main>
+      <Routes />
+    </main>
   );
 };
 

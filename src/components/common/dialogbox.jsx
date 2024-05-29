@@ -5,9 +5,19 @@ import AtemptQuiz from "../attemp-quiz";
 
 const DialogBox = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [quizOpen, setQuizmodal] = useState(false);
 
   const trigger = useRef(null);
   const modal = useRef(null);
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleOpen = () => {
+    setQuizmodal(true);
+    setModalOpen(true);
+  };
 
   // close on click outside
   useEffect(() => {
@@ -53,10 +63,11 @@ const DialogBox = () => {
         <div
           ref={modal}
           onFocus={() => setModalOpen(true)}
-          onBlur={() => setModalOpen(false)}
+          // onBlur={() => setModalOpen(false)}
           className="md:px-17.5 w-full max-w-[700px] rounded-lg bg-white px-8 py-12 dark:bg-boxdark md:py-15"
         >
-          <AtemptQuiz />
+          {!quizOpen&&<AddPrefrences handleClose={handleClose} handleOpen={handleOpen} />}
+          {quizOpen && <AtemptQuiz handleClose={handleClose} />}
         </div>
       </div>
     </div>

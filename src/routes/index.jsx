@@ -43,7 +43,7 @@ const routes = [
 
   {
     path: "/student-dashboard",
-    element: <Sidebar />,
+    element: <StudentDashboard />,
   },
   {
     path: "/otp-error",
