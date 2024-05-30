@@ -73,12 +73,14 @@ export default function Sidebar() {
     pathName.includes("/student-dashboard") ||
     pathName.includes("/course-content") ||
     pathName.includes("/next-quiz") ||
-    pathName.includes("/quiz-desktop");
+    pathName.includes("/quiz-desktop") ||
+    pathName.includes("/cells");
   const shouldRenderNavBar =
     pathName.includes("/student-dashboard") ||
     pathName.includes("/course-content") ||
     pathName.includes("/next-quiz") ||
-    pathName.includes("/quiz-desktop");
+    pathName.includes("/quiz-desktop") ||
+    pathName.includes("/cells");
   return (
     <>
       {/*
@@ -280,7 +282,8 @@ export default function Sidebar() {
             pathName.includes("/student-dashboard") ||
             pathName.includes("/course-content") ||
             pathName.includes("/next-quiz") ||
-            pathName.includes("/quiz-desktop")
+            pathName.includes("/quiz-desktop") ||
+            pathName.includes("/cells")
               ? "lg:pl-72"
               : null
           }`}
