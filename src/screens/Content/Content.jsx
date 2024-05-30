@@ -1,51 +1,78 @@
 import React from 'react';
-import { PurpleLogoWithText } from '../../assets';
 
 const Content = () => {
-  const questionArray = [
+  const sectionData = [
     {
-      text: 'Story genetic information',
+      title: 'Biology',
+      secondtitle: 'A Levels',
+      subjects: ['Physics', 'Biology', 'Biology'],
     },
     {
-      text: 'Story genetic information',
+      title: 'Biology',
+      secondtitle: 'GCSE',
+      subjects: ['Physics', 'Biology', 'Biology'],
     },
     {
-      text: 'Story genetic information',
-    },
-    {
-      text: 'Story genetic information',
+      title: 'Biology',
+      secondtitle: 'A Levels',
+      subjects: ['Physics', 'Biology', 'Biology'],
     },
   ];
-  return (
-    <div className="bg-[#f0f1f7] py-40  h-screen">
-      <div className="container flex-1 flex-col gap-6 justify-center items-center">
-        <div className="w-full flex mb-6 justify-center items-center">
-          <img src={PurpleLogoWithText} alt="log" />{' '}
-        </div>
 
-        <div className="bg-white px-6 py-8">
-          <h1 className="text-[#696969] mb-4 text-[20px] font-bold">
-            Question:1
-          </h1>
-          <p className="text-secondary mb-4 text-[18px] font-medium">
-            What is the function of the nucleolus within the nucleus of
-            eukaryotic cells?
-          </p>
-          <div>
-            {questionArray.map((item, index) => (
-              <div className="border rounded-sm border-[#696969] mb-6 border-opacity-55 px-6 py-2 ">
-                <p className="text-[18px] text-secondary font-medium">
-                  {item.text}
-                </p>
+  const classesArray = [
+    [
+      'bg-[var(--secondary-color)] text-white',
+      'bg-[var(--secondary-color)] text-white',
+      'bg-[var(--secondary-color)] text-white',
+    ],
+    [
+      'bg-[#006C8D] text-white',
+      'bg-[#006C8D] text-white',
+      'bg-[#006C8D] text-white',
+    ],
+    [
+      'bg-[#007353] text-white',
+      'bg-[#007353] text-white',
+      'bg-[#007353] text-white',
+    ],
+  ];
+  return (
+    <div className="px-12">
+      <h1 className="text-[28px] font-medium text-secondary">Course Content</h1>
+      <div className=" flex space-x-6">
+        {sectionData.map((section, sectionIndex) => (
+          <div
+            key={sectionIndex}
+            className="rounded-lg overflow-hidden border border-secondary flex-1"
+          >
+            <div className="bg-[var(--accent-color)] py-2 rounded-t-lg">
+              <div className="text-[18px] font-medium text-white text-center">
+                {section.title}
               </div>
-            ))}
+            </div>
+            <div className="bg-white py-2">
+              <div className="text-[18px] font-medium text-secondary text-center">
+                {section.secondtitle}
+              </div>
+            </div>
+            <div>
+              {section.subjects.map((subject, index) => (
+                <p
+                  className={`text-[16px] text-center py-2 border-b border-secondary font-medium ${
+                    classesArray[sectionIndex][
+                      index % classesArray[sectionIndex].length
+                    ]
+                  } ${
+                    index === section.subjects.length - 1 ? 'rounded-b-lg' : ''
+                  }`}
+                  key={index}
+                >
+                  {subject}
+                </p>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="w-full flex justify-center items-center">
-        <button className="bg-[#232B3E] text-white mt-6 px-6 py-2">
-          Continue
-        </button>
+        ))}
       </div>
     </div>
   );

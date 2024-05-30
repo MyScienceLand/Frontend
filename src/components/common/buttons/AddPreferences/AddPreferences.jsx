@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { IoAddCircleOutline } from 'react-icons/io5';
+import { MdDelete } from 'react-icons/md';
+
+import { Divider } from '@mui/material';
 import Swal from 'sweetalert2';
 import {
   examBoardDropdownItems,
   qualificationDropdownItems,
   subjectsDropdownItems,
 } from '../../../../data/dashboard';
-import AttemptQuiz from '../../../AttemptQuiz';
+import StartAttemptQuiz from '../../../StartAttemptQuiz';
 import Dropdown from '../../dropdowns/Dropdowns/Dropdown';
 import CustomModal from '../../modals/CustomModal/CustomModal';
 import Button from '../Button/Button';
+import { dividerStyle } from './style';
 
 const AddPreferences = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,6 +26,15 @@ const AddPreferences = () => {
   const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
   const [subject, setSubject] = useState('Please select Subject');
   const [examBoard, setExamBoard] = useState('Please select Board');
+  const [addMorePreferences, setAddMorePreferences] = useState(1);
+
+  const handleAddMore = () => {
+    setAddMorePreferences(addMorePreferences + 1);
+  };
+
+  const handleReducePreferences = () => {
+    setAddMorePreferences(addMorePreferences - 1);
+  };
 
   const handleSubmit = () => {
     handleClose();
@@ -56,7 +69,7 @@ const AddPreferences = () => {
         width={displayStartQuiz ? 400 : 600}
       >
         {displayStartQuiz ? (
-          <AttemptQuiz />
+          <StartAttemptQuiz />
         ) : (
           <div>
             <div className="flex flex-col justify-start">
@@ -79,9 +92,68 @@ const AddPreferences = () => {
                 setValue={setExamBoard}
               />
             </div>
+
+            {addMorePreferences > 1 && (
+              <div className="flex flex-col justify-start">
+                <Divider sx={dividerStyle} />
+                <Dropdown
+                  title={'Qualification'}
+                  dropdownItems={qualificationDropdownItems}
+                  value={qualification}
+                  setValue={setQualification}
+                />
+                <Dropdown
+                  title={'Subjects'}
+                  dropdownItems={subjectsDropdownItems}
+                  value={subject}
+                  setValue={setSubject}
+                />
+                <Dropdown
+                  title={'Exam Board'}
+                  dropdownItems={examBoardDropdownItems}
+                  value={examBoard}
+                  setValue={setExamBoard}
+                />
+              </div>
+            )}
+
+            {addMorePreferences > 2 && (
+              <div className="flex flex-col justify-start">
+                <Divider sx={dividerStyle} />
+                <Dropdown
+                  title={'Qualification'}
+                  dropdownItems={qualificationDropdownItems}
+                  value={qualification}
+                  setValue={setQualification}
+                />
+                <Dropdown
+                  title={'Subjects'}
+                  dropdownItems={subjectsDropdownItems}
+                  value={subject}
+                  setValue={setSubject}
+                />
+                <Dropdown
+                  title={'Exam Board'}
+                  dropdownItems={examBoardDropdownItems}
+                  value={examBoard}
+                  setValue={setExamBoard}
+                />
+              </div>
+            )}
             <div className="flex justify-center flex-col gap-4 mt-4">
               <Button title={'Submit'} onClick={handleSubmit} />
-              <Button title={'Add More'} icon={FaPlus} />
+              <Button
+                title={'Add More'}
+                icon={FaPlus}
+                onClick={handleAddMore}
+              />
+              {addMorePreferences > 1 && (
+                <Button
+                  title={'Delete'}
+                  icon={MdDelete}
+                  onClick={handleReducePreferences}
+                />
+              )}
             </div>
             <h1 className="text-secondary text-[18px] font-bold mt-4 text-center">
               Your Selected Subjects

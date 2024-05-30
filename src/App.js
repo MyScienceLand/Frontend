@@ -15,6 +15,7 @@ import Content from './screens/Content/Content';
 import Dashboard from './screens/Dashboard/Dashboard';
 import Error404Page from './screens/Error404Page/Error404Page';
 import Quiz from './screens/Quiz/Quiz';
+import StartQuiz from './screens/StartQuiz/StartQuiz';
 import ContentWarper from './screens/global/ContentWarper/ContentWarper';
 import Layout from './screens/global/Layout/Layout';
 function App() {
@@ -106,6 +107,7 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/content" element={<Content />} />
                   <Route path="/quiz" element={<Quiz />} />
+                  <Route path="/start-quiz" element={<StartQuiz />} />
                   <Route path="*" element={<Error404Page />} />
                 </Routes>
               </ContentWarper>

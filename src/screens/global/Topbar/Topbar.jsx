@@ -6,6 +6,7 @@ import InputBase from '@mui/material/InputBase';
 import Toolbar from '@mui/material/Toolbar';
 import { alpha, styled } from '@mui/material/styles';
 import { VscBellDot } from 'react-icons/vsc';
+import PreliminaryQuiz from '../../../components/PreliminaryQuiz/PreliminaryQuiz';
 import ThemeToggleButton from '../../../components/ThemeToggleButton/ThemeToggleButton';
 import UserProfile from '../../../components/UserProfile/UserProfile';
 import AddPreferences from '../../../components/common/buttons/AddPreferences/AddPreferences';
@@ -69,6 +70,8 @@ const Topbar = ({ handleDrawerOpen, open, isFullScreen, toggleFullScreen }) => {
         </IconButton>
       </Toolbar>
       <Box display="flex " sx={{ alignItems: 'center', gap: 2 }}>
+        <PreliminaryQuiz />
+
         <AddPreferences />
         <ThemeToggleButton />
         <IconButton onClick={toggleFullScreen}>

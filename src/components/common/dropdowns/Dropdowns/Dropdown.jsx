@@ -38,7 +38,7 @@ const Dropdown = ({ title, dropdownItems, value, setValue }) => {
             ref={trigger}
             onClick={() => setDropdownOpen(!dropdownOpen)}
             to="#"
-            className="inline-flex justify-between items-center gap-2.5 r bg-transparent   border border-[#696969] py-3 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90 rounded-md"
+            className="inline-flex justify-between items-center gap-2.5 r bg-transparent   border border-[#696969] py-2 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90 rounded-md"
           >
             {selectedValue}
             <svg

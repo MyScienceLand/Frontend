@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import '../../../../index.scss';
 
-const CustomModal = ({ open, onClose, title, children, width }) => {
+const CustomModal = ({ open, onClose, title, children, width, isClosable }) => {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -17,13 +17,31 @@ const CustomModal = ({ open, onClose, title, children, width }) => {
     borderRadius: 5,
     boxShadow: 24,
   };
+
+  const handleBackdropClick = (event) => {
+    if (!isClosable) {
+      event.stopPropagation();
+    } else {
+      onClose(event);
+    }
+  };
+
+  const handleCloseClick = (event) => {
+    if (isClosable) {
+      onClose(event);
+    }
+  };
+
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleBackdropClick}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       style={{ overflow: 'scroll' }}
+      BackdropProps={{
+        onClick: handleBackdropClick,
+      }}
     >
       <Box sx={style}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -36,7 +54,7 @@ const CustomModal = ({ open, onClose, title, children, width }) => {
             {title}
           </Typography>
           <IconButton
-            onClick={onClose}
+            onClick={handleCloseClick}
             style={{
               backgroundColor: 'var(--secondary-color)',
               width: 12,
@@ -62,32 +80,12 @@ CustomModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   children: PropTypes.node,
+  isClosable: PropTypes.bool,
 };
 
 CustomModal.defaultProps = {
   title: '',
+  isClosable: true,
 };
 
 export default CustomModal;
-
-/**
- *   
- const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpen = () => setModalOpen(true);
-  const handleClose = () => setModalOpen(false);
- * 
- *         <Button variant="contained" color="primary" onClick={handleOpen}>
-          Open Modal
-        </Button>
-        <CustomModal
-          open={modalOpen}
-          onClose={handleClose}
-          title="My Custom Modal"
-        >
-          <div>
-            <p>This is some content inside the modal!</p>
-            <p>You can put any valid JSX here.</p>
-          </div>
-        </CustomModal>
- */

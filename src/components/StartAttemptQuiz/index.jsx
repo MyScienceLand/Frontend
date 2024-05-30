@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../common/buttons/Button/Button';
 
-const AttemptQuiz = () => {
+const StartAttemptQuiz = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <h1 className="text-[18px] font-medium">Please Attempt Primarily Quiz</h1>
@@ -24,15 +26,39 @@ const AttemptQuiz = () => {
             className="ml-6"
           />
         </div>
+        <div>
+          <p className="text-[16px] text-[#696969] font-medium">(a Levels)</p>
+          <p className="text-[16px] text-[#696969] font-medium">(Physics)</p>
+          <p className="text-[16px] text-[#696969] font-medium">Edexcel</p>
+          <input
+            type="radio"
+            id="age1"
+            name="age"
+            value="30"
+            className="ml-6"
+          />
+        </div>
+        <div>
+          <p className="text-[16px] text-[#696969] font-medium">(a Levels)</p>
+          <p className="text-[16px] text-[#696969] font-medium">(Physics)</p>
+          <p className="text-[16px] text-[#696969] font-medium">Edexcel</p>
+          <input
+            type="radio"
+            id="age1"
+            name="age"
+            value="30"
+            className="ml-6"
+          />
+        </div>
       </div>
       <p className="text-[18px] font-medium mb-5">
         Please click on selected Subjects to attempting primarily Quiz
       </p>
       <div className="">
-        <Button title={'Start'} />
+        <Button title={'Start'} onClick={() => navigate('/start-quiz')} />
       </div>
     </div>
   );
 };
 
-export default AttemptQuiz;
+export default StartAttemptQuiz;
