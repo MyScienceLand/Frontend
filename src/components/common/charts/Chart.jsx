@@ -70,12 +70,17 @@ const ApexChart = () => {
   return (
     <>
       {series[0].data.length > 0 ? (
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="area"
-          height={350}
-        />
+        <div>
+          <div className="bg-[var(--primary-color)] px-8 rounded py-2">
+            <h1 className="text-[18px] font-medium">Your Progress</h1>
+          </div>
+          <ReactApexChart
+            options={options}
+            series={series}
+            type="area"
+            height={350}
+          />
+        </div>
       ) : (
         <EmptyDataFields />
       )}

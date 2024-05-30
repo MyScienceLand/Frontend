@@ -104,7 +104,7 @@ const Login = () => {
                     type={showPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
-                    className="border h-10 px-2 border-[var(--text-color)] rounded-sm w-full pr-10"
+                    className="border h-10 px-2 border-[#757575] rounded-sm w-full pr-10"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values[input.name]}
@@ -127,7 +127,7 @@ const Login = () => {
                   type={input.type}
                   placeholder={input.placeholder}
                   name={input.name}
-                  className="border h-10 px-2 border-[] rounded-sm"
+                  className="border h-10 px-2 border-[#757575] rounded-sm"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values[input.name]}

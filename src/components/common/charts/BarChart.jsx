@@ -27,7 +27,7 @@ const BarChart = () => {
           endingShape: 'rounded',
         },
       },
-      colors: ['#1A202F', '#1A202F'],
+      colors: ['#1A202F', 'green'],
       dataLabels: {
         enabled: false,
       },
@@ -71,12 +71,15 @@ const BarChart = () => {
     <div className="mt-6">
       {chartData.series.length > 0 ? (
         <>
+          <div className="bg-[var(--primary-color)] px-8 rounded py-2">
+            <h1 className="text-[18px] font-medium">Your Progress</h1>
+          </div>
           <div id="chart">
             <ReactApexChart
               options={chartData.options}
               series={chartData.series}
               type="bar"
-              height={350}
+              height={315}
             />
           </div>
           <div id="html-dist"></div>

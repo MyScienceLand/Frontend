@@ -111,7 +111,7 @@ const SignUp = () => {
                     type={showPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
-                    className="border h-10 px-2 border-[--text-color] border-opacity-55 rounded-sm w-full pr-10"
+                    className="border h-10 px-2 border-[#757575] border-opacity-55 rounded-sm w-full pr-10"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values[input.name]}
@@ -136,7 +136,7 @@ const SignUp = () => {
                     type={showConfirmPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
-                    className="border h-10 px-2 border-[--text-color] border-opacity-55 rounded-sm w-full pr-10"
+                    className="border h-10 px-2 border-[#757575] border-opacity-55 rounded-sm w-full pr-10"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values[input.name]}
@@ -159,7 +159,7 @@ const SignUp = () => {
                   type={input.type}
                   placeholder={input.placeholder}
                   name={input.name}
-                  className="border h-10 px-2 border-[#696969] border-opacity-55 rounded-sm"
+                  className="border h-10 px-2 border-[#757575] border-opacity-55 rounded-sm"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values[input.name]}

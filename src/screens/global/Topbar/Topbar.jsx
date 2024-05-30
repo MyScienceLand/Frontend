@@ -1,7 +1,6 @@
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import { Box, IconButton } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import Toolbar from '@mui/material/Toolbar';
@@ -68,15 +67,6 @@ const Topbar = ({ handleDrawerOpen, open, isFullScreen, toggleFullScreen }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Type In Search....."
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
       </Toolbar>
       <Box display="flex " sx={{ alignItems: 'center', gap: 2 }}>
         <AddPreferences />

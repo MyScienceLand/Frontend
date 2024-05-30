@@ -13,7 +13,7 @@ const FeedBack = () => {
           <div className="bg-[var(--primary-color)] px-6 py-4">
             <div className="flex justify-start mb-12 items-center gap-6">
               <p className="text-[18px] font-medium text-secondary">Score</p>
-              <span className="bg-primary text-[var(--primary-color)] px-4 py-1">
+              <span className="bg-[var(--secondary-color)] text-[var(--primary-color)] px-4 py-1 rounded-md">
                 -9621
               </span>
             </div>

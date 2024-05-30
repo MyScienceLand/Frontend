@@ -32,4 +32,29 @@ const feedbackContentArray = [
     content: 'Carbon-13 Spectroscopy',
   },
 ];
-export { dashboardTablePeople, feedbackContentArray };
+
+const qualificationDropdownItems = [
+  { to: '#', label: 'Dashboard' },
+  { to: '#', label: 'Settings' },
+  { to: '#', label: 'Earnings' },
+  { to: '#', label: 'Logout' },
+];
+const subjectsDropdownItems = [
+  { to: '#', label: 'Dashboard' },
+  { to: '#', label: 'Settings' },
+  { to: '#', label: 'Earnings' },
+  { to: '#', label: 'Logout' },
+];
+const examBoardDropdownItems = [
+  { to: '#', label: 'Dashboard' },
+  { to: '#', label: 'Settings' },
+  { to: '#', label: 'Earnings' },
+  { to: '#', label: 'Logout' },
+];
+export {
+  dashboardTablePeople,
+  examBoardDropdownItems,
+  feedbackContentArray,
+  qualificationDropdownItems,
+  subjectsDropdownItems,
+};

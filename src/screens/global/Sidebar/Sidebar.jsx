@@ -58,6 +58,23 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+// const Drawer = styled(MuiDrawer, {
+//   shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+//   width: drawerWidth,
+//   flexShrink: 0,
+//   whiteSpace: 'nowrap',
+//   boxSizing: 'border-box',
+//   boxShadow: '2px 0 5px rgba(0, 0, 0, 0.5)',
+//   ...(open && {
+//     ...openedMixin(theme),
+//     '& .MuiDrawer-paper': openedMixin(theme),
+//   }),
+//   ...(!open && {
+//     ...closedMixin(theme),
+//     '& .MuiDrawer-paper': closedMixin(theme),
+//   }),
+// }));
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -67,11 +84,17 @@ const Drawer = styled(MuiDrawer, {
   boxSizing: 'border-box',
   ...(open && {
     ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
+    '& .MuiDrawer-paper': {
+      ...openedMixin(theme),
+      boxShadow: '1px 0 7px rgba(0, 0, 0, 0.5)',
+    },
   }),
   ...(!open && {
     ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
+    '& .MuiDrawer-paper': {
+      ...closedMixin(theme),
+      boxShadow: '1px 0 7px rgba(0, 0, 0, 0.5)',
+    },
   }),
 }));
 
@@ -79,7 +102,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
   const theme = useTheme();
   const location = useLocation();
   return (
-    <Drawer variant="permanent" open={open} className="sidebar">
+    <Drawer variant="permanent" open={open} className="">
       <DrawerHeader>
         <div
           className={`flex md:flex-col  my-5 me-${open ? 4 : 0} items-center`}
@@ -102,6 +125,9 @@ export default function Sidebar({ handleDrawerClose, open }) {
       <List>
         {['Dashboard', 'Content', 'Quiz'].map((text, index) => {
           const route = text.toLowerCase().replace(' ', '-');
+          const isSelected =
+            location.pathname === `/${route}` ||
+            (text === 'Dashboard' && location.pathname === '/');
           return (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -111,10 +137,8 @@ export default function Sidebar({ handleDrawerClose, open }) {
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
-                  backgroundColor:
-                    location.pathname === `/${route}`
-                      ? 'var(--secondary-color)'
-                      : '',
+                  backgroundColor: isSelected ? 'var(--secondary-color)' : '',
+                  borderTopRightRadius: 18,
                 }}
               >
                 <ListItemIcon
@@ -122,10 +146,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color:
-                      location.pathname === `/${route}`
-                        ? '#fff'
-                        : 'var(--text-color)',
+                    color: isSelected ? '#fff' : 'var(--text-color)',
                   }}
                 >
                   {iconMap[text]}
@@ -134,10 +155,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
                   primary={text}
                   sx={{
                     opacity: open ? 1 : 0,
-                    color:
-                      location.pathname === `/${route}`
-                        ? '#fff'
-                        : 'var(--text-color)',
+                    color: isSelected ? '#fff' : 'var(--text-color)',
                   }}
                 />
               </ListItemButton>

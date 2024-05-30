@@ -68,3 +68,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+completed:
+Authentication and dashboard screens are completed
+1- login
+2- sign up
+3- otp verification
+4- reset password
+5- resent otp
+6-get otp
+
+required screens:
+1- content
+2- quiz screens
+3- quiz form
+4- course content
+5- Summary
+
+required api:
+six apis related to graphs and table in admin dashboard is required
+1- main banner api
+2- courses api
+3- progress
+4- time spent on learning api
+5- subjects api for graph
+6- feedback api

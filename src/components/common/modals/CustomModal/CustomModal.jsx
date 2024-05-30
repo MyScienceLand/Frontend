@@ -5,25 +5,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import '../../../../index.scss';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: 450,
-  width: 'auto',
-  bgcolor: 'var(--primary-color)',
-  borderRadius: 5,
-  boxShadow: 24,
-};
-
-const CustomModal = ({ open, onClose, title, children }) => {
+const CustomModal = ({ open, onClose, title, children, width }) => {
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: width ? width : 450,
+    width: 'auto',
+    bgcolor: 'var(--primary-color)',
+    borderRadius: 5,
+    boxShadow: 24,
+  };
   return (
     <Modal
       open={open}
       onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      // style={{ width: 100 }}
     >
       <Box sx={style}>
         <Box display="flex" justifyContent="space-between" alignItems="center">

@@ -46,7 +46,7 @@ export default function CustomTableDashboard() {
                             </td>
 
                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              <Box sx={{ width: '50%' }}>
+                              <Box sx={{ width: '80%' }}>
                                 <LinearProgress
                                   variant="determinate"
                                   value={3}
