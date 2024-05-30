@@ -12,7 +12,9 @@ const Cells = () => {
 
       <QuizTwo />
       <div className="px-12">
-        <h1 className="text-[18px] font-medium text-secondary">Study Next</h1>
+        <h1 className="text-[18px] font-medium mt-5 text-secondary">
+          Study Next
+        </h1>
         <div className="bg-[#D6DBFF] rounded-md px-12 py-8">
           <div className="flex justify-between items-center mb-4 ">
             <img src={bio} className="h-[60px]" />
