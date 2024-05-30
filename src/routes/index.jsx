@@ -13,6 +13,7 @@ import QuizContent from "../components/quiz-content";
 import CourseContent from "../components/course-content";
 import QuizTwo from "../components/quiz-two";
 import QuizDesktop from "../components/quiz-desktop";
+import ReportQuestion from "../components/report-question";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -66,6 +67,10 @@ const routes = [
   {
     path: "/quiz-desktop",
     element: <QuizDesktop />,
+  },
+  {
+    path: "/report-question",
+    element: <ReportQuestion />,
   },
 ];
 
