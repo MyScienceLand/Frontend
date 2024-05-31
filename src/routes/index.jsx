@@ -78,6 +78,10 @@ const routes = [
     path: "/quiz-summary",
     element: <QuizSummary />,
   },
+  {
+    path: "/cells",
+    element: <Cells />,
+  },
 ];
 
 const Routes = () => {
