@@ -4,19 +4,9 @@ import { Box, Divider, IconButton, Modal, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import '../../../../index.scss';
+import { modalStyle } from '../modal.style';
 
-const CustomModal = ({ open, onClose, title, children, width }) => {
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    minWidth: width ? width : 450,
-    width: 'auto',
-    bgcolor: 'var(--primary-color)',
-    borderRadius: 5,
-    boxShadow: 24,
-  };
+const CustomModal = ({ open, onClose, title = '', children, width }) => {
   return (
     <Modal
       open={open}
@@ -25,7 +15,7 @@ const CustomModal = ({ open, onClose, title, children, width }) => {
       aria-describedby="modal-modal-description"
       style={{ overflow: 'scroll' }}
     >
-      <Box sx={style}>
+      <Box sx={modalStyle(width)}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography
             id="modal-modal-title"
@@ -62,10 +52,6 @@ CustomModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   children: PropTypes.node,
-};
-
-CustomModal.defaultProps = {
-  title: '',
 };
 
 export default CustomModal;

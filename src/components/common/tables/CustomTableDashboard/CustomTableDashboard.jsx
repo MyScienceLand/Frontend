@@ -39,8 +39,8 @@ export default function CustomTableDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 bg-[var(--primary-color)]">
-                        {dashboardTablePeople.map((person) => (
-                          <tr key={person.email}>
+                        {dashboardTablePeople.map((person, index) => (
+                          <tr key={index}>
                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                               {person.subject}
                             </td>

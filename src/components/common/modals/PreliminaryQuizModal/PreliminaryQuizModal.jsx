@@ -1,23 +1,11 @@
 // CustomModal.js
-import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider, IconButton, Modal, Typography } from '@mui/material';
+import { Box, Divider, Modal, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import '../../../../index.scss';
+import { modalStyle } from '../modal.style';
 
 const CustomModal = ({ open, onClose, title, children, width, isClosable }) => {
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    minWidth: width ? width : 450,
-    width: 'auto',
-    bgcolor: 'var(--primary-color)',
-    borderRadius: 5,
-    boxShadow: 24,
-  };
-
   const handleBackdropClick = (event) => {
     if (!isClosable) {
       event.stopPropagation();
@@ -39,11 +27,22 @@ const CustomModal = ({ open, onClose, title, children, width, isClosable }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       style={{ overflow: 'scroll' }}
-      BackdropProps={{
-        onClick: handleBackdropClick,
+      // BackdropProps={{
+      //   onClick: handleBackdropClick,
+      // }}
+      slotProps={{
+        backdrop: {
+          onClick: (event) => {
+            if (!isClosable) {
+              event.stopPropagation();
+            } else {
+              onClose(event);
+            }
+          },
+        },
       }}
     >
-      <Box sx={style}>
+      <Box sx={modalStyle(width)}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography
             id="modal-modal-title"
@@ -53,7 +52,7 @@ const CustomModal = ({ open, onClose, title, children, width, isClosable }) => {
           >
             {title}
           </Typography>
-          <IconButton
+          {/* <IconButton
             onClick={handleCloseClick}
             style={{
               backgroundColor: 'var(--secondary-color)',
@@ -64,7 +63,7 @@ const CustomModal = ({ open, onClose, title, children, width, isClosable }) => {
             }}
           >
             <CloseIcon sx={{ width: 18, color: 'var(--primary-color)' }} />
-          </IconButton>
+          </IconButton> */}
         </Box>
         <Divider />
         <Box mt={2} id="modal-modal-description" style={{ padding: 15 }}>

@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
 import { baseUrl } from '../constants';
+import { getToken } from '../utils/helper/tokenUtils';
 
 const usePost = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem('token');
+  const token = getToken();
   const postData = useCallback(
     async (body) => {
       setLoading(true);
@@ -21,6 +22,7 @@ const usePost = (endpoint, options = {}) => {
             ...options.headers,
             Authorization: `Bearer ${token}`,
           },
+          credentials: 'include',
           body: JSON.stringify(body),
         });
 

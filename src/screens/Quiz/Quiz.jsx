@@ -28,7 +28,7 @@ function Quiz() {
     },
   ];
   return (
-    <div className="">
+    <div className="bg-white h-94 py-20">
       {sectionData.map((item, index) => (
         <div className="flex gap-6 justify-center mb-4 items-center">
           <div className={item.className}>{item.course}</div>

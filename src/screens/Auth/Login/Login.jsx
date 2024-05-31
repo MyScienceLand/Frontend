@@ -2,6 +2,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -21,6 +22,7 @@ import { formSchema } from '../../../utils/helper/Schema';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [cookies, setCookie] = useCookies(['token']);
   const dispatch = useDispatch();
   // const [response, setResponse] = useState(null);
   const { data, loading, error, postData } = usePost('/auth/login');
@@ -54,16 +56,14 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(error);
+    console.log('error is = ' + error);
+    console.log(data?.login);
     if (error) {
       ToastNotification.error(error);
-    } else if (data && data?.data?.isVerify === true) {
+    } else if (data && data?.login?.isVerify === true) {
       console.log(data, 'in set local storage');
-      ToastNotification.success(data.message);
-      localStorage.setItem(
-        'token',
-        data?.data?.access_token !== undefined ? data?.data?.access_token : ''
-      );
+      ToastNotification.success(data?.message);
+      setCookie('token', data?.login?.access_token);
       setTimeout(() => {
         navigate('/dashboard');
       }, 10);

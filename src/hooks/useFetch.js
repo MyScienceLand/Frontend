@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { baseUrl, token } from '../constants';
+import { baseUrl } from '../constants';
+import { getToken } from '../utils/helper/tokenUtils';
 
 const useFetch = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
@@ -7,6 +8,7 @@ const useFetch = (endpoint, options = {}) => {
   const [error, setError] = useState(null);
 
   const fetchData = useCallback(async () => {
+    const token = getToken();
     setLoading(true);
     setError(null);
 
