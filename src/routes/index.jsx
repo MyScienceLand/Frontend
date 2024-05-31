@@ -15,6 +15,7 @@ import QuizTwo from "../components/quiz-two";
 import QuizDesktop from "../components/quiz-desktop";
 import ReportQuestion from "../components/report-question";
 import Cells from "../components/cells";
+import QuizSummary from "../components/quiz-summary";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -74,8 +75,8 @@ const routes = [
     element: <ReportQuestion />,
   },
   {
-    path: "/cells",
-    element: <Cells />,
+    path: "/quiz-summary",
+    element: <QuizSummary />,
   },
 ];
 

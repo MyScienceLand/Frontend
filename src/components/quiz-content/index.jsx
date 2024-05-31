@@ -7,16 +7,13 @@ import { MdOutlineReportProblem } from "react-icons/md";
 const QuizContent = () => {
   const questionArray = [
     {
-      text: "Story genetic information",
+      text: "Formulas, Equations and amounts of substance",
     },
     {
-      text: "Story genetic information",
+      text: "inorganic Chemistry and the periodic table",
     },
     {
-      text: "Story genetic information",
-    },
-    {
-      text: "Story genetic information",
+      text: "Transitions metal",
     },
   ];
   return (
