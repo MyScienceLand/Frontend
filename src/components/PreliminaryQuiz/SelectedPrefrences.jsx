@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Quiz from '../Quiz/Quiz';
+import Quiz from '../QuizComponent/QuizComponent';
 import Button from '../common/buttons/Button/Button';
 
 const SelectedPrefrences = () => {

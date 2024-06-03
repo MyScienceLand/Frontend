@@ -63,7 +63,12 @@ const Login = () => {
     } else if (data && data?.login?.isVerify === true) {
       console.log(data, 'in set local storage');
       ToastNotification.success(data?.message);
-      setCookie('token', data?.login?.access_token);
+      // setCookie('token', data?.login?.access_token);
+      localStorage.setItem(
+        'token',
+        data?.login?.access_token !== undefined ? data?.login?.access_token : ''
+      );
+      console.log('token is set', data?.data?.access_token);
       setTimeout(() => {
         navigate('/dashboard');
       }, 10);

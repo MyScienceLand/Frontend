@@ -16,13 +16,16 @@ const usePost = (endpoint, options = {}) => {
       try {
         const response = await fetch(`${baseUrl}${endpoint}`, {
           method: 'POST',
+          credentials: 'include',
+
           ...options,
           headers: {
             'Content-Type': 'application/json',
             ...options.headers,
             Authorization: `Bearer ${token}`,
           },
-          credentials: 'include',
+          // credentials: 'include',
+          // credentials: 'same-origin',
           body: JSON.stringify(body),
         });
 

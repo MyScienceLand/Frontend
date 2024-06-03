@@ -13,12 +13,14 @@ import { useLocation } from 'react-router-dom';
 import '../../../index.scss';
 
 // import "../../../index.scss";
-import { Dashboard, FileCopy } from '@mui/icons-material';
+import { FileCopy } from '@mui/icons-material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { FaBuildingColumns } from 'react-icons/fa6';
+
 import { Link } from 'react-router-dom';
 import { PurpleLogoWithText } from '../../../assets';
 const iconMap = {
-  Dashboard: <Dashboard />,
+  Dashboard: <FaBuildingColumns />,
   Content: <FileCopy />,
   Quiz: <CalendarMonthIcon />,
 };

@@ -22,6 +22,7 @@ function App() {
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const token = localStorage.getItem('token');
+  // const token = 1;
   const navigate = useNavigate();
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -17,6 +17,7 @@ import Error404PageImage from './images/Error.png';
 import NightScene from './images/NightScene.png';
 export {
   Bio,
+  // Bio,
   CrossIcon,
   Error404PageImage,
   Google,
