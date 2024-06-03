@@ -5,8 +5,8 @@ import { FaRegClock } from "react-icons/fa";
 
 const Cells = () => {
   return (
-    <div>
-      <h1 className="text-[28px] py-6 font-medium text-secondary">
+    <div className="">
+      <h1 className="text-[28px] py-6 px-8 font-medium text-secondary">
         Course Content
       </h1>
 
@@ -25,7 +25,7 @@ const Cells = () => {
           <span className="text-[16px] font-medium text-secondary">
             Environmental Chemistry
           </span>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
             <span className="#696969 text-[14px] font-normal">23 Courses</span>
             <FaRegClock />
             <span className="text-[#696969] text-[14px] font-normal">

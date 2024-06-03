@@ -16,6 +16,9 @@ import QuizDesktop from "../components/quiz-desktop";
 import ReportQuestion from "../components/report-question";
 import Cells from "../components/cells";
 import QuizSummary from "../components/quiz-summary";
+import ManagmentClasses from "../components/managment-classes";
+import ManagmentDashboard from "../components/managment-dashboard";
+import CreateClass from "../components/create-class";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -81,6 +84,14 @@ const routes = [
   {
     path: "/cells",
     element: <Cells />,
+  },
+  {
+    path: "/managment-dashboard",
+    element: <ManagmentDashboard />,
+  },
+  {
+    path: "/create-class",
+    element: <CreateClass />,
   },
 ];
 

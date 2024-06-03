@@ -68,7 +68,22 @@ const StudentDashboard = () => {
         {/* table section */}
         <div className="grid grid-cols-[1fr_1fr] gap-6">
           <CustomTable />
-          <BarChart />
+          <BarChart
+            series={[
+              {
+                name: "Net Profit",
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+              },
+              {
+                name: "Revenue",
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+              },
+              {
+                name: "Revenue",
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+              },
+            ]}
+          />
         </div>
 
         {/* chart-sec */}

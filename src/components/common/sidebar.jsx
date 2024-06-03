@@ -33,7 +33,7 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Content, Dashboard, Quiz, logo } from "../../assets";
+import { Content, Dashboard, LogoWhite, Quiz, logo } from "../../assets";
 import { IoAddCircleOutline } from "react-icons/io5";
 import StudentDashboard from "../student-dashboard";
 import EmptyDashboard from "../empty-dashboard";
@@ -75,14 +75,21 @@ export default function Sidebar() {
     pathName.includes("/next-quiz") ||
     pathName.includes("/quiz-desktop") ||
     pathName.includes("/cells") ||
-    pathName.includes("/quiz-summary");
+    pathName.includes("/quiz-summary") ||
+    pathName.includes("/managment-classes") ||
+    pathName.includes("/managment-dashboard") ||
+    pathName.includes("/create-class");
   const shouldRenderNavBar =
     pathName.includes("/student-dashboard") ||
     pathName.includes("/course-content") ||
     pathName.includes("/next-quiz") ||
     pathName.includes("/quiz-desktop") ||
     pathName.includes("/cells") ||
-    pathName.includes("/quiz-summary");
+    pathName.includes("/quiz-summary") ||
+    pathName.includes("/managment-classes") ||
+    pathName.includes("/managment-dashboard") ||
+    pathName.includes("/create-class");
+  const SidebarColor = pathName.includes("/managment-classes");
   return (
     <>
       {/*
@@ -247,30 +254,66 @@ export default function Sidebar() {
             {/* Static sidebar for desktop */}
             <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
               {/* Sidebar component, swap this element with another sidebar if you like */}
-              <div className="flex grow flex-col gap-y-5  overflow-y-auto  bg-white pb-4 shadow-right">
-                <div className="flex h-16 justify-center my-8 shrink-0 items-center">
-                  <img className="" src={logo} alt="Your Company" />
-                </div>
-                <nav className="flex  flex-1 flex-col">
+              <div
+                className={`${
+                  pathName.includes("/course-content") ||
+                  pathName.includes("/next-quiz") ||
+                  pathName.includes("/quiz-desktop") ||
+                  pathName.includes("/cells") ||
+                  pathName.includes("/quiz-summary") ||
+                  pathName.includes("/student-dashboard")
+                    ? "flex grow flex-col gap-y-5 overflow-y-auto bg-white pb-4 shadow-right"
+                    : "flex grow flex-col gap-y-5 overflow-y-auto bg-primary pb-4 shadow-right"
+                }`}
+              >
+                {!SidebarColor && (
+                  <div className="flex h-16 justify-center my-8 shrink-0 items-center">
+                    {pathName.includes("/course-content") ||
+                    pathName.includes("/next-quiz") ||
+                    pathName.includes("/quiz-desktop") ||
+                    pathName.includes("/cells") ||
+                    pathName.includes("/quiz-summary") ||
+                    pathName.includes("/student-dashboard") ? (
+                      <img className="" src={logo} alt="First Image" />
+                    ) : (
+                      <img className="" src={LogoWhite} alt="Second Image" />
+                    )}
+                  </div>
+                )}
+
+                <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
-                      <ul role="list" className="-mx-2  space-y-1">
-                        {navigation.map((item) => (
-                          <li key={item.name}>
-                            <a
-                              href={item.href}
-                              className={classNames(
-                                item.current
-                                  ? "bg-primary rounded-tr-lg px-12 text-white"
-                                  : "text-gray-700 px-12 hover:text-primary hover:bg-gray-50",
-                                "group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                              )}
-                            >
-                              <img src={item.icon} />
-                              {item.name}
-                            </a>
-                          </li>
-                        ))}
+                      <ul role="list" className="-mx-2 space-y-1">
+                        {navigation.map((item) => {
+                          const isActive = item.current;
+                          const isPathMatch =
+                            pathName.includes("/course-content") ||
+                            pathName.includes("/next-quiz") ||
+                            pathName.includes("/quiz-desktop") ||
+                            pathName.includes("/cells") ||
+                            pathName.includes("/quiz-summary") ||
+                            pathName.includes("/managment-dashboard");
+
+                          return (
+                            <li key={item.name}>
+                              <a
+                                href={item.href}
+                                className={classNames(
+                                  isActive && isPathMatch
+                                    ? "bg-primary rounded-tr-lg px-12 text-white"
+                                    : isActive
+                                    ? "bg-primary text-white rounded-tr-lg px-12"
+                                    : "text-primary px-12 hover:text-primary hover:bg-white",
+                                  "group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                )}
+                              >
+                                <img src={item.icon} alt={item.name} />
+                                {item.name}
+                              </a>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </li>
                   </ul>
@@ -286,7 +329,10 @@ export default function Sidebar() {
             pathName.includes("/next-quiz") ||
             pathName.includes("/quiz-desktop") ||
             pathName.includes("/cells") ||
-            pathName.includes("/quiz-summary")
+            pathName.includes("/quiz-summary") ||
+            pathName.includes("/managment-classes") ||
+            pathName.includes("/managment-dashboard") ||
+            pathName.includes("/create-class")
               ? "lg:pl-72"
               : null
           }`}

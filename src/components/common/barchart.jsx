@@ -1,22 +1,9 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarChart = () => {
+const BarChart = ({ series, colors, heading }) => {
   const [chartData, setChartData] = useState({
-    series: [
-      {
-        name: "Net Profit",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-      {
-        name: "Revenue",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-      {
-        name: "Revenue",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-    ],
+    series,
     options: {
       chart: {
         type: "bar",
@@ -32,7 +19,7 @@ const BarChart = () => {
           endingShape: "rounded",
         },
       },
-      colors: ["#006c8d", "#B731D2", "#007352"],
+      colors,
       dataLabels: {
         enabled: false,
       },
@@ -62,7 +49,7 @@ const BarChart = () => {
     <div>
       <div>
         <div className="bg-[#f8f8f8] px-4  rounded py-4 mt-6">
-          <h1 className="text-[18px] px-4 font-medium">Your Progress</h1>
+          <h1 className="text-[18px] px-4 font-medium">{heading}</h1>
         </div>
         <div id="chart" className="bg-[#ffffff] ">
           <ReactApexChart
