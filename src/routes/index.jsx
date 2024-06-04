@@ -19,6 +19,7 @@ import QuizSummary from "../components/quiz-summary";
 import ManagmentClasses from "../components/managment-classes";
 import ManagmentDashboard from "../components/managment-dashboard";
 import CreateClass from "../components/create-class";
+import CreateUser from "../components/create-user";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -92,6 +93,10 @@ const routes = [
   {
     path: "/create-class",
     element: <CreateClass />,
+  },
+  {
+    path: "/create-user",
+    element: <CreateUser />,
   },
 ];
 
