@@ -84,6 +84,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from 'react';
+import useFetch from '../../hooks/useFetch';
 
 const DashboardMenuSelector = ({
   selectedSubject,
@@ -93,7 +94,10 @@ const DashboardMenuSelector = ({
 }) => {
   const [anchorElSubjects, setAnchorElSubjects] = useState(null);
   const [anchorElTopic, setAnchorElTopic] = useState(null);
-
+  const { data } = useFetch('/subject');
+  const { data: topics } = useFetch('/topics');
+  // console.log(data.data, '----------------------------------------');
+  console.log(topics);
   const handleClickSubjects = (event) => {
     setAnchorElSubjects(event.currentTarget);
   };
@@ -148,15 +152,15 @@ const DashboardMenuSelector = ({
           open={Boolean(anchorElSubjects)}
           onClose={handleCloseSubjects}
         >
-          <MenuItem onClick={() => handleSelectSubject('Biology')}>
-            Biology
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectSubject('Physics')}>
-            Physics
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectSubject('Chemistry')}>
-            Chemistry
-          </MenuItem>
+          {data &&
+            data.data.map((subject) => (
+              <MenuItem
+                key={subject.name}
+                onClick={() => handleSelectSubject(subject.name)}
+              >
+                {subject.name}
+              </MenuItem>
+            ))}
         </Menu>
       </div>
       <div>
@@ -185,18 +189,15 @@ const DashboardMenuSelector = ({
           open={Boolean(anchorElTopic)}
           onClose={handleCloseTopic}
         >
-          <MenuItem onClick={() => handleSelectTopic('Account settings')}>
-            Account settings
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectTopic('Support')}>
-            Support
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectTopic('License')}>
-            License
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectTopic('Sign out')}>
-            Sign out
-          </MenuItem>
+          {topics &&
+            topics?.data?.map((topic, index) => (
+              <MenuItem
+                key={index}
+                onClick={() => handleSelectTopic(topic.name)}
+              >
+                {topic.name}
+              </MenuItem>
+            ))}
         </Menu>
       </div>
     </div>

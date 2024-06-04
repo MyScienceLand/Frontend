@@ -20,7 +20,7 @@ import { FaBuildingColumns } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { PurpleLogoWithText } from '../../../assets';
 const iconMap = {
-  Dashboard: <FaBuildingColumns />,
+  Dashboard: <FaBuildingColumns size={19} />,
   Content: <FileCopy />,
   Quiz: <CalendarMonthIcon />,
 };
@@ -131,7 +131,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
             location.pathname === `/${route}` ||
             (text === 'Dashboard' && location.pathname === '/');
           return (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 component={Link}
                 to={`/${route}`}

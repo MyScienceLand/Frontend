@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Quiz from '../QuizComponent/QuizComponent';
 import Button from '../common/buttons/Button/Button';
 
 const SelectedPrefrences = () => {
-  const navigate = useNavigate();
   const [startQuiz, setStartQuiz] = useState(false);
   return (
     <>

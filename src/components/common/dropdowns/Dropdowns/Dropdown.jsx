@@ -23,8 +23,8 @@ const Dropdown = ({ title, dropdownItems, value, setValue }) => {
     return () => document.removeEventListener('click', clickHandler);
   });
   const handleSelect = (item) => {
-    setSelectedValue(item.label);
-    setValue(item.label);
+    setSelectedValue(item.name);
+    setValue(item.name);
     setDropdownOpen(false);
   };
   return (
@@ -72,17 +72,18 @@ const Dropdown = ({ title, dropdownItems, value, setValue }) => {
             }`}
           >
             <ul className="flex flex-col">
-              {dropdownItems.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    to="#"
-                    onClick={() => handleSelect(item)}
-                    className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {dropdownItems &&
+                dropdownItems.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to="#"
+                      onClick={() => handleSelect(item)}
+                      className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

@@ -5,21 +5,21 @@ import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import Button from '../../components/common/buttons/Button/Button';
 import Dropdown from '../../components/common/dropdowns/Dropdowns/Dropdown';
-import {
-  examBoardDropdownItems,
-  qualificationDropdownItems,
-  subjectsDropdownItems,
-} from '../../data/dashboard';
+import useFetch from '../../hooks/useFetch';
 import { dividerStyle } from '../common/buttons/AddPreferences/style';
 import PreliminaryQuizModal from '../common/modals/PreliminaryQuizModal/PreliminaryQuizModal';
 import SelectedPrefrences from './SelectedPrefrences';
 
 const PreliminaryQuiz = () => {
   const [modalOpen, setModalOpen] = useState(true); // Modal is open initially
-  const [isClosable, setIsClosable] = useState(true); // cclose
+  // const [isClosable, setIsClosable] = useState(true); // cclose
   const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
   const [subject, setSubject] = useState('Please select Subject');
   const [examBoard, setExamBoard] = useState('Please select Board');
+  const { data: qualifications } = useFetch('/qualifications');
+  const { data: subjects } = useFetch('/subject');
+  const { data: boards } = useFetch('/boards');
+
   const [qualification, setQualification] = useState(
     'Please select qualification'
   );
@@ -70,7 +70,7 @@ const PreliminaryQuiz = () => {
       <PreliminaryQuizModal
         open={modalOpen}
         onClose={handleClose}
-        isClosable={isClosable}
+        isClosable={true}
         title="My Custom Modal"
       >
         {displayStartQuiz ? (
@@ -80,19 +80,19 @@ const PreliminaryQuiz = () => {
             <div className="flex flex-col justify-start">
               <Dropdown
                 title={'Qualification'}
-                dropdownItems={qualificationDropdownItems}
+                dropdownItems={qualifications?.data}
                 value={qualification}
                 setValue={setQualification}
               />
               <Dropdown
                 title={'Subjects'}
-                dropdownItems={subjectsDropdownItems}
+                dropdownItems={subjects?.data}
                 value={subject}
                 setValue={setSubject}
               />
               <Dropdown
                 title={'Exam Board'}
-                dropdownItems={examBoardDropdownItems}
+                dropdownItems={boards?.data}
                 value={examBoard}
                 setValue={setExamBoard}
               />
@@ -103,19 +103,19 @@ const PreliminaryQuiz = () => {
                 <Divider sx={dividerStyle} />
                 <Dropdown
                   title={'Qualification'}
-                  dropdownItems={qualificationDropdownItems}
+                  dropdownItems={qualifications?.data}
                   value={qualification}
                   setValue={setQualification}
                 />
                 <Dropdown
                   title={'Subjects'}
-                  dropdownItems={subjectsDropdownItems}
+                  dropdownItems={subjects?.data}
                   value={subject}
                   setValue={setSubject}
                 />
                 <Dropdown
                   title={'Exam Board'}
-                  dropdownItems={examBoardDropdownItems}
+                  dropdownItems={boards?.data}
                   value={examBoard}
                   setValue={setExamBoard}
                 />
@@ -127,19 +127,19 @@ const PreliminaryQuiz = () => {
                 <Divider sx={dividerStyle} />
                 <Dropdown
                   title={'Qualification'}
-                  dropdownItems={qualificationDropdownItems}
+                  dropdownItems={qualifications?.data}
                   value={qualification}
                   setValue={setQualification}
                 />
                 <Dropdown
                   title={'Subjects'}
-                  dropdownItems={subjectsDropdownItems}
+                  dropdownItems={subjects?.data}
                   value={subject}
                   setValue={setSubject}
                 />
                 <Dropdown
                   title={'Exam Board'}
-                  dropdownItems={examBoardDropdownItems}
+                  dropdownItems={boards?.data}
                   value={examBoard}
                   setValue={setExamBoard}
                 />

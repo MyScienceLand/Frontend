@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { baseUrl } from '../constants';
-import { getToken } from '../utils/helper/tokenUtils';
 
 const useFetch = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
@@ -8,7 +7,7 @@ const useFetch = (endpoint, options = {}) => {
   const [error, setError] = useState(null);
 
   const fetchData = useCallback(async () => {
-    const token = getToken();
+    const token = localStorage.getItem('token');
     setLoading(true);
     setError(null);
 
@@ -34,7 +33,7 @@ const useFetch = (endpoint, options = {}) => {
     } finally {
       setLoading(false);
     }
-  }, [endpoint, options, baseUrl, token]);
+  }, []);
 
   useEffect(() => {
     fetchData();

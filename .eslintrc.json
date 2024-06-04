@@ -17,9 +17,10 @@
   },
   "plugins": ["react", "react-hooks"],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": 0,
+    // "react/react-in-jsx-scope": "off",
+    // "react/prop-types": 0,
     "react-hooks/exhaustive-deps": 0,
-    "react/no-unescaped-entities": 0
+    "react/no-unescaped-entities": 0,
+    "react/prop-types": 0
   }
 }
