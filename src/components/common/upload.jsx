@@ -28,7 +28,7 @@ const Upload = () => {
         />
         <div
           id="dropArea"
-          className=" border-2 w-full mt-6 border-dashed border-[#A1A1A1] rounded-md text-blue-500 cursor-pointer px-4 py-2"
+          className=" border-2 w-full border-dashed border-[#A1A1A1] rounded-md text-blue-500 cursor-pointer px-4 py-2"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onClick={() => document.getElementById("fileInput").click()}

@@ -38,6 +38,32 @@ const ManagmentDashboard = () => {
           />
         </div>
       </div>
+      <div className="grid grid-cols-[1fr_1fr] gap-6">
+        <div>
+          <BarChart
+            series={[
+              {
+                name: "Profit",
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+              },
+            ]}
+            colors="#5E196C"
+            heading={"Year 1"}
+          />
+        </div>
+        <div>
+          <BarChart
+            series={[
+              {
+                name: "Net Profit",
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+              },
+            ]}
+            colors="#006C8D"
+            heading={"Year 2"}
+          />
+        </div>
+      </div>
     </>
   );
 };

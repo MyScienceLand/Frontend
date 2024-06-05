@@ -98,6 +98,10 @@ const routes = [
     path: "/create-user",
     element: <CreateUser />,
   },
+  {
+    path: "/managment-classes",
+    element: <ManagmentClasses />,
+  },
 ];
 
 const Routes = () => {

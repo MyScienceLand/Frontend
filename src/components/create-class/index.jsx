@@ -25,31 +25,32 @@ const CreateClass = () => {
     { to: "#", label: "Earnings" },
     { to: "#", label: "Logout" },
   ];
+
   return (
     <>
-      <div className="bg-white px-6 py-10 rounded-lg shadow-md">
-        <div className="grid grid-cols-[1fr_1fr] gap-6">
-          <Dropdown dropdownItems={dropdownItems} label="Assign Teacher" />{" "}
-          <Dropdown dropdownItems={dropdownItems} label="Qualification" />{" "}
-          <Dropdown dropdownItems={dropdownItems} label="Subject" />{" "}
-          <Dropdown dropdownItems={dropdownItems} label="Year" />{" "}
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="grid grid-cols-2 gap-6">
+          <Dropdown dropdownItems={dropdownItems} label="Assign Teacher" />
+          <Dropdown dropdownItems={dropdownItems} label="Qualification" />
+          <Dropdown dropdownItems={dropdownItems} label="Year" />
+          <Dropdown dropdownItems={dropdownItems} label="Start Date" />
+          <Dropdown dropdownItems={dropdownItems} label="End Date" />
           <input
-            className="border h-10 px-2 border-[#696969] border-opacity-55 rounded-sm"
+            className="border h-10 px-2 border-gray-400 rounded-sm"
             placeholder="05/31/2024"
           />
           <input
-            className="border h-10 px-2 border-[#696969] border-opacity-55 rounded-sm"
+            className="border  px-2 border-gray-400 rounded-sm"
             placeholder="12/31/2024"
           />
-        </div>
+          <Upload />
 
-        <Upload />
+          <SearchDropdown />
+        </div>
       </div>
-      <div className="bg-white px-6 py-10 mt-8 rounded-lg shadow-md">
-        <SearchDropdown />
-      </div>
+
       <div className="flex justify-center mt-6">
-        <button className="px-4 text-start text-white bg-primary py-2 bg-gray-300 rounded">
+        <button className="px-4 py-2 text-white bg-primary rounded bg-gray-300">
           Create Class
         </button>
       </div>

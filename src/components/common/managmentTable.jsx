@@ -1,12 +1,5 @@
-import BrandOne from "../../images/brand/brand-01.svg";
-import BrandTwo from "../../images/brand/brand-02.svg";
-import BrandThree from "../../images/brand/brand-03.svg";
-import BrandFour from "../../images/brand/brand-04.svg";
-import BrandFive from "../../images/brand/brand-05.svg";
-
 const brandData = [
   {
-    logo: BrandOne,
     name: "Google",
     visitors: 3.5,
     revenues: "5,768",
@@ -14,7 +7,6 @@ const brandData = [
     conversion: 4.8,
   },
   {
-    logo: BrandTwo,
     name: "Twitter",
     visitors: 2.2,
     revenues: "4,635",
@@ -22,7 +14,6 @@ const brandData = [
     conversion: 4.3,
   },
   {
-    logo: BrandThree,
     name: "Github",
     visitors: 2.1,
     revenues: "4,290",
@@ -30,7 +21,6 @@ const brandData = [
     conversion: 3.7,
   },
   {
-    logo: BrandFour,
     name: "Vimeo",
     visitors: 1.5,
     revenues: "3,580",
@@ -38,7 +28,6 @@ const brandData = [
     conversion: 2.5,
   },
   {
-    logo: BrandFive,
     name: "Facebook",
     visitors: 3.5,
     revenues: "6,768",
