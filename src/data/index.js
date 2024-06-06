@@ -69,14 +69,14 @@ const otpInputs = [
 const resetFormInputs = [
   {
     id: 1,
-    type: 'password',
+    type: 'text',
     label: 'Password',
     placeholder: 'Enter Password',
     name: 'password',
   },
   {
     id: 2,
-    type: 'password',
+    type: 'text',
     label: 'Confirm Password',
     placeholder: 'Confirm Password',
     name: 'confirmPassword',

@@ -40,9 +40,7 @@ const SignUp = () => {
       lastName: '',
     },
     validationSchema: formSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: (values) => {},
   });
 
   const togglePasswordVisibility = () => {

@@ -36,7 +36,6 @@ function Quiz() {
     setSelectPaper(true);
   };
 
-  console.log(topicAndStartPaper);
   return (
     <>
       {topicAndStartPaper ? (

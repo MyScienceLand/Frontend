@@ -1,25 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PaperDetails from '../../components/PaperDetails/PaperDetails';
+import ToastNotification from '../../components/ToastNotification/ToastNotification';
+import PreLoader from '../../components/common/Preloader/PreLoader';
+import SubjectAndPaper from '../../components/common/cards/SubjectAndPaper/SubjectAndPaper';
+import useFetch from '../../hooks/useFetch';
 
 const Content = () => {
   const [openDetailsQuiz, setOpenDetailsQuiz] = useState(false);
-  const sectionData = [
-    {
-      title: 'Biology',
-      secondtitle: 'A Levels',
-      subjects: ['Physics', 'Biology', 'Biology'],
-    },
-    {
-      title: 'Biology',
-      secondtitle: 'GCSE',
-      subjects: ['Physics', 'Biology', 'Biology'],
-    },
-    {
-      title: 'Biology',
-      secondtitle: 'A Levels',
-      subjects: ['Physics', 'Biology', 'Biology'],
-    },
-  ];
+  const [paperId, setPaperId] = useState('');
+  const [subjectName, setSubjectName] = useState('');
+  const [paperNumber, setPaperNumber] = useState('');
+  const { data, loading, error } = useFetch('/user-preferences');
 
   const classesArray = [
     [
@@ -38,51 +29,39 @@ const Content = () => {
       'bg-[#007353] text-white',
     ],
   ];
+
+  useEffect(() => {
+    if (error) {
+      ToastNotification.error('No preferences are found');
+    }
+  }, [data]);
+
   return (
     <>
+      <h1 className=" px-12 text-[28px] font-medium text-secondary">
+        Course Content
+      </h1>
+      {loading && <PreLoader />}
       {openDetailsQuiz ? (
-        <PaperDetails />
+        <PaperDetails
+          paperId={paperId}
+          subjectName={subjectName}
+          paperNumber={paperNumber}
+        />
       ) : (
         <div className="px-12" onClick={() => setOpenDetailsQuiz(true)}>
-          <h1 className="text-[28px] font-medium text-secondary">
-            Course Content
-          </h1>
           <div className=" flex space-x-6">
-            {sectionData.map((section, sectionIndex) => (
-              <div
-                key={sectionIndex}
-                className="rounded-lg overflow-hidden border border-secondary flex-1"
-              >
-                <div className="bg-[var(--accent-color)] py-2 rounded-t-lg">
-                  <div className="text-[18px] font-medium text-white text-center">
-                    {section.title}
-                  </div>
-                </div>
-                <div className="bg-white py-2">
-                  <div className="text-[18px] font-medium text-secondary text-center">
-                    {section.secondtitle}
-                  </div>
-                </div>
-                <div>
-                  {section.subjects.map((subject, index) => (
-                    <p
-                      className={`text-[16px] text-center py-2 border-b border-secondary font-medium ${
-                        classesArray[sectionIndex][
-                          index % classesArray[sectionIndex].length
-                        ]
-                      } ${
-                        index === section.subjects.length - 1
-                          ? 'rounded-b-lg'
-                          : ''
-                      }`}
-                      key={index}
-                    >
-                      {subject}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ))}
+            {data &&
+              data?.data?.data.map((section, index) => (
+                <SubjectAndPaper
+                  key={section._id}
+                  className={classesArray[index % classesArray.length]}
+                  data={section}
+                  setPaperId={setPaperId}
+                  setPaperNumber={setPaperNumber}
+                  setSubjectName={setSubjectName}
+                />
+              ))}
           </div>
         </div>
       )}

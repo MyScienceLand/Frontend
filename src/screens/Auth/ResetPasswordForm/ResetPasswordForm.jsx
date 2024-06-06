@@ -23,18 +23,15 @@ const ResetPasswordForm = () => {
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       resetForm();
     },
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(error);
     if (error) {
       ToastNotification.error(error);
     } else if (data) {
-      console.log(data, 'in set local storage');
       ToastNotification.success(data.message);
       setTimeout(() => {
         setDisplaySuccessMessage(true);
@@ -43,7 +40,6 @@ const ResetPasswordForm = () => {
   }, [data, navigate, error]);
   const handelResetPassword = async (e) => {
     e.preventDefault();
-    console.log(formik.values);
     // check if pass  and confirm pass are same
     if (formik.values.password !== formik.values.confirmPassword) {
       ToastNotification.error('Password and Confirm Password should be same');
@@ -56,7 +52,6 @@ const ResetPasswordForm = () => {
       otp: user.forgetPasswordOtp,
     });
   };
-  console.log(user);
   return (
     <>
       {displaySuccessMessage === true ? (

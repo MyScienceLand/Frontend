@@ -10,35 +10,43 @@ import Button from '../../../components/common/buttons/Button/Button';
 import { authLogoWidth } from '../../../constants';
 import usePost from '../../../hooks/usePost';
 import { registerUser } from '../../../redux/slices/authSlice';
+
 const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6)?.fill(''));
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const { data, loading, error, postData } = usePost('/auth/verify/otp');
   const dispatch = useDispatch();
-  console.log(user);
+
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
 
     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
 
-    // Focus next input
     if (element.nextSibling) {
       element.nextSibling.focus();
     }
   };
 
+  const handlePaste = (e) => {
+    const paste = e.clipboardData.getData('text');
+    const otpArray = paste.split('').slice(0, 6);
+    setOtp([...otpArray, ...otp.slice(otpArray.length)]);
+    otpArray.forEach((value, index) => {
+      if (index < 6) {
+        document.querySelectorAll('input[name^="otp"]')[index].value = value;
+      }
+    });
+  };
+
   const formik = useFormik({
     initialValues: {
       otp: '',
-      // Add other form fields if necessary
     },
     onSubmit: (values) => {},
   });
 
   useEffect(() => {
-    console.log('useEffect data', data);
-    console.log(error);
     if (error) {
       ToastNotification.error(error);
       setTimeout(() => {
@@ -46,13 +54,15 @@ const OtpVerification = () => {
       }, 10);
     }
     if (data) {
-      ToastNotification.success(data?.data?.message);
+      ToastNotification.success(data?.verifyOtp?.message);
       if (user.otpType === 'forgetPassword') {
         navigate('/reset-password');
       }
       localStorage.setItem(
         'token',
-        data?.data?.access_token !== undefined ? data?.data?.access_token : ''
+        data?.verifyOtp?.access_token !== undefined
+          ? data?.verifyOtp?.access_token
+          : ''
       );
     }
     const token = localStorage.getItem('token');
@@ -65,12 +75,13 @@ const OtpVerification = () => {
     const otpValue = otp.join('');
     postData({ otp: otpValue, email: user.email });
   };
-  // forgetPassword
+
   const handelForgetPasswordOtp = () => {
     const otpValue = otp.join('');
     dispatch(registerUser({ forgetPasswordOtp: otpValue }));
     navigate('/reset-password');
   };
+
   return (
     <section className="h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
@@ -99,7 +110,7 @@ const OtpVerification = () => {
               {otp.map((data, index) => {
                 return (
                   <input
-                    className="w-24 h-12 mt-2 mb-2 text-center text-xl border border-primary rounded "
+                    className="w-24 h-12 mt-2 mb-2 text-center text-xl border border-primary rounded"
                     type="text"
                     name={`otp${index}`}
                     maxLength="1"
@@ -107,12 +118,13 @@ const OtpVerification = () => {
                     value={data}
                     onChange={(e) => handleChange(e.target, index)}
                     onFocus={(e) => e.target.select()}
+                    onPaste={handlePaste}
                   />
                 );
               })}
             </div>
             <p className="text-[var(--text-color)] text-[14px] font-medium mb-5">
-              Didn't get the code? 
+              Didn't get the code?
               <Link
                 to={'/forgot-password'}
                 className="text-primary text-[14px] pl-2 font-medium"

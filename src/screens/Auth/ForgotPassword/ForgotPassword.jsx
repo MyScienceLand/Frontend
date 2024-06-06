@@ -21,17 +21,14 @@ const ForgotPassword = () => {
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       resetForm();
     },
   });
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(error);
     if (error) {
       ToastNotification.error(error);
     } else if (data) {
-      console.log(data?.data.message);
       ToastNotification.success(data?.data.message);
       dispatch(registerUser({ ...formik.values, otpType: 'forgetPassword' }));
       setTimeout(() => {
@@ -42,7 +39,6 @@ const ForgotPassword = () => {
   const handelSendOtp = (e) => {
     e.preventDefault();
     postData(formik.values);
-    // console.log(formik.values);
   };
   return (
     <section className=" h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">

@@ -2,7 +2,6 @@ import React from 'react';
 import { ProgressArrow } from '../../../../assets';
 
 const DashboardSubjectCard = ({ cardsArray }) => {
-  console.log('🚀 ~ CardComponent ~ cardsArray:', cardsArray);
   return (
     <>
       <div className="flex flex-wrap justify-between mt-6">

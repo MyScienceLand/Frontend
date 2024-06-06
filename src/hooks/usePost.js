@@ -1,13 +1,14 @@
 import { useCallback, useState } from 'react';
 import { baseUrl } from '../constants';
-import { getToken } from '../utils/helper/tokenUtils';
+// import { getToken } from '../utils/helper/tokenUtils';
 
 const usePost = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const token = getToken();
+  // const token = getToken();
+  const token = localStorage.getItem('token');
   const postData = useCallback(
     async (body) => {
       setLoading(true);
@@ -30,7 +31,6 @@ const usePost = (endpoint, options = {}) => {
         });
 
         if (!response.ok) {
-          // console.log('response not ok ');
           const errorResponse = await response.json();
           throw new Error(errorResponse.message);
         }

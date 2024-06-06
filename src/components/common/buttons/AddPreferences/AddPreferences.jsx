@@ -1,56 +1,125 @@
-import React, { useState } from 'react';
+import { Divider } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import { MdDelete } from 'react-icons/md';
-
-import { Divider } from '@mui/material';
 import Swal from 'sweetalert2';
-import {
-  examBoardDropdownItems,
-  qualificationDropdownItems,
-  subjectsDropdownItems,
-} from '../../../../data/dashboard';
+import useFetch from '../../../../hooks/useFetch';
+import usePost from '../../../../hooks/usePost';
 import StartAttemptQuiz from '../../../StartAttemptQuiz';
+import ToastNotification from '../../../ToastNotification/ToastNotification';
 import Dropdown from '../../dropdowns/Dropdowns/Dropdown';
 import CustomModal from '../../modals/CustomModal/CustomModal';
 import Button from '../Button/Button';
 import { dividerStyle } from './style';
 
 const AddPreferences = () => {
+  const [preferences, setPreferences] = useState([
+    {
+      qualification: 'Please select qualification',
+      subject: 'Please select Subject',
+      examBoard: 'Please select Board',
+    },
+  ]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
+  const { data: qualifications, error: qualificationError } =
+    useFetch('/qualifications');
+  const { data: subjects, error: subjectError } = useFetch('/subject');
+  const { data: boards, error: boardsError } = useFetch('/boards');
+  const {
+    data: preferencesResponse,
+    loading,
+    error: preferencesError,
+    postData,
+  } = usePost('/user-preferences/create');
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
-  const [qualification, setQualification] = useState(
-    'Please select qualification'
-  );
-  const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
-  const [subject, setSubject] = useState('Please select Subject');
-  const [examBoard, setExamBoard] = useState('Please select Board');
-  const [addMorePreferences, setAddMorePreferences] = useState(1);
 
   const handleAddMore = () => {
-    setAddMorePreferences(addMorePreferences + 1);
+    setPreferences([
+      ...preferences,
+      {
+        qualification: 'Please select qualification',
+        subject: 'Please select Subject',
+        examBoard: 'Please select Board',
+      },
+    ]);
   };
 
-  const handleReducePreferences = () => {
-    setAddMorePreferences(addMorePreferences - 1);
+  const handleReducePreferences = (index) => {
+    if (index > 0) {
+      setPreferences(preferences.filter((_, i) => i !== index));
+    }
   };
 
-  const handleSubmit = () => {
-    handleClose();
-    Swal.fire({
-      // position: "top-end",
-      icon: 'success',
-      title: 'Subject preferences added Successfully',
-      showConfirmButton: true,
-      timer: 1500,
-    });
-    setTimeout(() => {
-      setDisplayStartQuiz(true);
-      handleOpen();
-    }, 1600);
+  const handleChange = (index, field, value) => {
+    const newPreferences = [...preferences];
+    newPreferences[index][field] = value;
+    setPreferences(newPreferences);
   };
-  console.log(qualification);
+
+  useEffect(() => {
+    if (preferencesError) {
+      ToastNotification.error(preferencesError);
+    } else if (preferencesResponse) {
+      ToastNotification.success(preferencesResponse?.message);
+      handleClose();
+      Swal.fire({
+        icon: 'success',
+        title: 'Subject preferences added Successfully',
+        showConfirmButton: true,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        setDisplayStartQuiz(true);
+        handleOpen();
+      }, 1600);
+    }
+  }, [preferencesResponse, preferencesError]);
+
+  const handleSubmit = async () => {
+    // e.preventDefault();
+
+    if (
+      preferences.some(
+        (pref) =>
+          pref.qualification === 'Please select qualification' ||
+          pref.subject === 'Please select Subject' ||
+          pref.examBoard === 'Please select Board'
+      )
+    ) {
+      ToastNotification.error(
+        'Please complete all preferences before submitting.'
+      );
+      return;
+    }
+
+    // Collect IDs for submission
+    const payload = preferences.map((pref) => ({
+      qualificationId: pref.qualification,
+      subjectId: pref.subject,
+      boardId: pref.examBoard,
+    }));
+    postData(payload);
+    // if(!error)
+    // handleClose();
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'Subject preferences added Successfully',
+    //   showConfirmButton: true,
+    //   timer: 1500,
+    // });
+    // setTimeout(() => {
+    //   setDisplayStartQuiz(true);
+    //   handleOpen();
+    // }, 1600);
+  };
+  // useEffect(() => {
+  //   if (qualificationError) ToastNotification.error(qualificationError);
+  //   if (subjectError) ToastNotification.error(subjectError);
+  //   if (boardsError) ToastNotification.error(boardsError);
+  // }, [qualificationError, subjectError, boardsError]);
   return (
     <>
       <button
@@ -72,86 +141,41 @@ const AddPreferences = () => {
           <StartAttemptQuiz />
         ) : (
           <div>
-            <div className="flex flex-col justify-start">
-              <Dropdown
-                title={'Qualification'}
-                dropdownItems={qualificationDropdownItems}
-                value={qualification}
-                setValue={setQualification}
-              />
-              <Dropdown
-                title={'Subjects'}
-                dropdownItems={subjectsDropdownItems}
-                value={subject}
-                setValue={setSubject}
-              />
-              <Dropdown
-                title={'Exam Board'}
-                dropdownItems={examBoardDropdownItems}
-                value={examBoard}
-                setValue={setExamBoard}
-              />
-            </div>
-
-            {addMorePreferences > 1 && (
-              <div className="flex flex-col justify-start">
-                <Divider sx={dividerStyle} />
+            {preferences.map((preference, index) => (
+              <div key={index} className="flex flex-col justify-start">
+                {index > 0 && <Divider sx={dividerStyle} />}
                 <Dropdown
-                  title={'Qualification'}
-                  dropdownItems={qualificationDropdownItems}
-                  value={qualification}
-                  setValue={setQualification}
+                  title="Qualification"
+                  dropdownItems={qualifications?.data}
+                  value={preference.qualification}
+                  setValue={(value) =>
+                    handleChange(index, 'qualification', value)
+                  }
                 />
                 <Dropdown
-                  title={'Subjects'}
-                  dropdownItems={subjectsDropdownItems}
-                  value={subject}
-                  setValue={setSubject}
+                  title="Subjects"
+                  dropdownItems={subjects?.data}
+                  value={preference.subject}
+                  setValue={(value) => handleChange(index, 'subject', value)}
                 />
                 <Dropdown
-                  title={'Exam Board'}
-                  dropdownItems={examBoardDropdownItems}
-                  value={examBoard}
-                  setValue={setExamBoard}
+                  title="Exam Board"
+                  dropdownItems={boards?.data}
+                  value={preference.examBoard}
+                  setValue={(value) => handleChange(index, 'examBoard', value)}
                 />
               </div>
-            )}
-
-            {addMorePreferences > 2 && (
-              <div className="flex flex-col justify-start">
-                <Divider sx={dividerStyle} />
-                <Dropdown
-                  title={'Qualification'}
-                  dropdownItems={qualificationDropdownItems}
-                  value={qualification}
-                  setValue={setQualification}
-                />
-                <Dropdown
-                  title={'Subjects'}
-                  dropdownItems={subjectsDropdownItems}
-                  value={subject}
-                  setValue={setSubject}
-                />
-                <Dropdown
-                  title={'Exam Board'}
-                  dropdownItems={examBoardDropdownItems}
-                  value={examBoard}
-                  setValue={setExamBoard}
-                />
-              </div>
-            )}
+            ))}
             <div className="flex justify-center flex-col gap-4 mt-4">
-              <Button title={'Submit'} onClick={handleSubmit} />
-              <Button
-                title={'Add More'}
-                icon={FaPlus}
-                onClick={handleAddMore}
-              />
-              {addMorePreferences > 1 && (
+              <Button title="Submit" onClick={handleSubmit} />
+              <Button title="Add More" icon={FaPlus} onClick={handleAddMore} />
+              {preferences.length > 1 && (
                 <Button
-                  title={'Delete'}
+                  title="Delete Last"
                   icon={MdDelete}
-                  onClick={handleReducePreferences}
+                  onClick={() =>
+                    handleReducePreferences(preferences.length - 1)
+                  }
                 />
               )}
             </div>
