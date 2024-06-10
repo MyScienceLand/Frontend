@@ -133,4 +133,14 @@ aAbc123@
 unvarified email:
 mudasserasool15@gmail.com
 aAbc123@
+
+{
+  "email": "shakiabch21@gmail.com",
+  "password": "Admin@12345"
+}
+
+{
+  "email": "mudasserasool14@gmail.com",
+  "password": "Mudasser2024@"
+}
 */

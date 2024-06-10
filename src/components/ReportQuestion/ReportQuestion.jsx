@@ -1,5 +1,6 @@
 // src/components/ReportQuestion.js
 import React, { useState } from 'react';
+import Button from '../../components/common/buttons/Button/Button';
 
 const ReportQuestion = () => {
   const [formData, setFormData] = useState({
@@ -68,6 +69,7 @@ const ReportQuestion = () => {
           rows="4" // You can adjust the number of rows as needed
         ></textarea>
       </div>
+      <Button title={'submit'} />
     </div>
   );
 };

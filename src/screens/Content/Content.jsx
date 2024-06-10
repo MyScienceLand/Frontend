@@ -52,7 +52,7 @@ const Content = () => {
         <div className="px-12" onClick={() => setOpenDetailsQuiz(true)}>
           <div className=" flex space-x-6">
             {data &&
-              data?.data?.data.map((section, index) => (
+              data?.data?.map((section, index) => (
                 <SubjectAndPaper
                   key={section._id}
                   className={classesArray[index % classesArray.length]}

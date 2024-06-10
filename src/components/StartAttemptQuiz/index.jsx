@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import useFetch from '../../hooks/useFetch';
 import QuizComponent from '../QuizComponent/QuizComponent';
 import Button from '../common/buttons/Button/Button';
 
 const StartAttemptQuiz = () => {
   const [startQuiz, setStartQuiz] = useState(false);
+
+  const { data, loading, error } = useFetch('/user-preferences');
   return (
     <>
       {startQuiz ? (
@@ -22,54 +25,27 @@ const StartAttemptQuiz = () => {
             Your Selected Subjects
           </h1>
           <div className="flex items-center mb-4 justify-between">
-            <div>
-              <p className="text-[16px] text-[#696969] font-medium">
-                (a Levels)
-              </p>
-              <p className="text-[16px] text-[#696969] font-medium">
-                (Physics)
-              </p>
-              <p className="text-[16px] text-[#696969] font-medium">Edexcel</p>
-              <input
-                type="radio"
-                id="age1"
-                name="age"
-                value="30"
-                className="ml-6"
-              />
-            </div>
-            <div>
-              <p className="text-[16px] text-[#696969] font-medium">
-                (a Levels)
-              </p>
-              <p className="text-[16px] text-[#696969] font-medium">
-                (Physics)
-              </p>
-              <p className="text-[16px] text-[#696969] font-medium">Edexcel</p>
-              <input
-                type="radio"
-                id="age1"
-                name="age"
-                value="30"
-                className="ml-6"
-              />
-            </div>
-            <div>
-              <p className="text-[16px] text-[#696969] font-medium">
-                (a Levels)
-              </p>
-              <p className="text-[16px] text-[#696969] font-medium">
-                (Physics)
-              </p>
-              <p className="text-[16px] text-[#696969] font-medium">Edexcel</p>
-              <input
-                type="radio"
-                id="age1"
-                name="age"
-                value="30"
-                className="ml-6"
-              />
-            </div>
+            {data &&
+              data.data.map((item, index) => (
+                <div key={index}>
+                  <p className="text-[16px] text-[#696969] font-medium">
+                    {item.subjects.name}
+                  </p>
+                  <p className="text-[16px] text-[#696969] font-medium">
+                    {item.qualification.name}
+                  </p>
+                  <p className="text-[16px] text-[#696969] font-medium">
+                    {item.board?.name}
+                  </p>
+                  <input
+                    type="radio"
+                    id={`subject${index}`}
+                    name="subject"
+                    value={item.subjects.name}
+                    className="ml-6"
+                  />
+                </div>
+              ))}
           </div>
           <p className="text-[18px] font-medium mb-5">
             Please click on selected Subjects to attempting primarily Quiz

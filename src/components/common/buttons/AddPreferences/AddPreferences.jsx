@@ -22,7 +22,12 @@ const AddPreferences = () => {
     },
   ]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [subjectsData, setSubjectsData] = useState();
+  const [qualificationsData, setQualificationsData] = useState();
+  const [boardsData, setBoardsData] = useState();
+
   const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
+  const { data: userPreferences } = useFetch('/user-preferences');
   const { data: qualifications, error: qualificationError } =
     useFetch('/qualifications');
   const { data: subjects, error: subjectError } = useFetch('/subject');
@@ -33,16 +38,29 @@ const AddPreferences = () => {
     error: preferencesError,
     postData,
   } = usePost('/user-preferences/create');
-  const handleOpen = () => setModalOpen(true);
+  // const handleOpen = () => setModalOpen(true);
+  const handleOpen = () => {
+    if (userPreferences?.data?.length > 0) {
+      setModalOpen(true);
+    } else {
+      // You can show a message to the user here if needed
+      console.log('Cannot open modal because userPreferences is empty.');
+    }
+  };
+
   const handleClose = () => setModalOpen(false);
 
   const handleAddMore = () => {
+    if (preferences.length >= 3) {
+      ToastNotification.error('You can only add up to three preferences.');
+      return;
+    }
     setPreferences([
       ...preferences,
       {
-        qualification: 'Please select qualification',
+        qualification: preferences[0].qualification,
         subject: 'Please select Subject',
-        examBoard: 'Please select Board',
+        examBoard: preferences[0].examBoard,
       },
     ]);
   };
@@ -56,6 +74,7 @@ const AddPreferences = () => {
   const handleChange = (index, field, value) => {
     const newPreferences = [...preferences];
     newPreferences[index][field] = value;
+    // console.log(newPreferences);
     setPreferences(newPreferences);
   };
 
@@ -79,8 +98,6 @@ const AddPreferences = () => {
   }, [preferencesResponse, preferencesError]);
 
   const handleSubmit = async () => {
-    // e.preventDefault();
-
     if (
       preferences.some(
         (pref) =>
@@ -95,31 +112,51 @@ const AddPreferences = () => {
       return;
     }
 
-    // Collect IDs for submission
     const payload = preferences.map((pref) => ({
       qualificationId: pref.qualification,
       subjectId: pref.subject,
       boardId: pref.examBoard,
     }));
     postData(payload);
-    // if(!error)
-    // handleClose();
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: 'Subject preferences added Successfully',
-    //   showConfirmButton: true,
-    //   timer: 1500,
-    // });
-    // setTimeout(() => {
-    //   setDisplayStartQuiz(true);
-    //   handleOpen();
-    // }, 1600);
   };
-  // useEffect(() => {
-  //   if (qualificationError) ToastNotification.error(qualificationError);
-  //   if (subjectError) ToastNotification.error(subjectError);
-  //   if (boardsError) ToastNotification.error(boardsError);
-  // }, [qualificationError, subjectError, boardsError]);
+  useEffect(() => {
+    if (userPreferences?.data?.length > 0) {
+      const userPreferenceSubjectIds = userPreferences.data.map(
+        (item) => item.subjects.name
+      );
+      const filteredSubjects =
+        subjects &&
+        subjects?.data.filter(
+          (subject) => !userPreferenceSubjectIds.includes(subject.name)
+        );
+      setSubjectsData(filteredSubjects);
+
+      // find those qualifications that are not in userPreferences
+      const userPreferenceQualification = userPreferences.data.map(
+        (item) => item.qualification.name
+      );
+      const filteredQualifications = qualifications?.data.filter(
+        (qualification) =>
+          userPreferenceQualification.includes(qualification.name)
+      );
+      setQualificationsData(filteredQualifications);
+
+      // BOARD
+      const userPreferenceBoard = userPreferences.data.map(
+        (item) => item.board.name
+      );
+      const filteredBoard = boards?.data.filter((board) =>
+        userPreferenceBoard.includes(board.name)
+      );
+      setBoardsData(filteredBoard);
+    } else {
+      setSubjectsData(subjects?.data);
+      setQualificationsData(qualifications?.data);
+      setBoardsData(boards?.data);
+    }
+  }, [userPreferences]);
+  const token = localStorage.getItem('token');
+
   return (
     <>
       <button
@@ -132,10 +169,12 @@ const AddPreferences = () => {
       </button>
 
       <CustomModal
-        open={modalOpen}
+        // open={modalOpen}
+        open={(token && userPreferences?.data?.length < 1) || modalOpen}
         onClose={handleClose}
         title="Add Your Preferences"
         width={displayStartQuiz ? 400 : 600}
+        isClosable={userPreferences?.data?.length > 0}
       >
         {displayStartQuiz ? (
           <StartAttemptQuiz />
@@ -146,26 +185,37 @@ const AddPreferences = () => {
                 {index > 0 && <Divider sx={dividerStyle} />}
                 <Dropdown
                   title="Qualification"
-                  dropdownItems={qualifications?.data}
+                  dropdownItems={qualificationsData}
                   value={preference.qualification}
                   setValue={(value) =>
                     handleChange(index, 'qualification', value)
                   }
                 />
-                <Dropdown
-                  title="Subjects"
-                  dropdownItems={subjects?.data}
-                  value={preference.subject}
-                  setValue={(value) => handleChange(index, 'subject', value)}
-                />
+
+                {subjectsData && (
+                  <Dropdown
+                    key={preference.subject}
+                    title="Subjects"
+                    dropdownItems={subjectsData.filter(
+                      (subject) =>
+                        !preferences
+                          .slice(0, index)
+                          .some((pref) => pref.subject === subject.name)
+                    )}
+                    value={preference.subject}
+                    setValue={(value) => handleChange(index, 'subject', value)}
+                  />
+                )}
+
                 <Dropdown
                   title="Exam Board"
-                  dropdownItems={boards?.data}
+                  dropdownItems={boardsData}
                   value={preference.examBoard}
                   setValue={(value) => handleChange(index, 'examBoard', value)}
                 />
               </div>
             ))}
+
             <div className="flex justify-center flex-col gap-4 mt-4">
               <Button title="Submit" onClick={handleSubmit} />
               <Button title="Add More" icon={FaPlus} onClick={handleAddMore} />
@@ -179,39 +229,24 @@ const AddPreferences = () => {
                 />
               )}
             </div>
-            <h1 className="text-secondary text-[18px] font-bold mt-4 text-center">
+
+            <h1 className="text-secondary text-center text-[18px] font-bold mt-4">
               Your Selected Subjects
             </h1>
-            <div className="grid grid-cols-3 mt-4 gap-2 text-center">
-              <div>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (a Levels)
-                </p>
-                <p className="text-[18px] font-medium text-[#696969]">(GCSE)</p>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (Alevel)
-                </p>
-              </div>
-              <div>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (Biology)
-                </p>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (Physics)
-                </p>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (Chemistry)
-                </p>
-              </div>
-              <div>
-                <p className="text-[18px] font-medium text-[#696969]">(AQA)</p>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (Edexcel)
-                </p>
-                <p className="text-[18px] font-medium text-[#696969]">
-                  (Edexcel)
-                </p>
-              </div>
+            <div className="grid grid-cols-[1fr_1fr_1fr] text-center mt-4">
+              {userPreferences?.data.map((item, index) => (
+                <div key={index}>
+                  <p className="text-[16px] text-[#696969] font-medium">
+                    {item.subjects.name}
+                  </p>
+                  <p className="text-[16px] text-[#696969] font-medium">
+                    {item.qualification.name}
+                  </p>
+                  <p className="text-[16px] text-[#696969] font-medium">
+                    {item.board?.name}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         )}

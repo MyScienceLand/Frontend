@@ -1,10 +1,11 @@
 import React from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Lock } from '../../assets/index';
 import Button from '../common/buttons/Button/Button';
 
 const ResetPasswordSuccess = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-6 bg-[var(--primary-color)] ">
       <img src={Lock} alt="Lock" className="w-28 h-28" />
@@ -16,7 +17,7 @@ const ResetPasswordSuccess = () => {
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
       <div className=" max-w-screen-sm w-full">
-        <Button title="Continue" />
+        <Button title="Continue" onClick={() => navigate('/login')} />
       </div>
       <Link
         to="/"

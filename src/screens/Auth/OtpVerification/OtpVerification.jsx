@@ -72,11 +72,19 @@ const OtpVerification = () => {
   }, [data, error]);
 
   const handelVerifyOtp = () => {
+    if (otp.join('') === '') {
+      ToastNotification.error('Please enter Valid OTP');
+      return false;
+    }
     const otpValue = otp.join('');
     postData({ otp: otpValue, email: user.email });
   };
 
   const handelForgetPasswordOtp = () => {
+    if (otp.join('') === '') {
+      ToastNotification.error('Please enter Valid OTP');
+      return false;
+    }
     const otpValue = otp.join('');
     dispatch(registerUser({ forgetPasswordOtp: otpValue }));
     navigate('/reset-password');

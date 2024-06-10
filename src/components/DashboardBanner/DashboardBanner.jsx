@@ -1,7 +1,7 @@
 import React from 'react';
 import { Student, StudentBg } from '../../assets/index';
 
-const DashboardBanner = () => {
+const DashboardBanner = ({ completedQuiz }) => {
   return (
     <div
       style={{
@@ -22,7 +22,7 @@ const DashboardBanner = () => {
           Hi, Martin
         </h1>
         <p className="text-[var(--primary-color)] text-[28px] font-bold leading-9 ">
-          You have complete 5 quiz in last ten days.
+          You have complete {completedQuiz} quiz in last ten days.
           <br /> Start Your learning today!
         </p>
       </div>

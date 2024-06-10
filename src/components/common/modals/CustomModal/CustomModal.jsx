@@ -6,14 +6,39 @@ import React from 'react';
 import '../../../../index.scss';
 import { modalStyle } from '../modal.style';
 
-const CustomModal = ({ open, onClose, title = '', children, width }) => {
+const CustomModal = ({
+  open,
+  onClose,
+  title = '',
+  children,
+  width,
+  isClosable,
+}) => {
+  const handleBackdropClick = (event) => {
+    if (!isClosable) {
+      event.stopPropagation();
+    } else {
+      onClose(event);
+    }
+  };
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleBackdropClick}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       style={{ overflow: 'scroll' }}
+      slotProps={{
+        backdrop: {
+          onClick: (event) => {
+            if (!isClosable) {
+              event.stopPropagation();
+            } else {
+              onClose(event);
+            }
+          },
+        },
+      }}
     >
       <Box sx={modalStyle(width)}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
