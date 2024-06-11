@@ -18,7 +18,12 @@ const StudentDashboard = () => {
     '/user-dashboard/completed-quiz-count/'
   );
   const { data: continueStudy } = useFetch('/user-dashboard/continue-study');
-
+  const { data: progress } = useFetch('/user-dashboard/progress');
+  const { data: barGraphData } = useFetch(
+    '/user-dashboard/learning-spent-time-graph'
+  );
+  const { data: subjectGraphData } = useFetch('/user-dashboard/subjects-graph');
+  const { data: feedbackData } = useFetch('/user-dashboard/feedback');
   const cardStyle = [
     {
       image: Physics,
@@ -37,7 +42,6 @@ const StudentDashboard = () => {
     const studyData = continueStudy?.data[index];
     return studyData ? { ...card, ...studyData } : card;
   });
-
   return (
     <div>
       <DashboardMenuSelector
@@ -46,10 +50,7 @@ const StudentDashboard = () => {
         selectedTopic={selectedTopic}
         setSelectedTopic={setSelectedTopic}
       />
-
-      {/* <ReportQuestion /> */}
       <DashboardBanner completedQuiz={completedQuiz?.data.completedQuiz} />
-
       <div>
         {continueStudy?.data.length > 0 ? (
           <DashboardSubjectCard cardsArray={cardsArray} />
@@ -57,16 +58,13 @@ const StudentDashboard = () => {
           <ContinueStudyingCard />
         )}
 
-        {/* table section */}
         <div className="grid grid-cols-[1fr_1fr] gap-6">
-          <CustomTableDashboard />
-          <BarChart />
+          <CustomTableDashboard progress={progress?.data} />
+          <BarChart barGraphData={barGraphData?.data} />
         </div>
-
-        {/* chart-sec */}
         <div className="grid grid-cols-[1fr_1fr] mt-5  gap-6">
-          <ApexChart />
-          <FeedBack />
+          <ApexChart subjectGraphData={subjectGraphData?.data} />
+          <FeedBack feedbackData={feedbackData?.data} />
         </div>
       </div>
     </div>

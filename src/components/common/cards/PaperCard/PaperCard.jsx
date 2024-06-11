@@ -33,7 +33,7 @@ const PaperCard = ({
                         <button
                           onClick={() => {
                             setTopicAndStartPaper(item._id);
-                            handelCreateQuiz();
+                            // handelCreateQuiz();
                           }}
                           key={index}
                           className="text-[16px] text-center py-4 text-[var(--primary-color)] border-opacity-50 border-b border-r border-[var(--primary-color)] font-medium last:border-r-0"

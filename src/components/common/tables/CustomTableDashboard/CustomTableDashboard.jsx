@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import { dashboardTablePeople } from '../../../../data/dashboard';
 import EmptyDataFields from '../../../EmptyDataFields/EmptyDataFields';
-export default function CustomTableDashboard() {
+export default function CustomTableDashboard({ progress }) {
   return (
     <>
       {dashboardTablePeople.length > 0 ? (
@@ -39,25 +39,26 @@ export default function CustomTableDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 bg-[var(--primary-color)]">
-                        {dashboardTablePeople.map((person, index) => (
-                          <tr key={index}>
-                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                              {person.subject}
-                            </td>
+                        {progress &&
+                          progress.map((person, index) => (
+                            <tr key={index}>
+                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                {person.subjectName}
+                              </td>
 
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              <Box sx={{ width: '80%' }}>
-                                <LinearProgress
-                                  variant="determinate"
-                                  value={3}
-                                />
-                              </Box>
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              {person.duration}
-                            </td>
-                          </tr>
-                        ))}
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <Box sx={{ width: '80%' }}>
+                                  <LinearProgress
+                                    variant="determinate"
+                                    value={person.progress}
+                                  />
+                                </Box>
+                              </td>
+                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                {person.duration}
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
@@ -67,10 +68,7 @@ export default function CustomTableDashboard() {
           </div>
         </div>
       ) : (
-        <EmptyDataFields
-          title={'Subject'}
-          message="Graph Data does not exist"
-        />
+        <EmptyDataFields title={'Subject'} message="Data does not exist" />
       )}
     </>
   );

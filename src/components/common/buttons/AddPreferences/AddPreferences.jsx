@@ -156,6 +156,12 @@ const AddPreferences = () => {
     }
   }, [userPreferences]);
   const token = localStorage.getItem('token');
+  const [displayQuizSummery, setDisplayQuizSummery] = useState(false);
+  useEffect(() => {
+    if (displayQuizSummery) {
+      handleClose();
+    }
+  }, [displayQuizSummery]);
 
   return (
     <>
@@ -173,11 +179,11 @@ const AddPreferences = () => {
         open={(token && userPreferences?.data?.length < 1) || modalOpen}
         onClose={handleClose}
         title="Add Your Preferences"
-        width={displayStartQuiz ? 400 : 600}
+        width={800}
         isClosable={userPreferences?.data?.length > 0}
       >
-        {displayStartQuiz ? (
-          <StartAttemptQuiz />
+        {displayStartQuiz || userPreferences?.data?.length == 3 ? (
+          <StartAttemptQuiz setDisplayQuizSummery={setDisplayQuizSummery} />
         ) : (
           <div>
             {preferences.map((preference, index) => (

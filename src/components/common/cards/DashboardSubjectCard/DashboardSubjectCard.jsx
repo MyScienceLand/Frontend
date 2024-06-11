@@ -2,15 +2,6 @@ import React from 'react';
 import { ProgressArrow } from '../../../../assets';
 
 const DashboardSubjectCard = ({ cardsArray }) => {
-  console.log(
-    '"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""'
-  );
-  console.log(cardsArray);
-
-  console.log(
-    '"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""'
-  );
-
   return (
     <>
       <div className="flex flex-wrap justify-between mt-6">

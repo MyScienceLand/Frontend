@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const DonutChart = () => {
+const DonutChart = ({ score, obtainedScore, totalScore }) => {
   const chartData = {
-    series: [41, 17, 15],
+    series: [score[0].totalAttempt, score[1].totalCorrect, score[2].totalWrong],
     options: {
       chart: {
         type: 'donut',
@@ -72,7 +72,9 @@ const DonutChart = () => {
           <div className="flex justify-start items-end">
             <h1 className="text-[18px] px-4 font-medium">Your Score</h1>
 
-            <button className="bg-[#1A202F] px-6 py-1 text-white">24/30</button>
+            <button className="bg-[#1A202F] px-6 py-1 text-white">
+              {obtainedScore}/{totalScore}
+            </button>
           </div>
         </div>
         <div id="chart" className="bg-[#ffffff]">

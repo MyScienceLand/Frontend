@@ -1,16 +1,53 @@
 import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
+import usePost from '../../hooks/usePost';
 import QuizComponent from '../QuizComponent/QuizComponent';
 import Button from '../common/buttons/Button/Button';
 
-const StartAttemptQuiz = () => {
+const StartAttemptQuiz = ({ setDisplayQuizSummery }) => {
   const [startQuiz, setStartQuiz] = useState(false);
+  const [selectedPreferencesData, setSelectedPreferencesData] = useState({
+    subjectId: '',
+    qualificationId: '',
+    boardLevelId: '',
+  });
 
   const { data, loading, error } = useFetch('/user-preferences');
+  const {
+    data: createPrimarilyQuizResponse,
+    loading: createPrimarilyLoading,
+    postData,
+  } = usePost('/quiz/create-Primilaryquiz');
+
+  const handelCreateAndStartQuiz = () => {
+    if (
+      selectedPreferencesData.subjectId === '' ||
+      selectedPreferencesData.qualificationId === '' ||
+      selectedPreferencesData.boardLevelId === ''
+    ) {
+      alert('Please select an option before starting the quiz.');
+      return;
+    }
+    postData(selectedPreferencesData);
+    setStartQuiz(true);
+  };
+
+  const {
+    data: quizQuestionData,
+    loading: questionLoading,
+    refetch: refetchQuestion,
+  } = useFetch(`/quiz/get-quiz/${createPrimarilyQuizResponse?.data.quizId}`);
+
   return (
     <>
-      {startQuiz ? (
-        <QuizComponent />
+      {startQuiz && !createPrimarilyLoading ? (
+        <QuizComponent
+          quizId={createPrimarilyQuizResponse?.data.quizId}
+          quizQuestionData={quizQuestionData?.data}
+          questionLoading={questionLoading}
+          refetchQuestion={refetchQuestion}
+          setDisplayQuizSummery={setDisplayQuizSummery}
+        />
       ) : (
         <div>
           <h1 className="text-[18px] font-medium">
@@ -43,6 +80,13 @@ const StartAttemptQuiz = () => {
                     name="subject"
                     value={item.subjects.name}
                     className="ml-6"
+                    onChange={() =>
+                      setSelectedPreferencesData({
+                        subjectId: item.subjectId,
+                        qualificationId: item.qualificationId,
+                        boardLevelId: item.boardId,
+                      })
+                    }
                   />
                 </div>
               ))}
@@ -51,7 +95,7 @@ const StartAttemptQuiz = () => {
             Please click on selected Subjects to attempting primarily Quiz
           </p>
           <div className="">
-            <Button title={'Start'} onClick={() => setStartQuiz(true)} />
+            <Button title={'Start'} onClick={handelCreateAndStartQuiz} />
           </div>
         </div>
       )}

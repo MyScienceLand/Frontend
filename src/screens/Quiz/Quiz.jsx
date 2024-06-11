@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import QuizComponent from '../../components/QuizComponent/QuizComponent';
+import QuizSummary from '../../components/QuizSummary/QuizSummary';
 import PaperCard from '../../components/common/cards/PaperCard/PaperCard';
 import { mapDataToSectionData } from '../../data/quiz';
 import useFetch from '../../hooks/useFetch';
@@ -23,48 +24,59 @@ function Quiz() {
   const { data: topicsData, loading, error } = useFetch(`/topics/${paperId}`);
   // console.log(topicAndStartPaper);
   const { data: quizData, postData } = usePost('/quiz/create-quiz');
-  useEffect(() => {
-    console.log('*********************************************');
-    console.log(quizData);
-    console.log('*********************************************');
-  }, [topicsData]);
+  // useEffect(() => {
+  //   console.log('*********************************************');
+  //   console.log(quizData?.data.quizId, 'In main quiz');
+  //   console.log('*********************************************');
+  // }, [quizData]);
+  // let topicId = '';
 
-  const handelCreateQuiz = () => {
-    postData({
-      subjectId: subjectId,
-      qualificationId: qualificationId,
-      boardLevelId: boardLevelId,
-      topicId: topicAndStartPaper,
-    });
-    // console.log(subjectId, qualificationId, boardLevelId, topicAndStartPaper);
-  };
-  console.log(
-    'subjet id = ',
-    subjectId,
-    'qualification id  =',
-    qualificationId,
-    'bord id=',
-    boardLevelId,
-    'topic id',
-    topicAndStartPaper
-  );
-  /**
-   * 
-   *  "subjectId": "665886c60e09c32300610779",
-  "qualificationId": "665886930e09c32300610778",
-  "boardLevelId": "665885d00e09c32300610775",
-  "topicId": "6658872f0e09c3230061077c"
-   */
+  // const handelCreateQuiz = () => {
+  //   topicId = topicAndStartPaper;
+  //   postData({
+  //     subjectId: subjectId,
+  //     qualificationId: qualificationId,
+  //     boardLevelId: boardLevelId,
+  //     topicId: topicId,
+  //   });
+  // };
+  useEffect(() => {
+    if (topicAndStartPaper) {
+      postData({
+        subjectId: subjectId,
+        qualificationId: qualificationId,
+        boardLevelId: boardLevelId,
+        topicId: topicAndStartPaper,
+      });
+    }
+  }, [topicAndStartPaper]);
+  const {
+    data: quizQuestionData,
+    loading: questionLoading,
+    refetch: refetchQuestion,
+  } = useFetch(`/quiz/get-quiz/${quizData?.data.quizId}`);
+  const [displayQuizSummery, setDisplayQuizSummery] = useState(false);
   return (
     <>
-      {topicAndStartPaper ? (
-        <QuizComponent topicAndStartPaper={topicAndStartPaper} />
+      {topicAndStartPaper && quizData?.data.quizId ? (
+        displayQuizSummery ? (
+          <QuizSummary quizId={quizData?.data.quizId} />
+        ) : (
+          <QuizComponent
+            topicAndStartPaper={topicAndStartPaper}
+            quizId={quizData?.data.quizId}
+            quizQuestionData={quizQuestionData?.data}
+            questionLoading={questionLoading}
+            refetchQuestion={refetchQuestion}
+            setDisplayQuizSummery={setDisplayQuizSummery}
+          />
+        )
       ) : selectPaper ? (
         <PaperCard
           topicArray={topicsData?.data}
           setTopicAndStartPaper={setTopicAndStartPaper}
           startQuiz={true}
-          handelCreateQuiz={handelCreateQuiz}
+          // handelCreateQuiz={handelCreateQuiz}
         />
       ) : (
         <div className="bg-white py-10">
