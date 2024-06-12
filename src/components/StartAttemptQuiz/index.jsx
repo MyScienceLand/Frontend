@@ -22,7 +22,7 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
     data: createPrimarilyQuizResponse,
     loading: createPrimarilyLoading,
     postData,
-  } = usePost('/quiz/create-PrimilaryQuiz');
+  } = usePost('/quiz/create-primilary-quiz');
 
   const handelCreateAndStartQuiz = () => {
     if (

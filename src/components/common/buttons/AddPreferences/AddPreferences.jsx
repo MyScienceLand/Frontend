@@ -208,7 +208,11 @@ const AddPreferences = () => {
         // open={modalOpen}
         open={(token && userPreferences?.data?.length < 1) || modalOpen}
         onClose={handleClose}
-        title={displayStartQuiz ? 'Start Quiz' : 'Select Your Preferences'}
+        title={
+          displayStartQuiz
+            ? 'Please Attempt Preliminary Quiz'
+            : 'Add your preferences'
+        }
         width={800}
         isClosable={isCloseAbleModal}
       >
@@ -269,24 +273,28 @@ const AddPreferences = () => {
               )}
             </div>
 
-            <h1 className="text-secondary text-center text-[18px] font-bold mt-4">
-              Your Selected Subjects
-            </h1>
-            <div className="grid grid-cols-[1fr_1fr_1fr] text-center mt-4">
-              {userPreferences?.data.map((item, index) => (
-                <div key={index}>
-                  <p className="text-[16px] text-[#696969] font-medium">
-                    {item.subjects.name}
-                  </p>
-                  <p className="text-[16px] text-[#696969] font-medium">
-                    {item.qualification.name}
-                  </p>
-                  <p className="text-[16px] text-[#696969] font-medium">
-                    {item.board?.name}
-                  </p>
+            {userPreferences?.data.length > 0 && (
+              <>
+                <h1 className="text-secondary text-center text-[18px] font-bold mt-4">
+                  Your Selected Subjects
+                </h1>
+                <div className="grid grid-cols-[1fr_1fr_1fr] text-center mt-4">
+                  {userPreferences?.data.map((item, index) => (
+                    <div key={index}>
+                      <p className="text-[16px] text-[#696969] font-medium">
+                        {item.subjects.name}
+                      </p>
+                      <p className="text-[16px] text-[#696969] font-medium">
+                        {item.qualification.name}
+                      </p>
+                      <p className="text-[16px] text-[#696969] font-medium">
+                        {item.board?.name}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         )}
       </CustomModal>
