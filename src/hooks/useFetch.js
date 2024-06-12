@@ -9,6 +9,11 @@ const useFetch = (endpoint, options = {}) => {
   const token = localStorage.getItem('token');
 
   const fetchData = useCallback(async () => {
+    // if token is null then return
+    if (token === null) {
+      return;
+    }
+
     setLoading(true);
     setError(null);
 

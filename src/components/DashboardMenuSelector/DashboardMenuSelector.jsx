@@ -2,9 +2,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import ToastNotification from '../ToastNotification/ToastNotification';
 
 const DashboardMenuSelector = ({
   selectedSubject,
@@ -44,11 +43,11 @@ const DashboardMenuSelector = ({
     setSelectedTopic(topic);
     handleCloseTopic();
   };
-  useEffect(() => {
-    if (topics?.data?.length < 1 && selectedSubject != '') {
-      ToastNotification.error(`No topics found against ${selectedSubject}`);
-    }
-  }, [topics]);
+  // useEffect(() => {
+  //   if (topics?.data?.length < 1 && selectedSubject != '') {
+  //     ToastNotification.error(`No topics found against ${selectedSubject}`);
+  //   }
+  // }, [topics]);
   return (
     <div className="flex gap-6 mb-6">
       <div>

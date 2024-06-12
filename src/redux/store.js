@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
-import counterReducer from './slices/counterSlice';
+import quizReducer from './slices/quizSlice';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
     auth: authReducer,
+    quiz: quizReducer,
   },
 });

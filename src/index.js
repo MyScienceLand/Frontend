@@ -20,7 +20,7 @@ root.render(
             <App />
           </BrowserRouter>
         </ThemeProvider>
-      </Provider>{' '}
+      </Provider>
     </CookiesProvider>
   </React.StrictMode>
 );

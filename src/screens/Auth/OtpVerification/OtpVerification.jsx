@@ -68,6 +68,7 @@ const OtpVerification = () => {
     const token = localStorage.getItem('token');
     if (token) {
       navigate('/');
+      window.location.reload();
     }
   }, [data, error]);
 

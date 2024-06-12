@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import usePost from '../../hooks/usePost';
-import QuizComponent from '../QuizComponent/QuizComponent';
+import { updateQuiz } from '../../redux/slices/quizSlice';
+import ToastNotification from '../ToastNotification/ToastNotification';
+import PreLoader from '../common/Preloader/PreLoader';
 import Button from '../common/buttons/Button/Button';
-
-const StartAttemptQuiz = ({ setDisplayQuizSummery }) => {
+const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
   const [startQuiz, setStartQuiz] = useState(false);
   const [selectedPreferencesData, setSelectedPreferencesData] = useState({
     subjectId: '',
     qualificationId: '',
     boardLevelId: '',
   });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { data, loading, error } = useFetch('/user-preferences');
   const {
     data: createPrimarilyQuizResponse,
     loading: createPrimarilyLoading,
     postData,
-  } = usePost('/quiz/create-Primilaryquiz');
+  } = usePost('/quiz/create-PrimilaryQuiz');
 
   const handelCreateAndStartQuiz = () => {
     if (
@@ -25,29 +30,38 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery }) => {
       selectedPreferencesData.qualificationId === '' ||
       selectedPreferencesData.boardLevelId === ''
     ) {
-      alert('Please select an option before starting the quiz.');
+      ToastNotification.warn(
+        'Please select an option before starting the quiz.'
+      );
       return;
     }
     postData(selectedPreferencesData);
-    setStartQuiz(true);
+
+    // if (createPrimarilyQuizResponse?.data.quizId) {
+    //   dispatch(
+    //     updateQuiz({
+    //       quizId: createPrimarilyQuizResponse?.data.quizId,
+    //     })
+    //   );
+    //   navigate('/primarily-quiz');
+    //   handleClose();
+    // }
   };
-
-  const {
-    data: quizQuestionData,
-    loading: questionLoading,
-    refetch: refetchQuestion,
-  } = useFetch(`/quiz/get-quiz/${createPrimarilyQuizResponse?.data.quizId}`);
-
+  useEffect(() => {
+    if (createPrimarilyQuizResponse?.data.quizId) {
+      dispatch(
+        updateQuiz({
+          quizId: createPrimarilyQuizResponse?.data.quizId,
+        })
+      );
+      navigate('/primarily-quiz');
+      handleClose();
+    }
+  }, [createPrimarilyQuizResponse]);
   return (
     <>
-      {startQuiz && !createPrimarilyLoading ? (
-        <QuizComponent
-          quizId={createPrimarilyQuizResponse?.data.quizId}
-          quizQuestionData={quizQuestionData?.data}
-          questionLoading={questionLoading}
-          refetchQuestion={refetchQuestion}
-          setDisplayQuizSummery={setDisplayQuizSummery}
-        />
+      {createPrimarilyLoading ? (
+        <PreLoader />
       ) : (
         <div>
           <h1 className="text-[18px] font-medium">
@@ -61,10 +75,10 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery }) => {
           <h1 className="text-[18px] my-4 font-medium">
             Your Selected Subjects
           </h1>
-          <div className="flex items-center mb-4 justify-between">
+          <div className="flex  mb-4 justify-start  gap-[33%]">
             {data &&
               data.data.map((item, index) => (
-                <div key={index}>
+                <div key={index} className="items-center">
                   <p className="text-[16px] text-[#696969] font-medium">
                     {item.subjects.name}
                   </p>

@@ -25,13 +25,28 @@ const AddPreferences = () => {
   const [subjectsData, setSubjectsData] = useState();
   const [qualificationsData, setQualificationsData] = useState();
   const [boardsData, setBoardsData] = useState();
+  const token = localStorage.getItem('token');
+  const [displayQuizSummery, setDisplayQuizSummery] = useState(false);
+  const [isCloseAbleModal, setIsCloseAbleModal] = useState(true);
 
   const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
-  const { data: userPreferences } = useFetch('/user-preferences');
-  const { data: qualifications, error: qualificationError } =
-    useFetch('/qualifications');
-  const { data: subjects, error: subjectError } = useFetch('/subject');
-  const { data: boards, error: boardsError } = useFetch('/boards');
+  const { data: userPreferences, refetch: refetchPreferences } =
+    useFetch('/user-preferences');
+  const {
+    data: qualifications,
+    error: qualificationError,
+    refetch: refetchQualifications,
+  } = useFetch('/qualifications');
+  const {
+    data: subjects,
+    error: subjectError,
+    refetch: refetchSubjects,
+  } = useFetch('/subject');
+  const {
+    data: boards,
+    error: boardsError,
+    refetch: refetchBoards,
+  } = useFetch('/boards');
   const {
     data: preferencesResponse,
     loading,
@@ -40,11 +55,17 @@ const AddPreferences = () => {
   } = usePost('/user-preferences/create');
   // const handleOpen = () => setModalOpen(true);
   const handleOpen = () => {
-    if (userPreferences?.data?.length > 0) {
+    refetchPreferences();
+    refetchQualifications();
+    refetchSubjects();
+    refetchBoards();
+    if (userPreferences) {
+      // if (userPreferences?.data?.length > 0) {
       setModalOpen(true);
-    } else {
-      // You can show a message to the user here if needed
-      console.log('Cannot open modal because userPreferences is empty.');
+      // } else {
+      //   // You can show a message to the user here if needed
+      //   alert('Cannot open modal because userPreferences is empty.');
+      // }
     }
   };
 
@@ -74,7 +95,6 @@ const AddPreferences = () => {
   const handleChange = (index, field, value) => {
     const newPreferences = [...preferences];
     newPreferences[index][field] = value;
-    // console.log(newPreferences);
     setPreferences(newPreferences);
   };
 
@@ -155,14 +175,24 @@ const AddPreferences = () => {
       setBoardsData(boards?.data);
     }
   }, [userPreferences]);
-  const token = localStorage.getItem('token');
-  const [displayQuizSummery, setDisplayQuizSummery] = useState(false);
   useEffect(() => {
     if (displayQuizSummery) {
       handleClose();
     }
   }, [displayQuizSummery]);
 
+  useEffect(() => {
+    if (token) {
+      refetchPreferences();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (userPreferences?.data?.length < 1) {
+      setModalOpen(true);
+      setIsCloseAbleModal(false);
+    }
+  }, [userPreferences]);
   return (
     <>
       <button
@@ -178,12 +208,15 @@ const AddPreferences = () => {
         // open={modalOpen}
         open={(token && userPreferences?.data?.length < 1) || modalOpen}
         onClose={handleClose}
-        title="Add Your Preferences"
+        title={displayStartQuiz ? 'Start Quiz' : 'Select Your Preferences'}
         width={800}
-        isClosable={userPreferences?.data?.length > 0}
+        isClosable={isCloseAbleModal}
       >
-        {displayStartQuiz || userPreferences?.data?.length == 3 ? (
-          <StartAttemptQuiz setDisplayQuizSummery={setDisplayQuizSummery} />
+        {displayStartQuiz ? (
+          <StartAttemptQuiz
+            setDisplayQuizSummery={setDisplayQuizSummery}
+            handleClose={handleClose}
+          />
         ) : (
           <div>
             {preferences.map((preference, index) => (

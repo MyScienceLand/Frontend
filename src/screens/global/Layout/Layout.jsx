@@ -2,6 +2,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
+import { useMatch } from 'react-router-dom';
 import ContentWarper from '../ContentWarper/ContentWarper';
 import Sidebar from '../Sidebar/Sidebar';
 import Topbar from '../Topbar/Topbar';
@@ -42,8 +43,10 @@ export default function Layout({
   toggleFullScreen,
   isFullScreen,
 }) {
+  const match = useMatch('/primarily-quiz');
+
   return (
-    <Box sx={{ display: display }}>
+    <Box sx={{ display: match ? 'none' : display }}>
       {!isFullScreen && (
         <>
           <AppBar position="fixed" open={open}>

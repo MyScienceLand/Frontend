@@ -14,6 +14,7 @@ import SignUp from './screens/Auth/SignUp/SignUp';
 import Content from './screens/Content/Content';
 import Dashboard from './screens/Dashboard/Dashboard';
 import Error404Page from './screens/Error404Page/Error404Page';
+import PrimarilyQuiz from './screens/PrimarilyQuiz/PrimarilyQuiz';
 import Quiz from './screens/Quiz/Quiz';
 import StartQuiz from './screens/StartQuiz/StartQuiz';
 import ContentWarper from './screens/global/ContentWarper/ContentWarper';
@@ -98,20 +99,24 @@ function App() {
           path="/otp-error"
           element={!token ? <OtpError /> : <Navigate to="/" />}
         />
+
         <Route
           path="/*"
           element={
             token ? (
-              <ContentWarper open={open}>
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/content" element={<Content />} />
-                  <Route path="/quiz" element={<Quiz />} />
-                  <Route path="/start-quiz" element={<StartQuiz />} />
-                  <Route path="*" element={<Error404Page />} />
-                </Routes>
-              </ContentWarper>
+              <>
+                <ContentWarper open={open}>
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/content" element={<Content />} />
+                    <Route path="/quiz" element={<Quiz />} />
+                    <Route path="/start-quiz" element={<StartQuiz />} />
+                    <Route path="/primarily-quiz" element={<PrimarilyQuiz />} />
+                    <Route path="*" element={<Error404Page />} />
+                  </Routes>
+                </ContentWarper>
+              </>
             ) : (
               <Navigate to="/login" />
             )

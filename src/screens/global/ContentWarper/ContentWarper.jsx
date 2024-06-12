@@ -1,15 +1,18 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { useMatch } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const ContentWrapper = ({ children, open, isFullScreen }) => {
   const theme = useTheme();
+  const match = useMatch('/primarily-quiz');
 
   return (
     <Box
       component="main"
       sx={{
+        // display: 'none',
         flexGrow: 1,
         p: 4,
         px: 7,
@@ -28,7 +31,7 @@ const ContentWrapper = ({ children, open, isFullScreen }) => {
       }}
       mt={5}
     >
-      {1 && (
+      {!match && (
         <Typography
           variant="h6"
           sx={{

@@ -69,6 +69,7 @@ function Quiz() {
             questionLoading={questionLoading}
             refetchQuestion={refetchQuestion}
             setDisplayQuizSummery={setDisplayQuizSummery}
+            isPreliminary={false}
           />
         )
       ) : selectPaper ? (

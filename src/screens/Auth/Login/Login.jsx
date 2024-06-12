@@ -278,6 +278,7 @@ const Login = () => {
       );
       setTimeout(() => {
         navigate('/dashboard');
+        window.location.reload();
       }, 10);
     }
   }, [data, navigate, error]);

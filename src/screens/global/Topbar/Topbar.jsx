@@ -4,7 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box, IconButton } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import { VscBellDot } from 'react-icons/vsc';
-import PreliminaryQuiz from '../../../components/PreliminaryQuiz/PreliminaryQuiz';
 import ThemeToggleButton from '../../../components/ThemeToggleButton/ThemeToggleButton';
 import UserProfile from '../../../components/UserProfile/UserProfile';
 import AddPreferences from '../../../components/common/buttons/AddPreferences/AddPreferences';
@@ -69,8 +68,6 @@ const Topbar = ({ handleDrawerOpen, open, isFullScreen, toggleFullScreen }) => {
         </IconButton>
       </Toolbar>
       <Box display="flex " sx={{ alignItems: 'center', gap: 2 }}>
-        {token && <PreliminaryQuiz />}
-
         <AddPreferences />
         <ThemeToggleButton />
         <IconButton onClick={toggleFullScreen}>
@@ -83,7 +80,7 @@ const Topbar = ({ handleDrawerOpen, open, isFullScreen, toggleFullScreen }) => {
           <span className="sr-only">View notifications</span>
           <VscBellDot className="h-6 w-6" aria-hidden="true" />
         </button>
-
+        {/* <Link to={'/primarily-quiz'}>Open quiz</Link> */}
         <UserProfile />
       </Box>
     </Box>
