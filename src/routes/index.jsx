@@ -21,6 +21,8 @@ import ManagmentDashboard from "../components/managment-dashboard";
 import CreateClass from "../components/create-class";
 import CreateUser from "../components/create-user";
 import TeacherList from "../components/teacher-list";
+import ManagmentSubject from "../components/managment-subjects";
+import CreateStudent from "../components/create-student";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -100,8 +102,16 @@ const routes = [
     element: <CreateUser />,
   },
   {
+    path: "/create-student",
+    element: <CreateStudent />,
+  },
+  {
     path: "/teacher-list",
     element: <TeacherList />,
+  },
+  {
+    path: "/managment-subject",
+    element: <ManagmentSubject />,
   },
 ];
 
