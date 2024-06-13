@@ -13,6 +13,7 @@ const CustomModal = ({
   children,
   width,
   isClosable,
+  displayCrossButton,
 }) => {
   const handleBackdropClick = (event) => {
     if (!isClosable) {
@@ -50,18 +51,20 @@ const CustomModal = ({
           >
             {title}
           </Typography>
-          <IconButton
-            onClick={onClose}
-            style={{
-              backgroundColor: 'var(--secondary-color)',
-              width: 12,
-              height: 12,
-              padding: 10,
-              marginRight: 10,
-            }}
-          >
-            <CloseIcon sx={{ width: 18, color: 'var(--primary-color)' }} />
-          </IconButton>
+          {displayCrossButton === false ? null : (
+            <IconButton
+              onClick={onClose}
+              style={{
+                backgroundColor: 'var(--secondary-color)',
+                width: 12,
+                height: 12,
+                padding: 10,
+                marginRight: 10,
+              }}
+            >
+              <CloseIcon sx={{ width: 18, color: 'var(--primary-color)' }} />
+            </IconButton>
+          )}
         </Box>
         <Divider />
         <Box mt={2} id="modal-modal-description" style={{ padding: 15 }}>

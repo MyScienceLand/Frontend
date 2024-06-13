@@ -4,13 +4,14 @@ import ToastNotification from '../../components/ToastNotification/ToastNotificat
 import PreLoader from '../../components/common/Preloader/PreLoader';
 import SubjectAndPaper from '../../components/common/cards/SubjectAndPaper/SubjectAndPaper';
 import useFetch from '../../hooks/useFetch';
+import { API_ROUTES } from '../../routes/apiRoutes';
 
 const Content = () => {
   const [openDetailsQuiz, setOpenDetailsQuiz] = useState(false);
   const [paperId, setPaperId] = useState('');
   const [subjectName, setSubjectName] = useState('');
   const [paperNumber, setPaperNumber] = useState('');
-  const { data, loading, error } = useFetch('/user-preferences');
+  const { data, loading, error } = useFetch(API_ROUTES.PREFERENCES);
 
   const classesArray = [
     [

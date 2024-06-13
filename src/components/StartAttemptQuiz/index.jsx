@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import usePost from '../../hooks/usePost';
 import { updateQuiz } from '../../redux/slices/quizSlice';
-import ToastNotification from '../ToastNotification/ToastNotification';
 import PreLoader from '../common/Preloader/PreLoader';
 import Button from '../common/buttons/Button/Button';
-const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
+
+const StartAttemptQuiz = ({
+  handleClose,
+  setDisplayStartQuiz,
+  clearPreferences,
+}) => {
   const [startQuiz, setStartQuiz] = useState(false);
   const [selectedPreferencesData, setSelectedPreferencesData] = useState({
     subjectId: '',
@@ -30,23 +34,14 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
       selectedPreferencesData.qualificationId === '' ||
       selectedPreferencesData.boardLevelId === ''
     ) {
-      ToastNotification.warn(
-        'Please select an option before starting the quiz.'
-      );
+      // ToastNotification.warn(
+      //   'Please select an option before starting the quiz.'
+      // );
       return;
     }
     postData(selectedPreferencesData);
-
-    // if (createPrimarilyQuizResponse?.data.quizId) {
-    //   dispatch(
-    //     updateQuiz({
-    //       quizId: createPrimarilyQuizResponse?.data.quizId,
-    //     })
-    //   );
-    //   navigate('/primarily-quiz');
-    //   handleClose();
-    // }
   };
+
   useEffect(() => {
     if (createPrimarilyQuizResponse?.data.quizId) {
       dispatch(
@@ -56,8 +51,21 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
       );
       navigate('/primarily-quiz');
       handleClose();
+      setDisplayStartQuiz(false);
+      clearPreferences();
     }
   }, [createPrimarilyQuizResponse]);
+  const isOptionSelected = Boolean(
+    selectedPreferencesData.subjectId &&
+      selectedPreferencesData.qualificationId &&
+      selectedPreferencesData.boardLevelId
+  );
+  // useEffect(() => {
+  //   if (data && data.data.some((item) => !item.isPrimilary)) {
+  //     setIsPreliminarily(true);
+  //   }
+  // }, [data]);
+
   return (
     <>
       {createPrimarilyLoading ? (
@@ -65,12 +73,12 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
       ) : (
         <div>
           <h1 className="text-[18px] font-medium">
-            Please Attempt Primarily Quiz
+            Please Attempt Preliminary Quiz
           </h1>
           <p className="text-[16px] text-start font-normal text-[#696969] mb-4 w-[500px]">
             Thank you for submitting your preferences! In order to ensure the
             best possible experience and tailor our offerings to your needs, we
-            kindly request that you attempt a preliminary quiz.{' '}
+            kindly request that you attempt a preliminary quiz.
           </p>
           <h1 className="text-[18px] my-4 font-medium">
             Your Selected Subjects
@@ -101,6 +109,7 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
                         boardLevelId: item.boardId,
                       })
                     }
+                    disabled={item.isPrimilary}
                   />
                 </div>
               ))}
@@ -109,7 +118,11 @@ const StartAttemptQuiz = ({ setDisplayQuizSummery, handleClose }) => {
             Please click on selected Subjects to attempting primarily Quiz
           </p>
           <div className="">
-            <Button title={'Start'} onClick={handelCreateAndStartQuiz} />
+            <Button
+              title={'Start'}
+              onClick={handelCreateAndStartQuiz}
+              disabled={!isOptionSelected}
+            />
           </div>
         </div>
       )}

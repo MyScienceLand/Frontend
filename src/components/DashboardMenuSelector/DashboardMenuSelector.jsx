@@ -14,7 +14,7 @@ const DashboardMenuSelector = ({
   const [anchorElSubjects, setAnchorElSubjects] = useState(null);
   const [anchorElTopic, setAnchorElTopic] = useState(null);
   const [subjectId, setSubjectId] = useState('');
-  const { data } = useFetch('/subject');
+  const { data } = useFetch('/user-preferences');
   const { data: topics } = useFetch(`/topics/find-by-subject-id/${subjectId}`);
 
   const handleClickSubjects = (event) => {
@@ -26,8 +26,8 @@ const DashboardMenuSelector = ({
   };
 
   const handleSelectSubject = (subject) => {
-    setSelectedSubject(subject.name);
-    setSubjectId(subject._id);
+    setSelectedSubject(subject.subjects.name);
+    setSubjectId(subject.subjectId);
     handleCloseSubjects();
   };
 
@@ -50,6 +50,7 @@ const DashboardMenuSelector = ({
   // }, [topics]);
   return (
     <div className="flex gap-6 mb-6">
+      {/* {JSON.stringify(data.data)} */}
       <div>
         <Button
           aria-controls="subjects-menu"
@@ -69,7 +70,7 @@ const DashboardMenuSelector = ({
         >
           {selectedSubject}
         </Button>
-        <Menu
+        {/* <Menu
           id="subjects-menu"
           anchorEl={anchorElSubjects}
           keepMounted
@@ -83,6 +84,23 @@ const DashboardMenuSelector = ({
                 onClick={() => handleSelectSubject(subject)}
               >
                 {subject.name}
+              </MenuItem>
+            ))}
+        </Menu> */}
+        <Menu
+          id="subjects-menu"
+          anchorEl={anchorElSubjects}
+          keepMounted
+          open={Boolean(anchorElSubjects)}
+          onClose={handleCloseSubjects}
+        >
+          {data &&
+            data.data.map((subject) => (
+              <MenuItem
+                key={subject.subjects.name}
+                onClick={() => handleSelectSubject(subject)}
+              >
+                {subject.subjects.name}
               </MenuItem>
             ))}
         </Menu>

@@ -6,6 +6,7 @@ import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import useFetch from '../../../../hooks/useFetch';
 import usePost from '../../../../hooks/usePost';
+import { API_ROUTES } from '../../../../routes/apiRoutes';
 import StartAttemptQuiz from '../../../StartAttemptQuiz';
 import ToastNotification from '../../../ToastNotification/ToastNotification';
 import Dropdown from '../../dropdowns/Dropdowns/Dropdown';
@@ -30,58 +31,53 @@ const AddPreferences = () => {
   const [isCloseAbleModal, setIsCloseAbleModal] = useState(true);
 
   const [displayStartQuiz, setDisplayStartQuiz] = useState(false);
-  const { data: userPreferences, refetch: refetchPreferences } =
-    useFetch('/user-preferences');
+  const { data: userPreferences, refetch: refetchPreferences } = useFetch(
+    API_ROUTES.PREFERENCES
+  );
   const {
     data: qualifications,
     error: qualificationError,
     refetch: refetchQualifications,
-  } = useFetch('/qualifications');
+  } = useFetch(API_ROUTES.QUALIFICATIONS);
   const {
     data: subjects,
     error: subjectError,
     refetch: refetchSubjects,
-  } = useFetch('/subject');
+  } = useFetch(API_ROUTES.SUBJECTS);
   const {
     data: boards,
     error: boardsError,
     refetch: refetchBoards,
-  } = useFetch('/boards');
+  } = useFetch(API_ROUTES.BOARDS);
   const {
     data: preferencesResponse,
     loading,
     error: preferencesError,
     postData,
-  } = usePost('/user-preferences/create');
-  // const handleOpen = () => setModalOpen(true);
+  } = usePost(API_ROUTES.CREATE_PREFERENCES);
   const handleOpen = () => {
     refetchPreferences();
     refetchQualifications();
     refetchSubjects();
     refetchBoards();
     if (userPreferences) {
-      // if (userPreferences?.data?.length > 0) {
       setModalOpen(true);
-      // } else {
-      //   // You can show a message to the user here if needed
-      //   alert('Cannot open modal because userPreferences is empty.');
-      // }
     }
   };
 
   const handleClose = () => setModalOpen(false);
-
   const handleAddMore = () => {
     if (preferences.length >= 3) {
       ToastNotification.error('You can only add up to three preferences.');
       return;
     }
+    const firstPreference = preferences[0];
     setPreferences([
       ...preferences,
       {
-        qualification: preferences[0].qualification,
+        qualification: firstPreference.qualification,
         subject: 'Please select Subject',
-        examBoard: preferences[0].examBoard,
+        examBoard: firstPreference.examBoard,
       },
     ]);
   };
@@ -187,12 +183,35 @@ const AddPreferences = () => {
     }
   }, [token]);
 
+  const [isPreliminarily, setIsPreliminarily] = useState(false);
+
   useEffect(() => {
-    if (userPreferences?.data?.length < 1) {
-      setModalOpen(true);
-      setIsCloseAbleModal(false);
+    if (
+      userPreferences &&
+      userPreferences.data.some((item) => !item.isPrimilary)
+    ) {
+      setIsPreliminarily(true);
     }
   }, [userPreferences]);
+  useEffect(() => {
+    if (userPreferences?.data?.length < 1 || isPreliminarily === true) {
+      setModalOpen(true);
+      setIsCloseAbleModal(false);
+      if (isPreliminarily === true) {
+        setDisplayStartQuiz(true);
+      }
+    }
+  }, [userPreferences, isPreliminarily]);
+  const clearPreferences = () => {
+    setPreferences([
+      {
+        qualification: 'Please select qualification',
+        subject: 'Please select Subject',
+        examBoard: 'Please select Board',
+      },
+    ]);
+  };
+
   return (
     <>
       <button
@@ -215,11 +234,15 @@ const AddPreferences = () => {
         }
         width={800}
         isClosable={isCloseAbleModal}
+        displayCrossButton={displayStartQuiz ? false : true}
       >
         {displayStartQuiz ? (
           <StartAttemptQuiz
             setDisplayQuizSummery={setDisplayQuizSummery}
             handleClose={handleClose}
+            setDisplayStartQuiz={setDisplayStartQuiz}
+            clearPreferences={clearPreferences}
+            setIsPreliminarily={setIsPreliminarily}
           />
         ) : (
           <div>
@@ -233,8 +256,8 @@ const AddPreferences = () => {
                   setValue={(value) =>
                     handleChange(index, 'qualification', value)
                   }
+                  disabled={index !== 0}
                 />
-
                 {subjectsData && (
                   <Dropdown
                     key={preference.subject}
@@ -249,12 +272,12 @@ const AddPreferences = () => {
                     setValue={(value) => handleChange(index, 'subject', value)}
                   />
                 )}
-
                 <Dropdown
                   title="Exam Board"
                   dropdownItems={boardsData}
                   value={preference.examBoard}
                   setValue={(value) => handleChange(index, 'examBoard', value)}
+                  disabled={index !== 0}
                 />
               </div>
             ))}

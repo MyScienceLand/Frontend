@@ -10,12 +10,15 @@ import Button from '../../../components/common/buttons/Button/Button';
 import { authLogoWidth } from '../../../constants';
 import usePost from '../../../hooks/usePost';
 import { registerUser } from '../../../redux/slices/authSlice';
+import { API_ROUTES } from '../../../routes/apiRoutes';
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6)?.fill(''));
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const { data, loading, error, postData } = usePost('/auth/verify/otp');
+  const { data, loading, error, postData } = usePost(
+    API_ROUTES.REGISTER_OTP_VERIFY
+  );
   const dispatch = useDispatch();
 
   const handleChange = (element, index) => {
@@ -90,7 +93,17 @@ const OtpVerification = () => {
     dispatch(registerUser({ forgetPasswordOtp: otpValue }));
     navigate('/reset-password');
   };
-
+  const { data: resentOtpResponse, postData: postDataForgetPassword } = usePost(
+    API_ROUTES.RESEND_OTP
+  );
+  const handelResendOtp = () => {
+    postDataForgetPassword({ email: user.email });
+  };
+  useEffect(() => {
+    if (resentOtpResponse) {
+      ToastNotification.success(resentOtpResponse?.data?.message);
+    }
+  }, [resentOtpResponse]);
   return (
     <section className="h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
@@ -134,12 +147,12 @@ const OtpVerification = () => {
             </div>
             <p className="text-[var(--text-color)] text-[14px] font-medium mb-5">
               Didn't get the code?
-              <Link
-                to={'/forgot-password'}
+              <button
+                onClick={handelResendOtp}
                 className="text-primary text-[14px] pl-2 font-medium"
               >
                 Resend
-              </Link>
+              </button>
             </p>
 
             <Button

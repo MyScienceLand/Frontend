@@ -2,36 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import EmptyDataFields from '../../EmptyDataFields/EmptyDataFields';
 
-// const generateDayWiseTimeSeries = (baseVal, count, yrange) => {
-//   let series = [];
-//   let x = baseVal;
-//   let y =
-//     Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-//   for (let i = 0; i < count; i++) {
-//     series.push([x, y]);
-//     x += 86400000; // Increment by one day
-//     y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-//   }
-
-//   return series;
-// };
-
 const ApexChart = ({ subjectGraphData }) => {
-  console.log(subjectGraphData);
-  // const [series] = useState([
-  //   {
-  //     name: 'Central',
-  //     data: generateDayWiseTimeSeries(
-  //       new Date('11 Feb 2017 GMT').getTime(),
-  //       20,
-  //       {
-  //         min: 10,
-  //         max: 15,
-  //       }
-  //     ),
-  //   },
-  // ]);
   const [series, setSeries] = useState(subjectGraphData?.series || []);
 
   useEffect(() => {
@@ -71,7 +42,6 @@ const ApexChart = ({ subjectGraphData }) => {
       type: 'datetime',
     },
   });
-  console.log(series);
   return (
     <>
       {series.length > 0 ? (

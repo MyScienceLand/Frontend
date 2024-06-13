@@ -1,6 +1,5 @@
 import React from 'react';
-import { HiArrowLongLeft } from 'react-icons/hi2';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Lock } from '../../assets/index';
 import Button from '../common/buttons/Button/Button';
 
@@ -19,13 +18,13 @@ const ResetPasswordSuccess = () => {
       <div className=" max-w-screen-sm w-full">
         <Button title="Continue" onClick={() => navigate('/login')} />
       </div>
-      <Link
+      {/* <Link
         to="/"
         className="flex items-center gap-2 mt-4 text-[var(--secondary-color)] cursor-pointer"
       >
         <HiArrowLongLeft />
         Back To New Login
-      </Link>
+      </Link> */}
     </div>
   );
 };

@@ -10,10 +10,11 @@ import Button from '../../../components/common/buttons/Button/Button';
 import { authLogoWidth } from '../../../constants';
 import { resetFormInputs } from '../../../data';
 import usePost from '../../../hooks/usePost';
+import { API_ROUTES } from '../../../routes/apiRoutes';
 import { formSchema } from '../../../utils/helper/Schema';
 
 const ResetPasswordForm = () => {
-  const { data, loading, error, postData } = usePost('/auth/resetPassword');
+  const { data, loading, error, postData } = usePost(API_ROUTES.RESET_PASSWORD);
   const [displaySuccessMessage, setDisplaySuccessMessage] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const formik = useFormik({

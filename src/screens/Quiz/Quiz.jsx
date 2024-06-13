@@ -6,6 +6,7 @@ import PaperCard from '../../components/common/cards/PaperCard/PaperCard';
 import { mapDataToSectionData } from '../../data/quiz';
 import useFetch from '../../hooks/useFetch';
 import usePost from '../../hooks/usePost';
+import { API_ROUTES } from '../../routes/apiRoutes';
 
 function Quiz() {
   const [paperId, setPaperId] = useState('');
@@ -15,31 +16,19 @@ function Quiz() {
   const [qualificationId, setQualificationId] = useState('');
   const [boardLevelId, setBoardLevelId] = useState('');
 
-  const { data } = useFetch('/user-preferences');
+  const { data } = useFetch(API_ROUTES.PREFERENCES);
   const sectionData = data ? mapDataToSectionData(data.data) : [];
   const handleSelectPaper = (paper) => {
     setSelectPaper(true);
     setPaperId(paper);
   };
-  const { data: topicsData, loading, error } = useFetch(`/topics/${paperId}`);
-  // console.log(topicAndStartPaper);
-  const { data: quizData, postData } = usePost('/quiz/create-quiz');
-  // useEffect(() => {
-  //   console.log('*********************************************');
-  //   console.log(quizData?.data.quizId, 'In main quiz');
-  //   console.log('*********************************************');
-  // }, [quizData]);
-  // let topicId = '';
+  const {
+    data: topicsData,
+    loading,
+    error,
+  } = useFetch(API_ROUTES.TOPICS(paperId));
+  const { data: quizData, postData } = usePost(API_ROUTES.CREATE_QUIZ);
 
-  // const handelCreateQuiz = () => {
-  //   topicId = topicAndStartPaper;
-  //   postData({
-  //     subjectId: subjectId,
-  //     qualificationId: qualificationId,
-  //     boardLevelId: boardLevelId,
-  //     topicId: topicId,
-  //   });
-  // };
   useEffect(() => {
     if (topicAndStartPaper) {
       postData({
@@ -100,7 +89,6 @@ function Quiz() {
                     setSubjectId(item.subjectId);
                     setQualificationId(item.qualificationId);
                     setBoardLevelId(item.boardLevelId);
-                    console.log(item);
                   }}
                 >
                   {paper.name}
