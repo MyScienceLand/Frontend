@@ -81,7 +81,8 @@ export default function Sidebar() {
     pathName.includes("/create-class") ||
     pathName.includes("/create-user") ||
     pathName.includes("/teacher-list") ||
-    pathName.includes("/create-student");
+    pathName.includes("/create-student") ||
+    pathName.includes("/select-class");
   const shouldRenderNavBar =
     pathName.includes("/student-dashboard") ||
     pathName.includes("/course-content") ||
@@ -94,7 +95,8 @@ export default function Sidebar() {
     pathName.includes("/create-class") ||
     pathName.includes("/create-user") ||
     pathName.includes("/teacher-list") ||
-    pathName.includes("/create-student");
+    pathName.includes("/create-student") ||
+    pathName.includes("/select-class");
   const SidebarColor = pathName.includes("/managment-classes");
   return (
     <>
@@ -342,7 +344,8 @@ export default function Sidebar() {
             pathName.includes("/create-class") ||
             pathName.includes("/create-user") ||
             pathName.includes("/teacher-list") ||
-            pathName.includes("/create-student")
+            pathName.includes("/create-student") ||
+            pathName.includes("/select-class")
               ? "lg:pl-72"
               : null
           }`}

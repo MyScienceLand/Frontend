@@ -23,6 +23,8 @@ import CreateUser from "../components/create-user";
 import TeacherList from "../components/teacher-list";
 import ManagmentSubject from "../components/managment-subjects";
 import CreateStudent from "../components/create-student";
+import SelectClass from "../components/select-class";
+import ChooseClass from "../components/choose-class";
 
 const Contact = lazy(() => import("../pages/login"));
 const SignUp = lazy(() => import("../pages/signup"));
@@ -112,6 +114,14 @@ const routes = [
   {
     path: "/managment-subject",
     element: <ManagmentSubject />,
+  },
+  {
+    path: "/select-class",
+    element: <SelectClass />,
+  },
+  {
+    path: "/choose-class",
+    element: <ChooseClass />,
   },
 ];
 

@@ -35,10 +35,8 @@ const Dropdown = ({ dropdownItems, label }) => {
 
   return (
     <div>
-      <label className="px-4 text-[16px] font-medium text-[#2a2a2a]">
-        {label}
-      </label>
-      <div className="p-4 sm:p-6 xl:p-2">
+      <label className=" text-[16px] font-medium text-[#2a2a2a]">{label}</label>
+      <div className="py-2">
         <div className="relative mb-50">
           <Link
             ref={trigger}

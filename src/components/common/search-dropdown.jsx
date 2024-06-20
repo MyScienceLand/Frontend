@@ -42,7 +42,7 @@ const SearchDropdown = () => {
   return (
     <div className="">
       <button
-        className="w-full px-4 text-start text-white bg-primary py-2 bg-gray-300 rounded"
+        className="w-full px-4 text-start text-white bg-primary py-3 bg-gray-300 rounded"
         onClick={() => setIsOpen(!isOpen)}
       >
         Dropdown Search
