@@ -42,7 +42,7 @@ const Dropdown = ({ dropdownItems, label }) => {
             ref={trigger}
             onClick={() => setDropdownOpen(!dropdownOpen)}
             to="#"
-            className="inline-flex justify-between items-center gap-2.5 r bg-transparent   border border-[#696969] py-3 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90"
+            className="inline-flex justify-between items-center gap-2.5 r bg-transparent   border border-[#696969] border-opacity-55 py-3 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90"
           >
             Please select qualification
             <svg
@@ -71,7 +71,7 @@ const Dropdown = ({ dropdownItems, label }) => {
             ref={dropdown}
             onFocus={() => setDropdownOpen(true)}
             onBlur={() => setDropdownOpen(false)}
-            className={`absolute left-0 top-full z-40 mt-2 w-full rounded-md border border-stroke bg-white py-3 shadow-card dark:border-strokedark dark:bg-boxdark ${
+            className={`absolute left-0 top-full z-40 mt-2 w-full rounded-lg border border-[#696969] border-opacity-55  bg-white py-3 shadow-card  ${
               dropdownOpen ? "block" : "hidden"
             }`}
           >

@@ -39,6 +39,7 @@ const CreateClass = () => {
             <input
               className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
               placeholder="Start Date"
+              type="date"
             />{" "}
           </div>
           <div className="flex flex-col justify-center">
@@ -48,6 +49,7 @@ const CreateClass = () => {
             <input
               className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
               placeholder="End Date"
+              type="date"
             />{" "}
           </div>
           <Dropdown dropdownItems={dropdownItems} label="Start Date" />
