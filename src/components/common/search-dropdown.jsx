@@ -3,18 +3,10 @@ import { student } from "../../assets";
 
 const teachers = [
   { id: 1, name: "John Doe", image: student },
-  { id: 1, name: "Sher jan", image: student },
-
-  { id: 1, name: "John Doe", image: student },
-
-  { id: 1, name: "John Doe", image: student },
-
-  { id: 1, name: "John Doe", image: student },
-
-  { id: 1, name: "John Doe", image: student },
-
-  { id: 1, name: "John Doe", image: student },
-
+  { id: 2, name: "Sher Jan", image: student },
+  { id: 3, name: "Jane Doe", image: student },
+  { id: 4, name: "Alice Smith", image: student },
+  { id: 5, name: "Bob Johnson", image: student },
   // Add more teachers as needed
 ];
 
@@ -40,7 +32,7 @@ const SearchDropdown = () => {
   );
 
   return (
-    <div className="">
+    <div className="relative">
       <button
         className="w-full px-4 text-start text-white bg-primary py-3 bg-gray-300 rounded"
         onClick={() => setIsOpen(!isOpen)}
@@ -48,7 +40,7 @@ const SearchDropdown = () => {
         Dropdown Search
       </button>
       {isOpen && (
-        <div className=" w-full mt-1 bg-white border border-gray-300 rounded shadow-lg">
+        <div className="absolute w-full mt-1 bg-white border border-gray-300 rounded shadow-lg z-10">
           <input
             type="text"
             className="w-full px-4 py-2 border-b border-gray-300"

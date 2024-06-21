@@ -28,6 +28,11 @@ const CreateClass = () => {
 
   return (
     <>
+      <div className="flex justify-end mr-4 mb-6 mt-6">
+        <button className="px-6 py-2 text-white bg-primary  bg-gray-300">
+          Create Class
+        </button>
+      </div>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <div className="grid grid-cols-2 gap-6">
           <Dropdown dropdownItems={dropdownItems} label="Qualification" />
@@ -37,7 +42,7 @@ const CreateClass = () => {
               Start Date{" "}
             </label>
             <input
-              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
+              className="border h-10  px-2 py-6  border-[#696969] border-opacity-55 rounded-md"
               placeholder="Start Date"
               type="date"
             />{" "}
@@ -47,7 +52,7 @@ const CreateClass = () => {
               End Date{" "}
             </label>
             <input
-              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
+              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-md"
               placeholder="End Date"
               type="date"
             />{" "}
@@ -57,7 +62,7 @@ const CreateClass = () => {
           <Upload />
           <SearchDropdown />
         </div>
-        <h1 className="text-[20px] font-medium mt-6">
+        <h1 className="text-[20px] font-medium mt-20">
           Select Subject And Teacher
         </h1>
         <div className="grid grid-cols-2 gap-6 mt-4">
@@ -66,7 +71,7 @@ const CreateClass = () => {
               Subject{" "}
             </label>
             <input
-              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
+              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-md"
               placeholder="Chemistry"
             />{" "}
           </div>
@@ -86,7 +91,7 @@ const CreateClass = () => {
               Subject{" "}
             </label>
             <input
-              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
+              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-md"
               placeholder="Chemistry"
             />{" "}
           </div>
@@ -95,7 +100,7 @@ const CreateClass = () => {
       </div>
 
       <div className="flex justify-center mt-6">
-        <button className="px-4 py-2 text-white bg-primary rounded bg-gray-300">
+        <button className="px-6 py-2 text-white bg-primary bg-gray-300">
           Continue
         </button>
       </div>

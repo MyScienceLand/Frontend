@@ -42,7 +42,7 @@ const Dropdown = ({ dropdownItems, label }) => {
             ref={trigger}
             onClick={() => setDropdownOpen(!dropdownOpen)}
             to="#"
-            className="inline-flex justify-between items-center gap-2.5 r bg-transparent   border border-[#696969] border-opacity-55 py-3 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90"
+            className="inline-flex justify-between items-center gap-2.5  bg-transparent rounded-md   border border-[#696969] border-opacity-55 py-3 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90"
           >
             Please select qualification
             <svg
