@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import usePost from '../../hooks/usePost';
 import { updateQuiz } from '../../redux/slices/quizSlice';
+import ToastNotification from '../ToastNotification/ToastNotification';
 import PreLoader from '../common/Preloader/PreLoader';
 import Button from '../common/buttons/Button/Button';
 
@@ -26,6 +27,7 @@ const StartAttemptQuiz = ({
     data: createPrimarilyQuizResponse,
     loading: createPrimarilyLoading,
     postData,
+    error: createQuizError,
   } = usePost('/quiz/create-primilary-quiz');
 
   const handelCreateAndStartQuiz = () => {
@@ -49,10 +51,13 @@ const StartAttemptQuiz = ({
           quizId: createPrimarilyQuizResponse?.data.quizId,
         })
       );
-      navigate('/primarily-quiz');
+      navigate('/student-dashboard/primarily-quiz');
       handleClose();
       setDisplayStartQuiz(false);
       clearPreferences();
+    }
+    if (createQuizError) {
+      ToastNotification.error(createQuizError);
     }
   }, [createPrimarilyQuizResponse]);
   const isOptionSelected = Boolean(
@@ -115,7 +120,7 @@ const StartAttemptQuiz = ({
               ))}
           </div>
           <p className="text-[18px] font-medium mb-5">
-            Please click on selected Subjects to attempting primarily Quiz
+            Please click on selected Subjects to attempting preliminary Quiz
           </p>
           <div className="">
             <Button

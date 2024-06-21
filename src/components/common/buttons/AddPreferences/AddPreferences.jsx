@@ -3,18 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import { MdDelete } from 'react-icons/md';
+import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useFetch from '../../../../hooks/useFetch';
 import usePost from '../../../../hooks/usePost';
 import { API_ROUTES } from '../../../../routes/apiRoutes';
 import StartAttemptQuiz from '../../../StartAttemptQuiz';
 import ToastNotification from '../../../ToastNotification/ToastNotification';
+import PreLoader from '../../Preloader/PreLoader';
 import Dropdown from '../../dropdowns/Dropdowns/Dropdown';
 import CustomModal from '../../modals/CustomModal/CustomModal';
 import Button from '../Button/Button';
 import { dividerStyle } from './style';
 
 const AddPreferences = () => {
+  const location = useLocation();
   const [preferences, setPreferences] = useState([
     {
       qualification: 'Please select qualification',
@@ -43,6 +46,7 @@ const AddPreferences = () => {
     data: subjects,
     error: subjectError,
     refetch: refetchSubjects,
+    loading: subjectsLoading,
   } = useFetch(API_ROUTES.SUBJECTS);
   const {
     data: boards,
@@ -66,6 +70,22 @@ const AddPreferences = () => {
   };
 
   const handleClose = () => setModalOpen(false);
+  // const handleAddMore = () => {
+  //   if (preferences.length >= 3) {
+  //     ToastNotification.error('You can only add up to three preferences.');
+  //     return;
+  //   }
+  //   const firstPreference = preferences[0];
+  //   setPreferences([
+  //     ...preferences,
+  //     {
+  //       qualification: firstPreference.qualification,
+  //       subject: 'Please select Subject',
+  //       examBoard: firstPreference.examBoard,
+  //     },
+  //   ]);
+  // };
+
   const handleAddMore = () => {
     if (preferences.length >= 3) {
       ToastNotification.error('You can only add up to three preferences.');
@@ -80,6 +100,7 @@ const AddPreferences = () => {
         examBoard: firstPreference.examBoard,
       },
     ]);
+    setIsDisabled(true);
   };
 
   const handleReducePreferences = (index) => {
@@ -88,9 +109,19 @@ const AddPreferences = () => {
     }
   };
 
+  // const handleChange = (index, field, value) => {
+  //   const newPreferences = [...preferences];
+  //   newPreferences[index][field] = value;
+  //   setPreferences(newPreferences);
+  // };
   const handleChange = (index, field, value) => {
     const newPreferences = [...preferences];
     newPreferences[index][field] = value;
+    if (index === 0) {
+      newPreferences.forEach((pref) => {
+        pref[field] = value;
+      });
+    }
     setPreferences(newPreferences);
   };
 
@@ -135,6 +166,7 @@ const AddPreferences = () => {
     }));
     postData(payload);
   };
+
   useEffect(() => {
     if (userPreferences?.data?.length > 0) {
       const userPreferenceSubjectIds = userPreferences.data.map(
@@ -171,6 +203,7 @@ const AddPreferences = () => {
       setBoardsData(boards?.data);
     }
   }, [userPreferences]);
+
   useEffect(() => {
     if (displayQuizSummery) {
       handleClose();
@@ -193,6 +226,7 @@ const AddPreferences = () => {
       setIsPreliminarily(true);
     }
   }, [userPreferences]);
+
   useEffect(() => {
     if (userPreferences?.data?.length < 1 || isPreliminarily === true) {
       setModalOpen(true);
@@ -202,6 +236,7 @@ const AddPreferences = () => {
       }
     }
   }, [userPreferences, isPreliminarily]);
+
   const clearPreferences = () => {
     setPreferences([
       {
@@ -212,20 +247,34 @@ const AddPreferences = () => {
     ]);
   };
 
+  // Function to get the available subjects for a specific preference
+  const getAvailableSubjects = (index) => {
+    const selectedSubjects = new Set(preferences.map((pref) => pref.subject));
+    return subjectsData.filter(
+      (subject) =>
+        !selectedSubjects.has(subject._id) ||
+        preferences[index].subject === subject._id
+    );
+  };
+  const [isDisabled, setIsDisabled] = useState(false);
+  const route = location.pathname.split('/')[1];
+
   return (
     <>
       <button
         onClick={handleOpen}
         type="button"
-        className="-m-2.5 px-8 h-10 flex justify-center gap-2 items-center bg-[var(--accent-color)] text-[var(--primary-color)]  hover:text-gray-500 rounded-md"
+        className="-m-2.5 px-8 h-10 flex justify-center gap-2 items-center bg-[var(--accent-color)] text-[var(--primary-color)] hover:text-gray-500 rounded-md"
       >
         <IoAddCircleOutline />
         Add Preferences
       </button>
 
       <CustomModal
-        // open={modalOpen}
-        open={(token && userPreferences?.data?.length < 1) || modalOpen}
+        open={
+          ((token && userPreferences?.data?.length < 1) || modalOpen) &&
+          route === 'student-dashboard'
+        }
         onClose={handleClose}
         title={
           displayStartQuiz
@@ -234,6 +283,7 @@ const AddPreferences = () => {
         }
         width={800}
         isClosable={isCloseAbleModal}
+        // isClosable={true}
         displayCrossButton={displayStartQuiz ? false : true}
       >
         {displayStartQuiz ? (
@@ -245,80 +295,92 @@ const AddPreferences = () => {
             setIsPreliminarily={setIsPreliminarily}
           />
         ) : (
-          <div>
-            {preferences.map((preference, index) => (
-              <div key={index} className="flex flex-col justify-start">
-                {index > 0 && <Divider sx={dividerStyle} />}
-                <Dropdown
-                  title="Qualification"
-                  dropdownItems={qualificationsData}
-                  value={preference.qualification}
-                  setValue={(value) =>
-                    handleChange(index, 'qualification', value)
-                  }
-                  disabled={index !== 0}
-                />
-                {subjectsData && (
-                  <Dropdown
-                    key={preference.subject}
-                    title="Subjects"
-                    dropdownItems={subjectsData.filter(
-                      (subject) =>
-                        !preferences
-                          .slice(0, index)
-                          .some((pref) => pref.subject === subject.name)
+          <>
+            {subjectsLoading ? (
+              <PreLoader />
+            ) : (
+              <div>
+                {preferences.map((preference, index) => (
+                  <div key={index} className="flex flex-col justify-start">
+                    {index > 0 && <Divider sx={dividerStyle} />}
+                    <Dropdown
+                      title="Qualification"
+                      dropdownItems={qualificationsData}
+                      value={preference.qualification}
+                      setValue={(value) =>
+                        handleChange(index, 'qualification', value)
+                      }
+                      // disabled={index !== 0}
+                      // disabled={isDisabled}
+                      disabled={index !== 0 ? isDisabled : false}
+                    />
+                    {subjectsData && (
+                      <Dropdown
+                        key={preference.subject}
+                        title="Subjects"
+                        dropdownItems={getAvailableSubjects(index)}
+                        value={preference.subject}
+                        setValue={(value) =>
+                          handleChange(index, 'subject', value)
+                        }
+                      />
                     )}
-                    value={preference.subject}
-                    setValue={(value) => handleChange(index, 'subject', value)}
+                    <Dropdown
+                      title="Exam Board"
+                      dropdownItems={boardsData}
+                      value={preference.examBoard}
+                      setValue={(value) =>
+                        handleChange(index, 'examBoard', value)
+                      }
+                      disabled={index !== 0 ? isDisabled : false}
+                      // disabled={isDisabled}
+                    />
+                  </div>
+                ))}
+
+                <div className="flex justify-center flex-col gap-4 mt-4">
+                  <Button title="Submit" onClick={handleSubmit} />
+                  <Button
+                    title="Add More"
+                    icon={FaPlus}
+                    onClick={handleAddMore}
                   />
-                )}
-                <Dropdown
-                  title="Exam Board"
-                  dropdownItems={boardsData}
-                  value={preference.examBoard}
-                  setValue={(value) => handleChange(index, 'examBoard', value)}
-                  disabled={index !== 0}
-                />
-              </div>
-            ))}
-
-            <div className="flex justify-center flex-col gap-4 mt-4">
-              <Button title="Submit" onClick={handleSubmit} />
-              <Button title="Add More" icon={FaPlus} onClick={handleAddMore} />
-              {preferences.length > 1 && (
-                <Button
-                  title="Delete Last"
-                  icon={MdDelete}
-                  onClick={() =>
-                    handleReducePreferences(preferences.length - 1)
-                  }
-                />
-              )}
-            </div>
-
-            {userPreferences?.data.length > 0 && (
-              <>
-                <h1 className="text-secondary text-center text-[18px] font-bold mt-4">
-                  Your Selected Subjects
-                </h1>
-                <div className="grid grid-cols-[1fr_1fr_1fr] text-center mt-4">
-                  {userPreferences?.data.map((item, index) => (
-                    <div key={index}>
-                      <p className="text-[16px] text-[#696969] font-medium">
-                        {item.subjects.name}
-                      </p>
-                      <p className="text-[16px] text-[#696969] font-medium">
-                        {item.qualification.name}
-                      </p>
-                      <p className="text-[16px] text-[#696969] font-medium">
-                        {item.board?.name}
-                      </p>
-                    </div>
-                  ))}
+                  {preferences.length > 1 && (
+                    <Button
+                      title="Delete Last"
+                      icon={MdDelete}
+                      onClick={() =>
+                        handleReducePreferences(preferences.length - 1)
+                      }
+                    />
+                  )}
                 </div>
-              </>
+
+                {userPreferences?.data.length > 0 && (
+                  <>
+                    <h1 className="text-secondary text-center text-[18px] font-bold mt-4">
+                      Your Selected Subjects
+                    </h1>
+                    <div className="grid grid-cols-[1fr_1fr_1fr] text-center mt-4">
+                      {userPreferences?.data.map((item, index) => (
+                        <div key={index}>
+                          <p className="text-[16px] text-[#696969] font-medium">
+                            {item.subjects.name}
+                          </p>
+                          <p className="text-[16px] text-[#696969] font-medium">
+                            {item.qualification.name}
+                          </p>
+                          <p className="text-[16px] text-[#696969] font-medium">
+                            {item.board?.name}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
       </CustomModal>
     </>

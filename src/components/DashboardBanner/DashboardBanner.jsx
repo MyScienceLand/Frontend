@@ -1,7 +1,7 @@
 import React from 'react';
 import { Student, StudentBg } from '../../assets/index';
 
-const DashboardBanner = ({ completedQuiz }) => {
+const DashboardBanner = ({ completedQuiz, userData }) => {
   return (
     <div
       style={{
@@ -19,7 +19,7 @@ const DashboardBanner = ({ completedQuiz }) => {
     >
       <div>
         <h1 className="text-[var(--primary-color)] text-[42px] font-bold ">
-          Hi, Martin
+          {`${userData?.firstName} ${userData?.lastName}`}
         </h1>
         <p className="text-[var(--primary-color)] text-[28px] font-bold leading-9 ">
           You have complete {completedQuiz} quiz in last ten days.

@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
+import { API_ROUTES } from '../../routes/apiRoutes';
 
 const DashboardMenuSelector = ({
   selectedSubject,
@@ -14,8 +15,10 @@ const DashboardMenuSelector = ({
   const [anchorElSubjects, setAnchorElSubjects] = useState(null);
   const [anchorElTopic, setAnchorElTopic] = useState(null);
   const [subjectId, setSubjectId] = useState('');
-  const { data } = useFetch('/user-preferences');
-  const { data: topics } = useFetch(`/topics/find-by-subject-id/${subjectId}`);
+  const { data } = useFetch(API_ROUTES.PREFERENCES);
+  const { data: topics } = useFetch(
+    API_ROUTES.TOPICS_FIND_BY_SUBJECT_ID(subjectId)
+  );
 
   const handleClickSubjects = (event) => {
     setAnchorElSubjects(event.currentTarget);

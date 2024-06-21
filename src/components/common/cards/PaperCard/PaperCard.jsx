@@ -4,7 +4,7 @@ const PaperCard = ({
   topicArray,
   setTopicAndStartPaper,
   subjectName,
-  paperNumber,
+  paperName,
   setPdf,
   startQuiz,
   handelCreateQuiz,
@@ -22,7 +22,7 @@ const PaperCard = ({
               </div>
               <div className="bg-[var(--primary-color)] py-2">
                 <div className="text-[18px] font-medium text-secondary text-center">
-                  {paperNumber}
+                  {paperName}
                 </div>
               </div>
               <div className="grid grid-cols-3 py-2 bg-[var(--secondary-color)]">

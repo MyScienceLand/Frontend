@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   JoinUs,
   PurpleLogoWithText,
-  SignUpImage,
+  SignUpSlider,
   signUpBg,
 } from '../../../assets';
 import ToastNotification from '../../../components/ToastNotification/ToastNotification';
@@ -29,9 +29,9 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imagesData = [
-    { avatar: SignUpImage },
+    { avatar: SignUpSlider },
     { avatar: JoinUs },
-    { avatar: SignUpImage },
+    { avatar: SignUpSlider },
   ];
 
   const formik = useFormik({
@@ -225,7 +225,7 @@ const SignUp = () => {
           paddingRight: '164px',
         }}
       >
-        <AutoSlider imagesData={imagesData} />
+        <AutoSlider imagesData={imagesData} title={'Sign up'} />
       </div>
     </section>
   );

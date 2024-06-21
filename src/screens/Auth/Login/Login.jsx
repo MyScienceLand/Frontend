@@ -18,6 +18,7 @@ import { authLogoWidth } from '../../../constants';
 import { loginInputs } from '../../../data/index';
 import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
+import { registerUser } from '../../../redux/slices/authSlice';
 import { API_ROUTES } from '../../../routes/apiRoutes';
 import { formSchema } from '../../../utils/helper/Schema';
 
@@ -61,6 +62,14 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
+      if (
+        error === 'Your Email is not verified Please firstly verify your Email'
+      ) {
+        dispatch(registerUser({ ...formik.values, otpType: 'signup' }));
+        ToastNotification.error(error);
+        navigate('/otp-verification');
+        return;
+      }
       ToastNotification.error(error);
     } else if (data && data?.login?.isVerify === true) {
       ToastNotification.success(data?.message);
@@ -69,7 +78,7 @@ const Login = () => {
         data?.login?.access_token !== undefined ? data?.login?.access_token : ''
       );
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/student-dashboard/dashboard');
         window.location.reload();
       }, 10);
     }
@@ -187,7 +196,7 @@ const Login = () => {
           paddingRight: '164px',
         }}
       >
-        <AutoSlider imagesData={imagesData} />
+        <AutoSlider imagesData={imagesData} title={'Log In'} />
       </div>
     </section>
   );

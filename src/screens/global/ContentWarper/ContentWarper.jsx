@@ -6,7 +6,7 @@ const drawerWidth = 240;
 
 const ContentWrapper = ({ children, open, isFullScreen }) => {
   const theme = useTheme();
-  const match = useMatch('/primarily-quiz');
+  const match = useMatch('/student-dashboard/primarily-quiz');
 
   return (
     <Box

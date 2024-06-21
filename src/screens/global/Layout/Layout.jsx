@@ -43,7 +43,7 @@ export default function Layout({
   toggleFullScreen,
   isFullScreen,
 }) {
-  const match = useMatch('/primarily-quiz');
+  const match = useMatch('/student-dashboard/primarily-quiz');
 
   return (
     <Box sx={{ display: match ? 'none' : display }}>

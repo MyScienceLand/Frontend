@@ -32,6 +32,7 @@ const ResetPasswordForm = () => {
   useEffect(() => {
     if (error) {
       ToastNotification.error(error);
+      navigate('/otp-error');
     } else if (data) {
       ToastNotification.success(data.message);
       setTimeout(() => {

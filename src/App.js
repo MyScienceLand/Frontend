@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import ResetPasswordSuccess from './components/ResetPasswordSuccess/ResetPasswordSuccess';
-// import { token } from './constants';
-import { useNavigate } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ResetPasswordSuccess from './components/ResetPasswordSuccess/ResetPasswordSuccess';
 import ForgotPassword from './screens/Auth/ForgotPassword/ForgotPassword';
 import Login from './screens/Auth/Login/Login';
 import OtpError from './screens/Auth/OtpError/OtpError';
@@ -17,8 +21,10 @@ import Error404Page from './screens/Error404Page/Error404Page';
 import PrimarilyQuiz from './screens/PrimarilyQuiz/PrimarilyQuiz';
 import Quiz from './screens/Quiz/Quiz';
 import StartQuiz from './screens/StartQuiz/StartQuiz';
+import ManagementDashboard from './screens/apps/ManagementDashboard/ManagementDashboard/ManagementDashboard';
 import ContentWarper from './screens/global/ContentWarper/ContentWarper';
 import Layout from './screens/global/Layout/Layout';
+
 function App() {
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -46,11 +52,12 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isFullScreen]);
-
+  const location = useLocation();
+  console.log(location.pathname); // '/dashboard
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/');
+      navigate(location.pathname);
     }
   }, [token]);
   return (
@@ -101,7 +108,7 @@ function App() {
         />
 
         <Route
-          path="/*"
+          path="/student-dashboard/*"
           element={
             token ? (
               <>
@@ -117,6 +124,23 @@ function App() {
                   </Routes>
                 </ContentWarper>
               </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/management/*"
+          element={
+            token ? (
+              <ContentWarper open={open}>
+                <Routes>
+                  <Route path="/" element={<ManagementDashboard />} />
+                  <Route path="/dashboard" element={<ManagementDashboard />} />
+
+                  <Route path="*" element={<Error404Page />} />
+                </Routes>
+              </ContentWarper>
             ) : (
               <Navigate to="/login" />
             )

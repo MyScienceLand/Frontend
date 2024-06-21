@@ -21,7 +21,7 @@ const PrimarilyQuiz = () => {
         quizQuestionData={quizQuestionData?.data}
         questionLoading={questionLoading}
         refetchQuestion={refetchQuestion}
-        navigateToHome={() => navigate('/dashboard')}
+        navigateToHome={() => navigate('/student-dashboard/dashboard')}
       />
     </div>
   );

@@ -52,9 +52,13 @@ const OtpVerification = () => {
   useEffect(() => {
     if (error) {
       ToastNotification.error(error);
-      setTimeout(() => {
-        navigate('/otp-error');
-      }, 10);
+      console.log(error);
+
+      if (error == 'invalid code please try again') {
+        setTimeout(() => {
+          navigate('/otp-error');
+        }, 10);
+      }
     }
     if (data) {
       ToastNotification.success(data?.verifyOtp?.message);
@@ -70,7 +74,7 @@ const OtpVerification = () => {
     }
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/');
+      navigate('/student-dashboard/dashboard');
       window.location.reload();
     }
   }, [data, error]);
@@ -87,9 +91,13 @@ const OtpVerification = () => {
   const handelForgetPasswordOtp = () => {
     if (otp.join('') === '') {
       ToastNotification.error('Please enter Valid OTP');
-      return false;
+      return;
     }
     const otpValue = otp.join('');
+    if (otpValue.length < 6) {
+      ToastNotification.error('Please enter a valid OTP (6 digits)');
+      return;
+    }
     dispatch(registerUser({ forgetPasswordOtp: otpValue }));
     navigate('/reset-password');
   };
@@ -110,7 +118,7 @@ const OtpVerification = () => {
         <img src={PurpleLogoWithText} alt="Logo" width={authLogoWidth} />
         <div className="">
           <Link
-            to={'/'}
+            to={'/forgot-password'}
             className="flex justify-start gap-2 cursor-pointer mt-6 items-center"
           >
             <HiArrowLongLeft />

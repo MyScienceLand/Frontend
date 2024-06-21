@@ -32,7 +32,7 @@ const signupInputs = [
   {
     id: 4,
     type: 'email',
-    label: 'Email',
+    label: 'Email Address',
     placeholder: 'someone@gmail.com',
     name: 'email',
   },

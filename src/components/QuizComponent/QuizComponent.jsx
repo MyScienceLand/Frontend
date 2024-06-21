@@ -2,6 +2,7 @@ import { Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { MdOutlineReportProblem } from 'react-icons/md';
 import { TbBulb } from 'react-icons/tb';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import usePost from '../../hooks/usePost';
 import { API_ROUTES } from '../../routes/apiRoutes';
@@ -10,7 +11,6 @@ import ReportQuestion from '../ReportQuestion/ReportQuestion';
 import ToastNotification from '../ToastNotification/ToastNotification';
 import PreLoader from '../common/Preloader/PreLoader';
 import CustomModal from '../common/modals/CustomModal/CustomModal';
-
 const QuizComponent = ({
   topicAndStartPaper,
   quizId,
@@ -32,12 +32,23 @@ const QuizComponent = ({
     tag,
     correctAnswer,
     answers,
+    // totalCountOfAttemptedQuestion,
   } = quizQuestionData || {};
+  const quizState = useSelector((state) => state.quiz.quiz);
 
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
-  const [questionNumber, setQuestionNumber] = useState(1);
+  // const [questionNumber, setQuestionNumber] = useState(
+  //   totalCountOfAttemptedQuestion + 1
+  // );
+  const [questionNumber, setQuestionNumber] = useState(
+    typeof quizState.totalCountOfAttemptedQuestion === 'number'
+      ? quizState.totalCountOfAttemptedQuestion + 1
+      : 1
+  );
+
+  // console.log(totalCountOfAttemptedQuestion);
   const [selectedOption, setSelectedOption] = useState(undefined);
   const [displayExplanation, setDisplayExplanation] = useState(false);
   const [isOptionChecked, setIsOptionChecked] = useState(false);
@@ -66,46 +77,6 @@ const QuizComponent = ({
 
   const navigate = useNavigate();
 
-  // const handleOptionChange = (index) => {
-  //   const newOptionColors = answers.map(() => 'white');
-  //   newOptionColors[index] = 'grey'; // Indicate selected option
-  //   setOptionColors(newOptionColors);
-  //   setSelectedOption(index);
-  // };
-
-  // const handleCheckAnswer = () => {
-  //   if (selectedOption === undefined) {
-  //     alert('Please select any option');
-  //     return;
-  //   }
-
-  //   submitQuestion({
-  //     answer: {
-  //       questionId: questionId,
-  //       question: question,
-  //       difficultyLevel: difficultyLevel,
-  //       type: type,
-  //       tag: tag,
-  //       submittedAnswer: selectedOption,
-  //     },
-  //   });
-  //   setDisplayExplanation(true);
-  // };
-
-  // const handelOpenNewQuestion = () => {
-  //   if (questionNumber === 20) {
-  //     finishQuiz();
-  //     if (isPreliminary) {
-  //       navigateToHome();
-  //       window.location.reload();
-  //     } else {
-  //       setDisplayQuizSummery(true);
-  //     }
-  //   } else {
-  //     refetchQuestion();
-  //     commonFunction();
-  //   }
-  // };
   const handleCheckAnswer = () => {
     if (selectedOption === undefined) {
       alert('Please select any option');
@@ -122,14 +93,14 @@ const QuizComponent = ({
         submittedAnswer: correctOption,
       },
     });
-    setIsOptionChecked(true); // Set isOptionChecked to true after checking answer
+    setIsOptionChecked(true);
     setDisplayExplanation(true);
   };
 
-  // Modify handelOpenNewQuestion
   const handelOpenNewQuestion = () => {
     if (questionNumber === 20) {
       finishQuiz();
+      // ToastNotification.success('Quiz Completed');
       if (isPreliminary) {
         navigateToHome();
         window.location.reload();
@@ -138,15 +109,14 @@ const QuizComponent = ({
       }
     } else {
       refetchQuestion();
-      setIsOptionChecked(false); // Reset isOptionChecked when loading new question
+      setIsOptionChecked(false);
       commonFunction();
     }
   };
 
-  // Modify handleOptionChange
   const handleOptionChange = (index) => {
     if (isOptionChecked) {
-      return; // Prevent option selection if isOptionChecked is true
+      return;
     }
     const newOptionColors = answers.map(() => 'white');
     newOptionColors[index] = 'grey'; // Indicate selected option
@@ -154,15 +124,6 @@ const QuizComponent = ({
     setSelectedOption(index);
     setCorrectOption(answers[index]);
   };
-  // const handleOptionChange = (index) => {
-  //   if (isOptionChecked) {
-  //     return; // Prevent option selection if isOptionChecked is true
-  //   }
-  //   const newOptionColors = answers.map(() => 'white');
-  //   newOptionColors[index] = 'grey'; // Indicate selected option
-  //   setOptionColors(newOptionColors);
-  //   setSelectedOption(answers[index]); // Set selected option as the answer at the index
-  // };
 
   useEffect(() => {
     if (finishQuizResponse) {
@@ -173,21 +134,6 @@ const QuizComponent = ({
   const wrongQuizColor = '#DA525D';
   const correctQuizColor = '#65BF7A';
 
-  // useEffect(() => {
-  //   if (submitQuestionResponse) {
-  //     const newOptionColors = [...optionColors];
-  //     if (submitQuestionResponse.statusCode === 200) {
-  //       if (submitQuestionResponse.data == true) {
-  //         newOptionColors[selectedOption] = correctQuizColor;
-  //       } else {
-  //         newOptionColors[selectedOption] = wrongQuizColor;
-  //       }
-  //       setOptionColors(newOptionColors);
-  //     } else {
-  //       alert(submitQuestionResponse.message);
-  //     }
-  //   }
-  // }, [submitQuestionResponse]);
   useEffect(() => {
     if (submitQuestionResponse) {
       const newOptionColors = [...optionColors];
@@ -308,7 +254,7 @@ const QuizComponent = ({
             {displayExplanation ? (
               <button
                 className="bg-[#232B3E] text-[var(--primary-color)] mt-6 px-6 py-2 hover:bg-slate-600  rounded-sm"
-                onClick={handelOpenNewQuestion}
+                onClick={submitQuestionLoading ? null : handelOpenNewQuestion}
               >
                 {submitQuestionLoading
                   ? 'Checking...'

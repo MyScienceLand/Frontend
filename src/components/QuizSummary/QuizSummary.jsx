@@ -3,8 +3,9 @@ import DonutChart from '../common/charts/DonutChart';
 
 import { Bio, Lab, Physics } from '../../assets/index';
 import useFetch from '../../hooks/useFetch.js';
-import DashboardSubjectCard from '../common/cards/DashboardSubjectCard/DashboardSubjectCard.jsx';
+import { API_ROUTES } from '../../routes/apiRoutes.js';
 import PreLoader from '../common/Preloader/PreLoader.jsx';
+import DashboardSubjectCard from '../common/cards/DashboardSubjectCard/DashboardSubjectCard.jsx';
 const QuizSummary = ({ quizId }) => {
   const questionArray = [
     {
@@ -18,11 +19,12 @@ const QuizSummary = ({ quizId }) => {
     },
   ];
 
-  const { data, loading } = useFetch(`/user-quiz/quiz-summary/${quizId}`);
+  const { data, loading } = useFetch(API_ROUTES.QUIZ_SUMMARY(quizId));
   console.group(data);
   const { topicName, improvments, score, obtainedScore, totalScore } =
     data?.data || {};
-  const { data: continueStudy } = useFetch('/user-dashboard/continue-study');
+  // const { data: continueStudy } = useFetch(API_ROUTES.CONTINUE_STUDY);
+  const { data: continueStudy } = useFetch(API_ROUTES.CONTINUE_STUDY);
   const cardStyle = [
     {
       image: Physics,

@@ -3,10 +3,10 @@ const handelLogout = () => {
   window.location.reload();
 };
 
-const openedMixin = (theme, drawerWidth) => ({
+const openedMixin = (theme, drawerWidth, backGroundColor, textColor) => ({
   width: drawerWidth,
-  backgroundColor: 'var(--primary-color)',
-  color: 'var(--text-color)',
+  backgroundColor: backGroundColor,
+  color: textColor,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -14,9 +14,9 @@ const openedMixin = (theme, drawerWidth) => ({
   overflowX: 'hidden',
 });
 
-const closedMixin = (theme) => ({
-  backgroundColor: 'var(--primary-color)',
-  color: 'var(--text-color)',
+const closedMixin = (theme, backGroundColor, textColor) => ({
+  backgroundColor: backGroundColor,
+  color: textColor,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
