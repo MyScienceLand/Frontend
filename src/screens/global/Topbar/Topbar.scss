@@ -1,0 +1,18 @@
+@import '../../../index.scss';
+
+.topbar {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+// In your Topbar component's CSS
+.topbar {
+  z-index: 1;
+}
