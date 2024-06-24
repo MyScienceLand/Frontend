@@ -87,7 +87,7 @@ const Login = () => {
   return (
     <section className="bg-[var(--primary-color)] h-[100vh] gap-12 grid grid-cols-2 ">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-20">
-        <img src={PurpleLogoWithText} className="pb-6" alt="Logo" />
+        <img src={PurpleLogoWithText} className="pb-6 w-20" alt="Logo" />
         <h1 className="text-[22px] font-semibold">Log in</h1>
         <span className="text-[18px] font-normal text-[var(--text-color)] ">
           Log in to continue MyScienceLand!
