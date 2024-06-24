@@ -10,13 +10,19 @@ import { API_ROUTES } from '../../../routes/apiRoutes';
 const OtpError = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const { data: resentOtpResponse, postData: postDataForgetPassword } = usePost(
-    API_ROUTES.RESEND_OTP
-  );
+  const {
+    data: resentOtpResponse,
+    postData: postDataForgetPassword,
+    error,
+  } = usePost(API_ROUTES.RESEND_OTP);
   const handelResendOtp = () => {
     postDataForgetPassword({ email: user.email });
   };
   useEffect(() => {
+    if (error) {
+      ToastNotification.error(error);
+      return;
+    }
     if (resentOtpResponse) {
       ToastNotification.success(resentOtpResponse?.data?.message);
       navigate('/otp-verification');

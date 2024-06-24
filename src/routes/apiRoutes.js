@@ -17,6 +17,7 @@ export const API_ROUTES = {
   REPORT_QUESTION: '/reported-questions/reported-questions',
   GET_QUESTION: (quizId) => `/quiz/get-quiz/${quizId}`,
   CREATE_QUIZ: '/quiz/create-quiz',
+  CREATE_PRELIMINARY_QUIZ: '/quiz/create-primilary-quiz',
   QUIZ_SUMMARY: (quizId) => `/user-quiz/quiz-summary/${quizId}`,
 
   // Dashboard

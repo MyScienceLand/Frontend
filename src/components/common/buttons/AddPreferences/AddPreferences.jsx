@@ -4,7 +4,6 @@ import { FaPlus } from 'react-icons/fa6';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import { MdDelete } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import useFetch from '../../../../hooks/useFetch';
 import usePost from '../../../../hooks/usePost';
 import { API_ROUTES } from '../../../../routes/apiRoutes';
@@ -59,32 +58,21 @@ const AddPreferences = () => {
     error: preferencesError,
     postData,
   } = usePost(API_ROUTES.CREATE_PREFERENCES);
+  const { data: continueQuizData, refetch: refetchContinueQuiz } = useFetch(
+    API_ROUTES.CONTINUE_QUIZ
+  );
   const handleOpen = () => {
     refetchPreferences();
     refetchQualifications();
     refetchSubjects();
     refetchBoards();
+    refetchContinueQuiz();
     if (userPreferences) {
       setModalOpen(true);
     }
   };
 
   const handleClose = () => setModalOpen(false);
-  // const handleAddMore = () => {
-  //   if (preferences.length >= 3) {
-  //     ToastNotification.error('You can only add up to three preferences.');
-  //     return;
-  //   }
-  //   const firstPreference = preferences[0];
-  //   setPreferences([
-  //     ...preferences,
-  //     {
-  //       qualification: firstPreference.qualification,
-  //       subject: 'Please select Subject',
-  //       examBoard: firstPreference.examBoard,
-  //     },
-  //   ]);
-  // };
 
   const handleAddMore = () => {
     if (preferences.length >= 3) {
@@ -109,11 +97,6 @@ const AddPreferences = () => {
     }
   };
 
-  // const handleChange = (index, field, value) => {
-  //   const newPreferences = [...preferences];
-  //   newPreferences[index][field] = value;
-  //   setPreferences(newPreferences);
-  // };
   const handleChange = (index, field, value) => {
     const newPreferences = [...preferences];
     newPreferences[index][field] = value;
@@ -131,12 +114,12 @@ const AddPreferences = () => {
     } else if (preferencesResponse) {
       ToastNotification.success(preferencesResponse?.message);
       handleClose();
-      Swal.fire({
-        icon: 'success',
-        title: 'Subject preferences added Successfully',
-        showConfirmButton: true,
-        timer: 1500,
-      });
+      // Swal.fire({
+      //   icon: 'success',
+      //   title: 'Subject preferences added Successfully',
+      //   showConfirmButton: true,
+      //   timer: 1500,
+      // });
       setTimeout(() => {
         setDisplayStartQuiz(true);
         handleOpen();
@@ -249,6 +232,10 @@ const AddPreferences = () => {
 
   // Function to get the available subjects for a specific preference
   const getAvailableSubjects = (index) => {
+    if (!preferences || !subjectsData) {
+      // Handle the case where preferences or subjectsData are undefined
+      return []; // Or handle it according to your logic
+    }
     const selectedSubjects = new Set(preferences.map((pref) => pref.subject));
     return subjectsData.filter(
       (subject) =>
@@ -293,6 +280,7 @@ const AddPreferences = () => {
             setDisplayStartQuiz={setDisplayStartQuiz}
             clearPreferences={clearPreferences}
             setIsPreliminarily={setIsPreliminarily}
+            continueQuizData={continueQuizData?.data}
           />
         ) : (
           <>
@@ -314,7 +302,7 @@ const AddPreferences = () => {
                       // disabled={isDisabled}
                       disabled={index !== 0 ? isDisabled : false}
                     />
-                    {subjectsData && (
+                    {subjects && (
                       <Dropdown
                         key={preference.subject}
                         title="Subjects"

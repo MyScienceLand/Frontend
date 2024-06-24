@@ -52,7 +52,6 @@ const OtpVerification = () => {
   useEffect(() => {
     if (error) {
       ToastNotification.error(error);
-      console.log(error);
 
       if (error == 'invalid code please try again') {
         setTimeout(() => {

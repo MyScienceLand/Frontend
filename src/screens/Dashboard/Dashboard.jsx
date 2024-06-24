@@ -24,7 +24,6 @@ const StudentDashboard = () => {
   const { data: barGraphData } = useFetch(API_ROUTES.SPENT_TIME_GRAPH);
   const { data: subjectGraphData } = useFetch(API_ROUTES.SUBJECTS_GRAPH);
   const { data: feedbackData } = useFetch(API_ROUTES.FEEDBACK);
-  const { data: userData } = useFetch(API_ROUTES.USER);
 
   const cardStyle = [
     {
@@ -40,8 +39,15 @@ const StudentDashboard = () => {
       className: 'bg-[#007353] px-8 py2 rounded-lg min-w-[484px]',
     },
   ];
-  const cardsArray = cardStyle.map((card, index) => {
-    const studyData = continueStudy?.data[index];
+  // const cardsArray = cardStyle.map((card, index) => {
+  //   const studyData = continueStudy?.data[index];
+  //   return studyData ? { ...card, ...studyData } : card;
+  // });
+
+  const relevantCards = continueStudy?.data.slice(0, cardStyle.length) || [];
+
+  const cardsArray = relevantCards.map((studyData, index) => {
+    const card = cardStyle[index];
     return studyData ? { ...card, ...studyData } : card;
   });
 
@@ -62,11 +68,8 @@ const StudentDashboard = () => {
         selectedTopic={selectedTopic}
         setSelectedTopic={setSelectedTopic}
       />
-      {userData && (
-        <DashboardBanner
-          completedQuiz={completedQuiz?.data.completedQuiz}
-          userData={userData?.data}
-        />
+      {completedQuiz && (
+        <DashboardBanner completedQuiz={completedQuiz?.data.completedQuiz} />
       )}
 
       <div>

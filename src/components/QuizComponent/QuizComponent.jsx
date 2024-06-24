@@ -48,7 +48,6 @@ const QuizComponent = ({
       : 1
   );
 
-  // console.log(totalCountOfAttemptedQuestion);
   const [selectedOption, setSelectedOption] = useState(undefined);
   const [displayExplanation, setDisplayExplanation] = useState(false);
   const [isOptionChecked, setIsOptionChecked] = useState(false);

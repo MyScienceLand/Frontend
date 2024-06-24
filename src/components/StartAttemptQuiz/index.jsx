@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import usePost from '../../hooks/usePost';
 import { updateQuiz } from '../../redux/slices/quizSlice';
+import { API_ROUTES } from '../../routes/apiRoutes';
 import ToastNotification from '../ToastNotification/ToastNotification';
 import PreLoader from '../common/Preloader/PreLoader';
 import Button from '../common/buttons/Button/Button';
@@ -12,8 +13,8 @@ const StartAttemptQuiz = ({
   handleClose,
   setDisplayStartQuiz,
   clearPreferences,
+  continueQuizData,
 }) => {
-  const [startQuiz, setStartQuiz] = useState(false);
   const [selectedPreferencesData, setSelectedPreferencesData] = useState({
     subjectId: '',
     qualificationId: '',
@@ -22,13 +23,13 @@ const StartAttemptQuiz = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, loading, error } = useFetch('/user-preferences');
+  const { data, loading, error } = useFetch(API_ROUTES.PREFERENCES);
   const {
     data: createPrimarilyQuizResponse,
     loading: createPrimarilyLoading,
     postData,
     error: createQuizError,
-  } = usePost('/quiz/create-primilary-quiz');
+  } = usePost(API_ROUTES.CREATE_PRELIMINARY_QUIZ);
 
   const handelCreateAndStartQuiz = () => {
     if (
@@ -41,7 +42,26 @@ const StartAttemptQuiz = ({
       // );
       return;
     }
-    postData(selectedPreferencesData);
+    const existingQuiz = continueQuizData.find(
+      (quiz) => quiz.quizzes.subjectId === selectedPreferencesData.subjectId
+    );
+
+    if (existingQuiz) {
+      dispatch(
+        updateQuiz({
+          quizId: existingQuiz.quizId,
+          isContinue: true,
+          totalCountOfAttemptedQuestion:
+            existingQuiz?.totalCountOfAttemptedQuestion,
+        })
+      );
+      navigate('/student-dashboard/primarily-quiz');
+      handleClose();
+      setDisplayStartQuiz(false);
+      clearPreferences();
+    } else {
+      postData(selectedPreferencesData);
+    }
   };
 
   useEffect(() => {
@@ -49,6 +69,8 @@ const StartAttemptQuiz = ({
       dispatch(
         updateQuiz({
           quizId: createPrimarilyQuizResponse?.data.quizId,
+          isContinue: false,
+          totalCountOfAttemptedQuestion: 0,
         })
       );
       navigate('/student-dashboard/primarily-quiz');
@@ -65,11 +87,6 @@ const StartAttemptQuiz = ({
       selectedPreferencesData.qualificationId &&
       selectedPreferencesData.boardLevelId
   );
-  // useEffect(() => {
-  //   if (data && data.data.some((item) => !item.isPrimilary)) {
-  //     setIsPreliminarily(true);
-  //   }
-  // }, [data]);
 
   return (
     <>

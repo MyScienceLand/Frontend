@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Student, StudentBg } from '../../assets/index';
 
 const DashboardBanner = ({ completedQuiz, userData }) => {
+  const user = useSelector((state) => state.user);
+
   return (
     <div
       style={{
@@ -19,7 +22,7 @@ const DashboardBanner = ({ completedQuiz, userData }) => {
     >
       <div>
         <h1 className="text-[var(--primary-color)] text-[42px] font-bold ">
-          {`${userData?.firstName} ${userData?.lastName}`}
+          {`${user?.firstName} ${user?.lastName}`}
         </h1>
         <p className="text-[var(--primary-color)] text-[28px] font-bold leading-9 ">
           You have complete {completedQuiz} quiz in last ten days.

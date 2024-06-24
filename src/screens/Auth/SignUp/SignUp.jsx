@@ -45,7 +45,7 @@ const SignUp = () => {
     validationSchema: formSchema,
     onSubmit: async (values) => {
       if (values.password !== values.confirmPassword) {
-        ToastNotification.error(
+        ToastNotification.warn(
           'Password and Confirm Password should be the same'
         );
         return;
@@ -76,13 +76,9 @@ const SignUp = () => {
       dispatch(registerUser({ ...formik.values, otpType: 'signup' }));
       setTimeout(() => {
         navigate('/otp-verification');
-      }, 3000);
+      }, 1000);
     }
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/');
-    }
-  }, [data, error, dispatch, navigate, formik.values]);
+  }, [data, error, dispatch, navigate]);
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
@@ -106,7 +102,7 @@ const SignUp = () => {
           Welcome & Join us by creating a free account!
         </span>
 
-        <form className="" onSubmit={handleRegisterUser}>
+        <form onSubmit={handleRegisterUser}>
           {signupInputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
               <label

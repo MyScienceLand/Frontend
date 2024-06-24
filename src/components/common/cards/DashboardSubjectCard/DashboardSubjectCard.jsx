@@ -16,9 +16,7 @@ const DashboardSubjectCard = ({ cardsArray }) => {
       })
     );
     navigate('/quiz');
-    console.log('This id is in card  = ', quizId);
   };
-  console.log(cardsArray);
   return (
     <>
       <div className="flex flex-wrap justify-between mt-6">

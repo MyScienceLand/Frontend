@@ -5,26 +5,15 @@ import { Bio, Lab, Physics } from '../../assets/index';
 import useFetch from '../../hooks/useFetch.js';
 import { API_ROUTES } from '../../routes/apiRoutes.js';
 import PreLoader from '../common/Preloader/PreLoader.jsx';
+import ContinueStudyingCard from '../common/cards/ContinueStudyingCard/ContinueStudyingCard.jsx';
 import DashboardSubjectCard from '../common/cards/DashboardSubjectCard/DashboardSubjectCard.jsx';
 const QuizSummary = ({ quizId }) => {
-  const questionArray = [
-    {
-      text: 'Story genetic information',
-    },
-    {
-      text: 'Story genetic information',
-    },
-    {
-      text: 'Story genetic information',
-    },
-  ];
-
   const { data, loading } = useFetch(API_ROUTES.QUIZ_SUMMARY(quizId));
   console.group(data);
   const { topicName, improvments, score, obtainedScore, totalScore } =
     data?.data || {};
   // const { data: continueStudy } = useFetch(API_ROUTES.CONTINUE_STUDY);
-  const { data: continueStudy } = useFetch(API_ROUTES.CONTINUE_STUDY);
+  const { data: continueStudy } = useFetch(API_ROUTES.CONTINUE_QUIZ);
   const cardStyle = [
     {
       image: Physics,
@@ -39,8 +28,14 @@ const QuizSummary = ({ quizId }) => {
       className: 'bg-[#007353] px-8 py2 rounded-lg min-w-[484px]',
     },
   ];
-  const cardsArray = cardStyle.map((card, index) => {
-    const studyData = continueStudy?.data[index];
+  // const cardsArray = cardStyle.map((card, index) => {
+  //   const studyData = continueStudy?.data[index];
+  //   return studyData ? { ...card, ...studyData } : card;
+  // });
+  const relevantCards = continueStudy?.data.slice(0, cardStyle.length) || [];
+
+  const cardsArray = relevantCards.map((studyData, index) => {
+    const card = cardStyle[index];
     return studyData ? { ...card, ...studyData } : card;
   });
   return (
@@ -86,7 +81,12 @@ const QuizSummary = ({ quizId }) => {
           </div>
           <div>
             <h1 className="text-[18px] font-medium">What’s Next</h1>
-            <DashboardSubjectCard cardsArray={cardsArray} />
+            {/* <DashboardSubjectCard cardsArray={cardsArray} /> */}
+            {continueStudy?.data.length > 0 ? (
+              <DashboardSubjectCard cardsArray={cardsArray} />
+            ) : (
+              <ContinueStudyingCard />
+            )}
           </div>
         </>
       )}
