@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  Google,
   JoinUs,
   NightScene,
   PurpleLogoWithText,
@@ -86,13 +87,16 @@ const Login = () => {
 
   return (
     <section className="bg-[var(--primary-color)] h-[100vh] gap-12 grid grid-cols-2 ">
-      <div className="max-w-screen-sm w-full mx-auto gap-6 py-20">
-        <img src={PurpleLogoWithText} className="pb-6 w-20" alt="Logo" />
+      <div className="max-w-screen-sm w-full mx-auto gap-6 py-32">
+        <img src={PurpleLogoWithText} className="pb-6 w-24" alt="Logo" />
         <h1 className="text-[22px] font-semibold">Log in</h1>
         <span className="text-[18px] font-normal text-[var(--text-color)] ">
           Log in to continue MyScienceLand!
         </span>
-
+        <button className="flex justify-center gap-2 my-8 bg-[#F3F6F8] items-center px-6 max-w-[20rem] w-[100%] text-[16px] font-normal  text-[#2A2A2A] rounded-sm py-2">
+          <img src={Google} alt="Logo" className="" />
+          Log in with Google
+        </button>
         <form className=" " onSubmit={formik.handleSubmit}>
           {loginInputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
