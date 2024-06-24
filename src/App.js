@@ -35,7 +35,7 @@ function App() {
   const token = localStorage.getItem('token');
   const { data: userData } = useFetch(API_ROUTES.USER);
   const user = useSelector((state) => state.user);
-
+  // user.role = 'management';
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,13 +66,17 @@ function App() {
     };
   }, [isFullScreen]);
   const location = useLocation();
+
+  let mainRoute = `/${user?.role}-dashboard`;
+  console.log(user?.role);
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (!token) {
+      navigate('/login');
+    } else {
       navigate(location.pathname);
     }
   }, [token]);
-  let mainRoute = `/${user?.role}-dashboard`;
   return (
     <div className="app">
       <ToastContainer />
@@ -127,7 +131,7 @@ function App() {
         <Route
           path="/student-dashboard/*"
           element={
-            token ? (
+            token && user?.role === 'student' ? (
               <>
                 <ContentWarper open={open}>
                   <Routes>
@@ -141,15 +145,17 @@ function App() {
                   </Routes>
                 </ContentWarper>
               </>
-            ) : (
+            ) : token === null || undefined ? (
               <Navigate to="/login" />
+            ) : (
+              <Navigate to={mainRoute} />
             )
           }
         />
         <Route
           path="/management-dashboard/*"
           element={
-            token ? (
+            token /*&& user?.role === 'student' */ ? (
               <ContentWarper open={open}>
                 <Routes>
                   <Route path="/" element={<ManagementDashboard />} />
@@ -157,8 +163,10 @@ function App() {
                   <Route path="*" element={<Error404Page />} />
                 </Routes>
               </ContentWarper>
-            ) : (
+            ) : token === undefined || null ? (
               <Navigate to="/login" />
+            ) : (
+              <Navigate to={'/management-dashboard'} />
             )
           }
         />
@@ -188,4 +196,8 @@ aAbc123@
   "email": "mudasserasool14@gmail.com",
   "password": "Mudasser2024@"
 }
+  management
+  teacher
+  admin
+  student
 */

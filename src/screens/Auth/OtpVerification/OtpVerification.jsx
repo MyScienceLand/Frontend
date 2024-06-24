@@ -16,9 +16,13 @@ const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6)?.fill(''));
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const { data, loading, error, postData } = usePost(
-    API_ROUTES.REGISTER_OTP_VERIFY
-  );
+  const { data, error, postData } = usePost(API_ROUTES.REGISTER_OTP_VERIFY);
+  const {
+    data: forgetOtpVerifyResponse,
+    error: forgetOtpVerifyError,
+    postData: postForgetOtpVerifyData,
+  } = usePost(API_ROUTES.VERIFY_FORGET_OTP);
+
   const dispatch = useDispatch();
 
   const handleChange = (element, index) => {
@@ -97,9 +101,27 @@ const OtpVerification = () => {
       ToastNotification.error('Please enter a valid OTP (6 digits)');
       return;
     }
-    dispatch(registerUser({ forgetPasswordOtp: otpValue }));
-    navigate('/reset-password');
+    postForgetOtpVerifyData({
+      email: user.email,
+      otp: otpValue,
+    });
   };
+  console.log(forgetOtpVerifyError);
+  useEffect(() => {
+    if (forgetOtpVerifyError) {
+      ToastNotification.error(forgetOtpVerifyError);
+      setTimeout(() => {
+        navigate('/otp-error');
+      }, 10);
+      return;
+    } else if (forgetOtpVerifyResponse?.statusCode == 200) {
+      const otpValue = otp.join('');
+      ToastNotification.success(forgetOtpVerifyResponse?.message);
+      dispatch(registerUser({ forgetPasswordOtp: otpValue }));
+      navigate('/reset-password');
+    }
+  }, [forgetOtpVerifyResponse, forgetOtpVerifyError]);
+
   const { data: resentOtpResponse, postData: postDataForgetPassword } = usePost(
     API_ROUTES.RESEND_OTP
   );

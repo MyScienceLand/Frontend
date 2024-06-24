@@ -6,6 +6,7 @@ export const API_ROUTES = {
   RESET_PASSWORD: '/auth/resetPassword',
   REGISTER: '/auth/signup',
   RESEND_OTP: '/auth/resend/otp',
+  VERIFY_FORGET_OTP: '/auth/verifyForgetPassword/otp',
 
   // Content
   PREFERENCES: '/user-preferences',
@@ -34,5 +35,12 @@ export const API_ROUTES = {
   SPENT_TIME_GRAPH: '/user-dashboard/learning-spent-time-graph',
   SUBJECTS_GRAPH: '/user-dashboard/subjects-graph',
   FEEDBACK: '/user-dashboard/feedback',
+
+  // Users
   USER: '/user',
+  ALL_STUDENTS: '/user/all-students',
+  ALL_TEACHERS: '/user/all-teachers',
+
+  // Management
+  CREATE_CLASS: '/management/create-class',
 };

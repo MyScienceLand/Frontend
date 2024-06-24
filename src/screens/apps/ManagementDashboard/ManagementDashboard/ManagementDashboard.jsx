@@ -1,19 +1,20 @@
-import React from 'react';
+import { useState } from 'react';
 import CreateClass from '../../../../components/MannagementComponents/CreateClass/CreateClass';
+import Dashboard from '../../../../components/MannagementComponents/Dashboard/Dashboard';
 
 const ManagementDashboard = () => {
+  const [displayCreateClass, setDisplayCreateClass] = useState(false);
+  console.log(displayCreateClass);
   return (
-    <div>
-      <div className="flex justify-end gap-2 items-center">
-        <button className="px-6 py-2 bg-[var(--secondary-color)] text-white border hover:border border-primary hover:bg-transparent hover:text-primary rounded-md">
-          Create Class
-        </button>
-        <button className="px-6 py-2 bg-primary text-[var(--secondary-color)] border hover:border border-[var(--secondary-color)] hover:bg-transparent hover:text-primary rounded-md">
-          Create User
-        </button>
-      </div>
-      <CreateClass />
-    </div>
+    <>
+      {displayCreateClass == true ? (
+        <CreateClass />
+      ) : (
+        <>
+          <Dashboard setDisplayCreateClass={setDisplayCreateClass} />
+        </>
+      )}
+    </>
   );
 };
 

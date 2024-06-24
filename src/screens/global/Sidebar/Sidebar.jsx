@@ -39,14 +39,7 @@ const managementIconMap = {
 const drawerWidth = 240;
 let backGroundColor = '';
 let textColor = '';
-const route = location.pathname.split('/')[1];
-if (route === 'student-dashboard') {
-  backGroundColor = 'var(--primary-color)';
-  textColor = 'var(--text-color)';
-} else if (route === 'management') {
-  backGroundColor = 'var(--secondary-color)';
-  textColor = 'var(--primary-color)';
-}
+// const route = location.pathname.split('/')[1];
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -80,6 +73,17 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidebar({ handleDrawerClose, open }) {
+  // const user = useSelector((state) => state.user);
+  const user = { role: 'management' };
+
+  if (user?.role === 'student') {
+    backGroundColor = 'var(--primary-color)';
+    textColor = 'var(--text-color)';
+  } else if (user?.role === 'management') {
+    backGroundColor = 'var(--secondary-color)';
+    textColor = 'var(--primary-color)';
+  }
+  console.log(user);
   const theme = useTheme();
   const location = useLocation();
   return (
@@ -90,9 +94,9 @@ export default function Sidebar({ handleDrawerClose, open }) {
         >
           <img
             src={
-              route === 'student-dashboard'
+              user?.role === 'student'
                 ? PurpleLogoWithText
-                : route === 'management'
+                : user?.role === 'management'
                 ? ManagementLogo
                 : ''
             }
@@ -112,7 +116,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
         )}
       </DrawerHeader>
 
-      {route === 'student-dashboard' ? (
+      {user.role === 'student' ? (
         <List>
           {['Dashboard', 'Content', 'Quiz'].map((text, index) => {
             const route = text.toLowerCase().replace(' ', '-');
@@ -159,13 +163,13 @@ export default function Sidebar({ handleDrawerClose, open }) {
           {['Dashboard', 'Teacher List'].map((text, index) => {
             const route = text.toLowerCase().replace(' ', '-');
             const isSelected =
-              location.pathname === `/management/${route}` ||
+              location.pathname === `/management-dashboard/${route}` ||
               (text === 'Dashboard' && location.pathname === '/');
             return (
               <ListItem key={index} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
                   component={Link}
-                  to={`/management/${route}`}
+                  to={`/management-dashboard/${route}`}
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
