@@ -1,12 +1,12 @@
-import { Box, Typography, useTheme } from '@mui/material';
-import React from 'react';
-import { useMatch } from 'react-router-dom';
+import { Box, Typography, useTheme } from "@mui/material";
+import React from "react";
+import { useMatch } from "react-router-dom";
 
 const drawerWidth = 240;
 
 const ContentWrapper = ({ children, open, isFullScreen }) => {
   const theme = useTheme();
-  const match = useMatch('/student-dashboard/primarily-quiz');
+  const match = useMatch("/student-dashboard/primarily-quiz");
 
   return (
     <Box
@@ -14,16 +14,16 @@ const ContentWrapper = ({ children, open, isFullScreen }) => {
       sx={{
         // display: 'none',
         flexGrow: 1,
-        p: 4,
         px: 7,
-        transition: theme.transitions.create('margin', {
+        py: 6,
+        transition: theme.transitions.create("margin", {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
         marginLeft: open
           ? `${drawerWidth}px`
           : `calc(${theme.spacing(7)} + 1px)`,
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up("sm")]: {
           marginLeft: open
             ? `${drawerWidth}px`
             : `calc(${theme.spacing(8)} + 1px)`,
@@ -35,10 +35,10 @@ const ContentWrapper = ({ children, open, isFullScreen }) => {
         <Typography
           variant="h6"
           sx={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
+            left: "50%",
+            transform: "translateX(-50%)",
             mt: 2,
           }}
         >

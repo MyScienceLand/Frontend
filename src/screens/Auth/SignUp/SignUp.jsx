@@ -95,7 +95,7 @@ const SignUp = () => {
   return (
     <section className="bg-[--primary-color] h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
-        <img src={PurpleLogoWithText} className="pb-6 w-20" alt="Logo" />
+        <img src={PurpleLogoWithText} className="pb-6 w-24" alt="Logo" />
         <h1 className="text-[22px] font-semibold">Sign up</h1>
         <span className="text-[18px] font-normal text-[--text-color]">
           Welcome & Join us by creating a free account!
