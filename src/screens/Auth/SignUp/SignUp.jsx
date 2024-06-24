@@ -1,25 +1,25 @@
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   JoinUs,
   PurpleLogoWithText,
   SignUpSlider,
   signUpBg,
-} from '../../../assets';
-import ToastNotification from '../../../components/ToastNotification/ToastNotification';
-import Button from '../../../components/common/buttons/Button/Button';
-import AutoSlider from '../../../components/custom-slider/index';
-import { authLogoWidth } from '../../../constants';
-import { signupInputs } from '../../../data';
-import usePost from '../../../hooks/usePost';
-import '../../../index.scss';
-import { registerUser } from '../../../redux/slices/authSlice';
-import { API_ROUTES } from '../../../routes/apiRoutes';
-import { formSchema } from '../../../utils/helper/Schema';
+} from "../../../assets";
+import ToastNotification from "../../../components/ToastNotification/ToastNotification";
+import Button from "../../../components/common/buttons/Button/Button";
+import AutoSlider from "../../../components/custom-slider/index";
+import { authLogoWidth } from "../../../constants";
+import { signupInputs } from "../../../data";
+import usePost from "../../../hooks/usePost";
+import "../../../index.scss";
+import { registerUser } from "../../../redux/slices/authSlice";
+import { API_ROUTES } from "../../../routes/apiRoutes";
+import { formSchema } from "../../../utils/helper/Schema";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,24 +36,24 @@ const SignUp = () => {
 
   const formik = useFormik({
     initialValues: {
-      password: '',
-      confirmPassword: '',
-      email: '',
-      firstName: '',
-      lastName: '',
+      password: "",
+      confirmPassword: "",
+      email: "",
+      firstName: "",
+      lastName: "",
     },
     validationSchema: formSchema,
     onSubmit: async (values) => {
       if (values.password !== values.confirmPassword) {
         ToastNotification.error(
-          'Password and Confirm Password should be the same'
+          "Password and Confirm Password should be the same"
         );
         return;
       }
 
       await postData({
         ...values,
-        role: 'student',
+        role: "student",
         termsAndCondition: confirmPrivacy,
       });
     },
@@ -73,14 +73,14 @@ const SignUp = () => {
     }
     if (data) {
       ToastNotification.success(data?.data?.message);
-      dispatch(registerUser({ ...formik.values, otpType: 'signup' }));
+      dispatch(registerUser({ ...formik.values, otpType: "signup" }));
       setTimeout(() => {
-        navigate('/otp-verification');
+        navigate("/otp-verification");
       }, 3000);
     }
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      navigate('/');
+      navigate("/");
     }
   }, [data, error, dispatch, navigate, formik.values]);
 
@@ -95,12 +95,7 @@ const SignUp = () => {
   return (
     <section className="bg-[--primary-color] h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
-        <img
-          src={PurpleLogoWithText}
-          className="pb-6"
-          alt="Logo"
-          width={authLogoWidth}
-        />
+        <img src={PurpleLogoWithText} className="pb-6 w-20" alt="Logo" />
         <h1 className="text-[22px] font-semibold">Sign up</h1>
         <span className="text-[18px] font-normal text-[--text-color]">
           Welcome & Join us by creating a free account!
@@ -115,11 +110,11 @@ const SignUp = () => {
               >
                 {input.label}
               </label>
-              {input.type === 'password' && input.name === 'password' ? (
+              {input.type === "password" && input.name === "password" ? (
                 <div className="relative">
                   <input
                     id={input.id}
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder={input.placeholder}
                     name={input.name}
                     className="border h-10 px-2 border-[#757575] border-opacity-55 rounded-sm w-full pr-10"
@@ -139,12 +134,12 @@ const SignUp = () => {
                     )}
                   </button>
                 </div>
-              ) : input.type === 'password' &&
-                input.name === 'confirmPassword' ? (
+              ) : input.type === "password" &&
+                input.name === "confirmPassword" ? (
                 <div className="relative">
                   <input
                     id={input.id}
-                    type={showConfirmPassword ? 'text' : 'password'}
+                    type={showConfirmPassword ? "text" : "password"}
                     placeholder={input.placeholder}
                     name={input.name}
                     className="border h-10 px-2 border-[#757575] border-opacity-55 rounded-sm w-full pr-10"
@@ -203,9 +198,9 @@ const SignUp = () => {
 
           <Button title="Create Account" type="submit" />
           <h2 className="text-[18px] text-[var(--text-color)] font-normal text-center py-5">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link
-              to={'/login'}
+              to={"/login"}
               className="underline text-[18px] font-normal cursor-pointer text-[var(--secondary-color)]"
             >
               Log In
@@ -216,16 +211,16 @@ const SignUp = () => {
       <div
         style={{
           backgroundImage: `url(${signUpBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingLeft: '164px',
-          paddingRight: '164px',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          paddingLeft: "164px",
+          paddingRight: "164px",
         }}
       >
-        <AutoSlider imagesData={imagesData} title={'Sign up'} />
+        <AutoSlider imagesData={imagesData} title={"Sign up"} />
       </div>
     </section>
   );
