@@ -82,7 +82,9 @@ export default function Sidebar() {
     pathName.includes("/create-user") ||
     pathName.includes("/teacher-list") ||
     pathName.includes("/create-student") ||
-    pathName.includes("/select-class");
+    pathName.includes("/select-class") ||
+    pathName.includes("/managment-subject") ||
+    pathName.includes("/student-list");
   const shouldRenderNavBar =
     pathName.includes("/student-dashboard") ||
     pathName.includes("/course-content") ||
@@ -96,7 +98,9 @@ export default function Sidebar() {
     pathName.includes("/create-user") ||
     pathName.includes("/teacher-list") ||
     pathName.includes("/create-student") ||
-    pathName.includes("/select-class");
+    pathName.includes("/select-class") ||
+    pathName.includes("/managment-subject") ||
+    pathName.includes("/student-list");
   const SidebarColor = pathName.includes("/managment-classes");
   return (
     <>
@@ -302,8 +306,8 @@ export default function Sidebar() {
                             pathName.includes("/cells") ||
                             pathName.includes("/quiz-summary") ||
                             pathName.includes("/managment-dashboard") ||
-                            pathName.includes("/teacher-list");
-
+                            pathName.includes("/teacher-list") ||
+                            pathName.includes("/managment-subject");
                           return (
                             <li key={item.name}>
                               <a
@@ -345,7 +349,9 @@ export default function Sidebar() {
             pathName.includes("/create-user") ||
             pathName.includes("/teacher-list") ||
             pathName.includes("/create-student") ||
-            pathName.includes("/select-class")
+            pathName.includes("/select-class") ||
+            pathName.includes("/managment-subject") ||
+            pathName.includes("/student-list")
               ? "lg:pl-72"
               : null
           }`}

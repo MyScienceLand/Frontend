@@ -11,6 +11,7 @@ const ManagmentDashboard = () => {
         <button className="px-6 py-2 bg-primary text-white border hover:border border-primary hover:bg-transparent hover:text-primary ">
           Create User
         </button>
+        ` `
       </div>
       <div className="grid grid-cols-[1fr_1fr] gap-6">
         <div>
@@ -22,8 +23,13 @@ const ManagmentDashboard = () => {
               },
             ]}
             colors="#5E196C"
-            heading={"Year 1"}
+            heading={"Year 1 (a Level)"}
           />
+          <div className="flex justify-center mt-4">
+            <button className="px-6 py-2 bg-primary text-white border hover:border border-primary hover:bg-transparent hover:text-primary ">
+              View More
+            </button>
+          </div>
         </div>
         <div>
           <BarChart
@@ -34,8 +40,13 @@ const ManagmentDashboard = () => {
               },
             ]}
             colors="#006C8D"
-            heading={"Year 2"}
+            heading={"year 2 (A Level)"}
           />
+          <div className="flex justify-center mt-4">
+            <button className="px-6 py-2 bg-primary text-white border hover:border border-primary hover:bg-transparent hover:text-primary ">
+              View More
+            </button>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-[1fr_1fr] gap-6">
@@ -48,8 +59,13 @@ const ManagmentDashboard = () => {
               },
             ]}
             colors="#5E196C"
-            heading={"Year 1"}
+            heading={"Year 10 (GCSE)"}
           />
+          <div className="flex justify-center mt-4">
+            <button className="px-6 py-2 bg-primary text-white border hover:border border-primary hover:bg-transparent hover:text-primary ">
+              View More
+            </button>
+          </div>
         </div>
         <div>
           <BarChart
@@ -60,8 +76,13 @@ const ManagmentDashboard = () => {
               },
             ]}
             colors="#006C8D"
-            heading={"Year 2"}
+            heading={"year 11 (GCSE)"}
           />
+          <div className="flex justify-center mt-4">
+            <button className="px-6 py-2 bg-primary text-white border hover:border border-primary hover:bg-transparent hover:text-primary ">
+              View More
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -36,16 +36,21 @@ const brandData = [
   },
 ];
 
-const ManagmentTable = () => {
+const ManagmentTable = ({ heading }) => {
   return (
     <>
-      <div className="rounded-lg shadow-sm bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <h4 className="mb-6 text-primary text-xl font-semibold">
-          Top Channels
+      <div className="rounded-lg shadow-sm bg-white   pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark  xl:pb-1">
+        <div className="bg-[#F8F8F8]  px-4 rounded py-2">
+          <h1 className="text-[18px] px-4 py-2 text-secondary font-medium">
+            {heading}
+          </h1>
+        </div>
+        <h4 className="mb-6 text-secondary text-[16px] px-4 mt-4 font-medium">
+          Teacher: Harry Jack
         </h4>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-3 bg-[#F0E8FF] rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
+          <div className="grid grid-cols-3 bg-[#F0E8FF] rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-4">
             <div className="p-2.5 text-center xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 Topic
@@ -70,10 +75,8 @@ const ManagmentTable = () => {
 
           {brandData.map((brand, key) => (
             <div
-              className={`grid grid-cols-3 sm:grid-cols-5 ${
-                key === brandData.length - 1
-                  ? ""
-                  : "border-b border-stroke dark:border-strokedark"
+              className={`grid grid-cols-3 sm:grid-cols-4 ${
+                key === brandData.length - 1 ? "" : ""
               }`}
               key={key}
             >
@@ -93,7 +96,7 @@ const ManagmentTable = () => {
               </div>
 
               <div className="hidden items-center justify-center  p-2.5 sm:flex xl:p-5">
-                <p className="px-4 py-1 rounded-lg text-[#54B17E] bg-[#DDFAEA] ">
+                <p className="px-6 py-1 rounded-sm text-[#54B17E] bg-[#DDFAEA] ">
                   {brand.sales}
                 </p>
               </div>

@@ -19,8 +19,11 @@ import Content from "../assets/Content.png";
 import Dashboard from "../assets/Dashboard.png";
 import check from "../assets/Check.png";
 import LogoWhite from "../assets/whitelogo.png";
+import Profile from "../assets/profile.png";
 
 export { check };
+export { Profile };
+
 export { LogoWhite };
 
 export { Quiz };
