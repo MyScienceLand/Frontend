@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const PaperCard = ({
   topicArray,
@@ -25,7 +25,7 @@ const PaperCard = ({
                   {paperName}
                 </div>
               </div>
-              <div className="grid grid-cols-3 py-2 bg-[var(--secondary-color)]">
+              <div className="grid grid-cols-2 py-2 bg-[var(--secondary-color)]">
                 {startQuiz ? (
                   <>
                     {topicArray &&

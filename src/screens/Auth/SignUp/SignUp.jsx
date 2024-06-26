@@ -13,7 +13,6 @@ import {
 import ToastNotification from '../../../components/ToastNotification/ToastNotification';
 import Button from '../../../components/common/buttons/Button/Button';
 import AutoSlider from '../../../components/custom-slider/index';
-import { authLogoWidth } from '../../../constants';
 import { signupInputs } from '../../../data';
 import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
@@ -45,7 +44,7 @@ const SignUp = () => {
     validationSchema: formSchema,
     onSubmit: async (values) => {
       if (values.password !== values.confirmPassword) {
-        ToastNotification.warn(
+        ToastNotification.error(
           'Password and Confirm Password should be the same'
         );
         return;
@@ -76,9 +75,13 @@ const SignUp = () => {
       dispatch(registerUser({ ...formik.values, otpType: 'signup' }));
       setTimeout(() => {
         navigate('/otp-verification');
-      }, 1000);
+      }, 3000);
     }
-  }, [data, error, dispatch, navigate]);
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [data, error, dispatch, navigate, formik.values]);
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
@@ -91,12 +94,7 @@ const SignUp = () => {
   return (
     <section className="bg-[--primary-color] h-[100vh] gap-12 grid grid-cols-2">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-16">
-        <img
-          src={PurpleLogoWithText}
-          className="pb-6"
-          alt="Logo"
-          width={authLogoWidth}
-        />
+        <img src={PurpleLogoWithText} className="pb-6 w-24" alt="Logo" />
         <h1 className="text-[22px] font-semibold">Sign up</h1>
         <span className="text-[18px] font-normal text-[--text-color]">
           Welcome & Join us by creating a free account!

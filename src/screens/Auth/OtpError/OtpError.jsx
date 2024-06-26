@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { CrossIcon, PurpleLogoWithText } from '../../../assets';
-import ToastNotification from '../../../components/ToastNotification/ToastNotification';
-import Button from '../../../components/common/buttons/Button/Button';
-import usePost from '../../../hooks/usePost';
-import { API_ROUTES } from '../../../routes/apiRoutes';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { CrossIcon, PurpleLogoWithText } from "../../../assets";
+import ToastNotification from "../../../components/ToastNotification/ToastNotification";
+import Button from "../../../components/common/buttons/Button/Button";
+import usePost from "../../../hooks/usePost";
+import { API_ROUTES } from "../../../routes/apiRoutes";
 
 const OtpError = () => {
   const navigate = useNavigate();
@@ -25,22 +25,26 @@ const OtpError = () => {
     }
     if (resentOtpResponse) {
       ToastNotification.success(resentOtpResponse?.data?.message);
-      navigate('/otp-verification');
+      navigate("/otp-verification");
     }
   }, [resentOtpResponse]);
   return (
-    <div className=" h-screen">
+    <div className="h-screen">
       <div className="px-8 py-6">
         <img src={PurpleLogoWithText} alt="Logo" width={100} />
       </div>
-      <div className="container flex flex-col px-26 justify-center items-center pt-20">
+      <div className="container mx-auto flex flex-col px-64 justify-center items-center pt-20">
         <img src={CrossIcon} alt="cross icon" />
-        <h1 className="text-[#E3002B] text-[56px] font-medium">cross</h1>
-        <p className="text-[24px] font-normal">
+        <h1 className="text-[#E3002B] text-[54px] font-medium">Opps</h1>
+        <p className="text-[24px] font-normal mb-4">
           OPT doesn’t Match Resend OTP for verification
         </p>
-        <div className="w-20">
-          <Button title={'Resend OTP'} onClick={handelResendOtp} />
+        <div className="w-full">
+          <Button
+            title={"Resend OTP"}
+            onClick={handelResendOtp}
+            className="w-full "
+          />
         </div>
       </div>
     </div>

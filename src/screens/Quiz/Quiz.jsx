@@ -43,6 +43,7 @@ function Quiz() {
     }
   }, [topicAndStartPaper]);
   const quizState = useSelector((state) => state.quiz.quiz);
+  console.log(quizState);
   const [actualQuizId, setActualQuizId] = useState('');
   const [displayQuizComponent, setDisplayQuizComponent] = useState(false);
   useEffect(() => {
