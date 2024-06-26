@@ -3,6 +3,7 @@ import useFetch from '../../../hooks/useFetch';
 import usePost from '../../../hooks/usePost';
 
 import Swal from 'sweetalert2';
+import { CreateClassFile } from '../../../assets';
 import { API_ROUTES } from '../../../routes/apiRoutes';
 import ToastNotification from '../../ToastNotification/ToastNotification';
 import Button from '../common/buttons/Button/Button';
@@ -18,9 +19,8 @@ const CreateClass = () => {
   const [endDate, setEndDate] = useState('');
   const [students, setStudents] = useState([]);
   const [teacherAssigned, setTeacherAssigned] = useState([]);
-  console.log(teacherAssigned);
   const { data: qualificationsData } = useFetch(API_ROUTES.QUALIFICATIONS);
-  const { data: allStudentsData } = useFetch(API_ROUTES.ALL_STUDENTS);
+  const { data: allStudentsData } = useFetch(API_ROUTES.EXCLUDED_STUDENTS);
   const { data: subjectsData } = useFetch(API_ROUTES.SUBJECTS);
   const { data: allTeachersData } = useFetch(API_ROUTES.ALL_TEACHERS);
   const {
@@ -31,15 +31,6 @@ const CreateClass = () => {
 
   const handleFiles = (selectedFiles) => {
     setFiles(Array.from(selectedFiles));
-  };
-
-  const handleDrop = (event) => {
-    event.preventDefault();
-    handleFiles(event.dataTransfer.files);
-  };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
   };
 
   const handleTeacherAssignment = (subjectId, teacherId) => {
@@ -62,14 +53,13 @@ const CreateClass = () => {
   const handleCreateClass = () => {
     const classData = {
       className: 'string',
-      qualificationId: qualification?.id || 'string',
+      qualificationId: qualification?._id || 'string',
       year: year?.value || 'string',
       startDate,
       endDate,
       studentIds: students,
       teacherAssigned,
     };
-    // console.log(classData);
     postData(classData);
   };
 
@@ -141,45 +131,53 @@ const CreateClass = () => {
             />
           </div>
 
-          <Upload />
-          <SearchDropdown
-            data={allStudentsData?.data}
-            setStudents={setStudents}
-            students={students}
-          />
+          <Upload filePath={CreateClassFile} />
+          {allStudentsData && (
+            <SearchDropdown
+              data={allStudentsData?.data}
+              setStudents={setStudents}
+              students={students}
+            />
+          )}
         </div>
         <h1 className="text-[20px] font-medium mt-20">
           Select Subject And Teacher
         </h1>
 
         {subjectsData &&
-          subjectsData?.data.map((subject) => (
-            <div key={subject._id} className="grid grid-cols-2 gap-6 mt-4">
-              <div className="flex flex-col justify-center">
-                <label className="mb-1 text-[16px] font-medium text-[#2a2a2a]">
-                  Subject
-                </label>
-                <input
-                  className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-md"
-                  placeholder={subject.name}
-                  disabled
+          subjectsData?.data.map((subject) => {
+            const selectedTeacher = allTeachersData?.data.teachers.find(
+              (teacher) =>
+                teacher.email ===
+                teacherAssigned.find(
+                  (assignment) => assignment.subjectId === subject._id
+                )?.teacherId
+            );
+
+            return (
+              <div key={subject._id} className="grid grid-cols-2 gap-6 mt-4">
+                <div className="flex flex-col justify-center">
+                  <label className="mb-1 text-[16px] font-medium text-[#2a2a2a]">
+                    Subject
+                  </label>
+                  <input
+                    className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-md"
+                    placeholder={subject.name}
+                    disabled
+                  />
+                </div>
+                <Dropdown
+                  dropdownItems={allTeachersData?.data.teachers || []}
+                  label="Select Teacher"
+                  placeholder="Select Teacher"
+                  setSelectedItem={(teacher) =>
+                    handleTeacherAssignment(subject._id, teacher.email)
+                  }
+                  selectedItem={selectedTeacher || null}
                 />
               </div>
-              <Dropdown
-                dropdownItems={allTeachersData?.data}
-                label="Select Teacher"
-                placeholder="Select Teacher"
-                setSelectedItem={(teacher) =>
-                  handleTeacherAssignment(subject._id, teacher._id)
-                }
-                selectedItem={
-                  teacherAssigned.find(
-                    (assignment) => assignment.subjectId === subject._id
-                  )?.teacherId || null
-                }
-              />
-            </div>
-          ))}
+            );
+          })}
       </div>
 
       <div className="flex justify-center mt-6">

@@ -1,5 +1,6 @@
 import { Menu, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { IoIosArrowDown } from 'react-icons/io';
+
 import React, { Fragment } from 'react';
 import { handelLogout } from '../../utils/helper/HelperFunctions';
 const userNavigation = [
@@ -22,7 +23,7 @@ const UserProfile = () => {
           alt=""
         />
         <span className="hidden lg:flex lg:items-center">
-          <KeyboardArrowDownIcon
+          <IoIosArrowDown
             className="ml-2 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
@@ -49,7 +50,7 @@ const UserProfile = () => {
                     'block px-3 py-1 text-sm leading-6',
                     item.name === 'Sign out'
                       ? 'text-rose-600'
-                      : 'text-[var(--text-color)]'
+                      : 'text-[secondary]'
                   )}
                 >
                   {item.name}

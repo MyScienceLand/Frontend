@@ -44,7 +44,7 @@ const ForgotPassword = () => {
   }, [data, navigate, error]);
 
   return (
-    <section className="h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
+    <section className="h-[100vh] gap-12 grid grid-cols-2 bg-white">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
         {/* {JSON.stringify(formik.errors)} */}
         <img
@@ -104,11 +104,9 @@ const ForgotPassword = () => {
           </form>
         </div>
       </div>
-      <div className="bg-[var(--secondary-color)]">
+      <div className="bg-primary">
         <div className="flex h-screen justify-center items-center">
-          <h1 className="text-[54px] text-[var(--primary-color)] font-bold">
-            Forgot password!
-          </h1>
+          <h1 className="text-[54px] text-white font-bold">Forgot password!</h1>
         </div>
       </div>
     </section>

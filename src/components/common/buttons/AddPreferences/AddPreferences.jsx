@@ -1,4 +1,3 @@
-import { Divider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { IoAddCircleOutline } from 'react-icons/io5';
@@ -13,7 +12,6 @@ import PreLoader from '../../Preloader/PreLoader';
 import Dropdown from '../../dropdowns/Dropdowns/Dropdown';
 import CustomModal from '../../modals/CustomModal/CustomModal';
 import Button from '../Button/Button';
-import { dividerStyle } from './style';
 
 const AddPreferences = () => {
   const location = useLocation();
@@ -251,17 +249,18 @@ const AddPreferences = () => {
       <button
         onClick={handleOpen}
         type="button"
-        className="-m-2.5 px-8 h-10 flex justify-center gap-2 items-center bg-[var(--accent-color)] text-[var(--primary-color)] hover:text-gray-500 rounded-md"
+        className="-m-2.5 px-8 h-10 flex justify-center gap-2 items-center bg-secondary text-white hover:text-gray-500 rounded-md"
       >
         <IoAddCircleOutline />
         Add Preferences
       </button>
 
       <CustomModal
-        open={
-          ((token && userPreferences?.data?.length < 1) || modalOpen) &&
-          route === 'student-dashboard'
-        }
+        // open={
+        //   ((token && userPreferences?.data?.length < 1) || modalOpen) &&
+        //   route === 'student-dashboard'
+        // }
+        open={0}
         onClose={handleClose}
         title={
           displayStartQuiz
@@ -290,7 +289,7 @@ const AddPreferences = () => {
               <div>
                 {preferences.map((preference, index) => (
                   <div key={index} className="flex flex-col justify-start">
-                    {index > 0 && <Divider sx={dividerStyle} />}
+                    {/* {index > 0 && <Divider sx={dividerStyle} />} */}
                     <Dropdown
                       title="Qualification"
                       dropdownItems={qualificationsData}

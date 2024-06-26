@@ -1,4 +1,3 @@
-import Pagination from '@mui/material/Pagination';
 import React, { useEffect, useState } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { MalePic } from '../../../assets';
@@ -123,13 +122,13 @@ const StudentListComponent = ({
                 </div>
               ))}
           </div>
-          <Pagination
+          {/* <Pagination // Todo: Ask Usama to add this
             count={Math.ceil(totalRecords / rowsPerPage)}
             page={pageNumber}
             onChange={handlePageChange}
             color="primary"
             className="flex justify-center mt-6"
-          />
+          /> */}
         </>
       )}
     </div>

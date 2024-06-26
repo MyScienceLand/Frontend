@@ -1,32 +1,32 @@
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Google,
   JoinUs,
   NightScene,
   PurpleLogoWithText,
   SignUpSlider,
-} from "../../../assets";
-import ToastNotification from "../../../components/ToastNotification/ToastNotification";
-import Button from "../../../components/common/buttons/Button/Button";
-import AutoSlider from "../../../components/custom-slider/index";
-import { authLogoWidth } from "../../../constants";
-import { loginInputs } from "../../../data/index";
-import usePost from "../../../hooks/usePost";
-import "../../../index.scss";
-import { registerUser } from "../../../redux/slices/authSlice";
-import { API_ROUTES } from "../../../routes/apiRoutes";
-import { formSchema } from "../../../utils/helper/Schema";
+} from '../../../assets';
+import ToastNotification from '../../../components/ToastNotification/ToastNotification';
+import Button from '../../../components/common/buttons/Button/Button';
+import AutoSlider from '../../../components/custom-slider/index';
+import { authLogoWidth } from '../../../constants';
+import { loginInputs } from '../../../data/index';
+import usePost from '../../../hooks/usePost';
+import '../../../index.scss';
+import { registerUser } from '../../../redux/slices/authSlice';
+import { API_ROUTES } from '../../../routes/apiRoutes';
+import { formSchema } from '../../../utils/helper/Schema';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(['token']);
   const dispatch = useDispatch();
   const { data, loading, error, postData } = usePost(API_ROUTES.LOGIN);
   const imagesData = [
@@ -44,8 +44,8 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      password: "",
-      email: "",
+      password: '',
+      email: '',
     },
     validationSchema: formSchema,
     onSubmit: async (values) => {
@@ -64,33 +64,39 @@ const Login = () => {
   useEffect(() => {
     if (error) {
       if (
-        error === "Your Email is not verified Please firstly verify your Email"
+        error === 'Your Email is not verified Please firstly verify your Email'
       ) {
-        dispatch(registerUser({ ...formik.values, otpType: "signup" }));
+        dispatch(registerUser({ ...formik.values, otpType: 'signup' }));
         ToastNotification.error(error);
-        navigate("/otp-verification");
+        navigate('/otp-verification');
         return;
       }
       ToastNotification.error(error);
     } else if (data && data?.login?.isVerify === true) {
       ToastNotification.success(data?.message);
       localStorage.setItem(
-        "token",
-        data?.login?.access_token !== undefined ? data?.login?.access_token : ""
+        'token',
+        data?.login?.access_token !== undefined ? data?.login?.access_token : ''
       );
       setTimeout(() => {
-        navigate("/student-dashboard/dashboard");
+        window.location.href = `/${data?.login?.role}-dashboard`;
+        // navigate(`${data?.login?.role}-dashboard`, { replace: true });
         window.location.reload();
       }, 10);
     }
   }, [data, navigate, error]);
 
   return (
-    <section className="bg-[var(--primary-color)] h-[100vh] gap-12 grid grid-cols-2 ">
-      <div className="max-w-screen-sm w-full mx-auto gap-6 py-32">
-        <img src={PurpleLogoWithText} className="pb-6 w-24" alt="Logo" />
+    <section className="bg-white h-[100vh] gap-12 grid grid-cols-2 ">
+      <div className="max-w-screen-sm w-full mx-auto gap-6 py-20">
+        <img
+          src={PurpleLogoWithText}
+          className="pb-6"
+          alt="Logo"
+          width={authLogoWidth}
+        />
         <h1 className="text-[22px] font-semibold">Log in</h1>
-        <span className="text-[18px] font-normal text-[var(--text-color)] ">
+        <span className="text-[18px] font-normal text-[secondary] ">
           Log in to continue MyScienceLand!
         </span>
         <button className="flex justify-center gap-2 my-8 bg-[#F3F6F8] items-center px-6 max-w-[20rem] w-[100%] text-[16px] font-normal  text-[#2A2A2A] rounded-sm py-2">
@@ -101,16 +107,16 @@ const Login = () => {
           {loginInputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
               <label
-                className="text-[var(--text-color)] text-[18px] font-medium"
+                className="text-[secondary] text-[18px] font-medium"
                 htmlFor={input.id}
               >
                 {input.label}
               </label>
-              {input.type === "password" ? (
+              {input.type === 'password' ? (
                 <div className="relative">
                   <input
                     id={input.id}
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     placeholder={input.placeholder}
                     name={input.name}
                     className="border h-10 px-2 border-[#757575] rounded-sm w-full pr-10"
@@ -121,13 +127,9 @@ const Login = () => {
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 px-3 flex items-center text-[var(--text-color)]"
+                    className="absolute inset-y-0 right-0 px-3 flex items-center text-[secondary]"
                   >
-                    {showPassword ? (
-                      <RemoveRedEyeIcon />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
+                    {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
                   </button>
                 </div>
               ) : (
@@ -157,7 +159,7 @@ const Login = () => {
                 value={rememberMe}
               />
               <label
-                className="text-[14px] font-medium text-[var(--text-color)] pl-2"
+                className="text-[14px] font-medium text-[secondary] pl-2"
                 htmlFor="rememberPassword"
               >
                 Remember Me
@@ -172,11 +174,11 @@ const Login = () => {
           </div>
 
           <Button title="Log In" type="submit" onClick={formik.handleSubmit} />
-          <h2 className="text-[18px]  text-[var(--text-color)] font-normal text-center py-5">
-            Don’t have an account?{" "}
+          <h2 className="text-[18px]  text-[secondary] font-normal text-center py-5">
+            Don’t have an account?{' '}
             <Link
-              to={"/Signup"}
-              className="underline text-[18px] font-normal cursor-pointer   text-[var(--secondary-color)]"
+              to={'/Signup'}
+              className="underline text-[18px] font-normal cursor-pointer   text-primary"
             >
               SignUp
             </Link>
@@ -186,16 +188,16 @@ const Login = () => {
       <div
         style={{
           backgroundImage: `url(${NightScene})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingLeft: "164px",
-          paddingRight: "164px",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingLeft: '164px',
+          paddingRight: '164px',
         }}
       >
-        <AutoSlider imagesData={imagesData} title={"Log In"} />
+        <AutoSlider imagesData={imagesData} title={'Log In'} />
       </div>
     </section>
   );

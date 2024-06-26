@@ -40,7 +40,15 @@ export const API_ROUTES = {
   USER: '/user',
   ALL_STUDENTS: '/user/all-students',
   ALL_TEACHERS: '/user/all-teachers',
+  EXCLUDED_STUDENTS: '/user/all-students-excluded-class',
 
   // Management
   CREATE_CLASS: '/management/create-class',
+  CREATE_TEACHER: '/management/create-teacher',
+  CREATE_STUDENT: '/management/create-student',
+  ALL_CLASSES: '/management/classes',
+
+  ASSIGN_CLASS_TO_STUDENTS: '/management/create-multipleStudent',
+
+  DELETE_STUDENT: '/management/delete-student',
 };

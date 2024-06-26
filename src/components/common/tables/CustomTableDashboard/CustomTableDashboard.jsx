@@ -1,14 +1,12 @@
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
-import { dashboardTablePeople } from "../../../../data/dashboard";
-import EmptyDataFields from "../../../EmptyDataFields/EmptyDataFields";
+import { dashboardTablePeople } from '../../../../data/dashboard';
+import EmptyDataFields from '../../../EmptyDataFields/EmptyDataFields';
 export default function CustomTableDashboard({ progress }) {
   return (
     <>
       {dashboardTablePeople.length > 0 ? (
         <div className="#fefefe mt-6 ">
-          <div className="px-4 sm:px-6 lg:px-0  rounded-md">
-            <div className="bg-[var(--primary-color)] h-full px-8 rounded py-2">
+          <div className="px-4 sm:px-6 lg:px-0 rounded-md">
+            <div className="bg-white px-8 rounded py-2">
               <h1 className="text-[18px] font-medium">Your Progress</h1>
             </div>
             <div className=" flow-root">
@@ -38,7 +36,7 @@ export default function CustomTableDashboard({ progress }) {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-200 bg-[var(--primary-color)]">
+                      <tbody className="divide-y divide-gray-200 bg-white">
                         {progress &&
                           progress.map((person, index) => (
                             <tr key={index}>
@@ -47,12 +45,24 @@ export default function CustomTableDashboard({ progress }) {
                               </td>
 
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                <Box sx={{ width: "80%" }}>
+                                <label>{person.progress}%</label>
+                                <div className="">
+                                  <div className="flex max-w-[470px] flex-col gap-7">
+                                    <div className="relative h-2.5 w-full rounded-full bg-stroke dark:bg-strokedark">
+                                      <div
+                                        className={`absolute left-0 h-1.5 w-10/12 rounded-full bg-secondary w-[${person.progress}%]`} // Todo: Ask Usama make it work its not working as per the percentage
+                                      ></div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* <div>
+                                  
                                   <LinearProgress
                                     variant="determinate"
                                     value={person.progress}
                                   />
-                                </Box>
+                                </div> */}
                               </td>
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 {person.duration}
@@ -68,7 +78,7 @@ export default function CustomTableDashboard({ progress }) {
           </div>
         </div>
       ) : (
-        <EmptyDataFields title={"Subject"} message="Data does not exist" />
+        <EmptyDataFields title={'Subject'} message="Data does not exist" />
       )}
     </>
   );

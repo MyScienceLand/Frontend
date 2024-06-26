@@ -139,7 +139,7 @@ const StartAttemptQuiz = ({
           <p className="text-[18px] font-medium mb-5">
             Please click on selected Subjects to attempting preliminary Quiz
           </p>
-          <div className="">
+          <div className="text-[18px] text-center font-normal w-full mt-4 text-white bg-primary py-1">
             <Button
               title={'Start'}
               onClick={handelCreateAndStartQuiz}

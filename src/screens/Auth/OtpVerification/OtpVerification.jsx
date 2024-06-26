@@ -106,7 +106,6 @@ const OtpVerification = () => {
       otp: otpValue,
     });
   };
-  console.log(forgetOtpVerifyError);
   useEffect(() => {
     if (forgetOtpVerifyError) {
       ToastNotification.error(forgetOtpVerifyError);
@@ -134,7 +133,7 @@ const OtpVerification = () => {
     }
   }, [resentOtpResponse]);
   return (
-    <section className="h-[100vh] gap-12 grid grid-cols-2 bg-[var(--primary-color)]">
+    <section className="h-[100vh] gap-12 grid grid-cols-2 bg-white">
       <div className="max-w-screen-sm w-full mx-auto gap-6 py-8">
         <img src={PurpleLogoWithText} alt="Logo" width={authLogoWidth} />
         <div className="">
@@ -149,7 +148,7 @@ const OtpVerification = () => {
             Two-Step Verification
           </h1>
           <img src={Otp} className="mt-4 mb-6" alt="Otp" />
-          <span className="text-[var(--text-color)] mt-6 text-[18px] ">
+          <span className="text-[secondary] mt-6 text-[18px] ">
             Please enter the OTP (one time password) to verify your account. A
             Code has been sent to your email: {user.email}
           </span>
@@ -174,7 +173,7 @@ const OtpVerification = () => {
                 );
               })}
             </div>
-            <p className="text-[var(--text-color)] text-[14px] font-medium mb-5">
+            <p className="text-[secondary] text-[14px] font-medium mb-5">
               Didn't get the code?
               <button
                 onClick={handelResendOtp}
@@ -196,11 +195,9 @@ const OtpVerification = () => {
           </form>
         </div>
       </div>
-      <div className="bg-[var(--secondary-color)]">
+      <div className="bg-primary">
         <div className="flex h-screen justify-center items-center">
-          <h1 className="text-[54px] text-[var(--primary-color)] font-bold">
-            OTP Verification
-          </h1>
+          <h1 className="text-[54px] text-white font-bold">OTP Verification</h1>
         </div>
       </div>
     </section>

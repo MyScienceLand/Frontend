@@ -13,7 +13,7 @@ const ApexChart = ({ subjectGraphData }) => {
       type: 'area',
       height: 350,
       stacked: true,
-      background: 'var(--primary-color)',
+      background: 'white',
       events: {
         selection: function (chart, e) {
           // console.log(new Date(e.xaxis.min));
@@ -46,7 +46,7 @@ const ApexChart = ({ subjectGraphData }) => {
     <>
       {series.length > 0 ? (
         <div>
-          <div className="bg-[var(--primary-color)] px-8 rounded py-2">
+          <div className="bg-white px-8 rounded py-2">
             <h1 className="text-[18px] font-medium">Your Progress</h1>
           </div>
           <ReactApexChart

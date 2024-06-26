@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BsDownload } from 'react-icons/bs';
 
-const Upload = () => {
+const Upload = ({ filePath }) => {
   const [files, setFiles] = useState([]);
 
   const handleFiles = (selectedFiles) => {
@@ -17,17 +17,25 @@ const Upload = () => {
     event.preventDefault();
   };
 
+  // const downloadCSV = () => {
+  //   if (files.length === 0) return;
+
+  //   const csvContent =
+  //     'data:text/csv;charset=utf-8,' +
+  //     files.map((file) => file.name).join('\n');
+
+  //   const encodedUri = encodeURI(csvContent);
+  //   const link = document.createElement('a');
+  //   link.setAttribute('href', encodedUri);
+  //   link.setAttribute('download', 'files.csv');
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
   const downloadCSV = () => {
-    if (files.length === 0) return;
-
-    const csvContent =
-      'data:text/csv;charset=utf-8,' +
-      files.map((file) => file.name).join('\n');
-
-    const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'files.csv');
+    link.href = filePath;
+    link.download = 'createClass.csv'; // Set the desired filename
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -52,7 +60,7 @@ const Upload = () => {
         >
           <div className="flex items-center gap-4 justify-start">
             <button
-              className="px-8 py-1 bg-[var(--secondary-color)] text-white border hover:border border-primary hover:bg-transparent hover:text-primary"
+              className="px-8 py-1 bg-primary text-white border hover:border border-primary hover:bg-transparent hover:text-primary"
               onClick={() => document.getElementById('fileInput').click()}
             >
               Upload

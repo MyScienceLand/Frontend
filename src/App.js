@@ -26,7 +26,9 @@ import PrimarilyQuiz from './screens/PrimarilyQuiz/PrimarilyQuiz';
 import Quiz from './screens/Quiz/Quiz';
 import StartQuiz from './screens/StartQuiz/StartQuiz';
 import ManagementDashboard from './screens/apps/ManagementDashboard/ManagementDashboard/ManagementDashboard';
-import ContentWarper from './screens/global/ContentWarper/ContentWarper';
+import StudentList from './screens/apps/ManagementDashboard/StudentList/StudentList';
+import TeachersList from './screens/apps/ManagementDashboard/TeachersList/TeachersList';
+// import ContentWarper from './screens/global/ContentWarper/ContentWarper';
 import Layout from './screens/global/Layout/Layout';
 
 function App() {
@@ -127,23 +129,23 @@ function App() {
           path="/otp-error"
           element={!token ? <OtpError /> : <Navigate to={mainRoute} />}
         />
-<Route path="/quiz" element={<Quiz />} />
+        <Route path="/quiz" element={<Quiz />} />
         <Route
           path="/student-dashboard/*"
           element={
-            token && user?.role === 'student' ? (
+            token ? (
               <>
-                <ContentWarper open={open}>
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/content" element={<Content />} />
-                    {/* <Route path="/quiz" element={<Quiz />} /> */}
-                    <Route path="/start-quiz" element={<StartQuiz />} />
-                    <Route path="/primarily-quiz" element={<PrimarilyQuiz />} />
-                    <Route path="*" element={<Error404Page />} />
-                  </Routes>
-                </ContentWarper>
+                {/* <ContentWarper open={open}> */}
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/content" element={<Content />} />
+                  {/* <Route path="/quiz" element={<Quiz />} /> */}
+                  <Route path="/start-quiz" element={<StartQuiz />} />
+                  <Route path="/primarily-quiz" element={<PrimarilyQuiz />} />
+                  <Route path="*" element={<Error404Page />} />
+                </Routes>
+                {/* </ContentWarper> */}
               </>
             ) : token === null || undefined ? (
               <Navigate to="/login" />
@@ -155,18 +157,20 @@ function App() {
         <Route
           path="/management-dashboard/*"
           element={
-            token /*&& user?.role === 'student' */ ? (
-              <ContentWarper open={open}>
-                <Routes>
-                  <Route path="/" element={<ManagementDashboard />} />
-                  <Route path="/dashboard" element={<ManagementDashboard />} />
-                  <Route path="*" element={<Error404Page />} />
-                </Routes>
-              </ContentWarper>
-            ) : token === undefined || null ? (
+            token ? (
+              // <ContentWarper open={open}>
+              <Routes>
+                <Route path="/" element={<ManagementDashboard />} />
+                <Route path="/dashboard" element={<ManagementDashboard />} />
+                <Route path="/students-list" element={<StudentList />} />
+                <Route path="/teachers-list" element={<TeachersList />} />
+                <Route path="*" element={<Error404Page />} />
+              </Routes>
+            ) : // </ContentWarper>
+            token === undefined || null ? (
               <Navigate to="/login" />
             ) : (
-              <Navigate to={'/management-dashboard'} />
+              <Navigate to={mainRoute} />
             )
           }
         />

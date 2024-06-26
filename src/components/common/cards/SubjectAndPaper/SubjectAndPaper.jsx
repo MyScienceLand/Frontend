@@ -11,7 +11,7 @@ const SubjectAndPaper = ({
 
   return (
     <div className="rounded-lg overflow-hidden border border-secondary flex-1">
-      <div className="bg-[var(--accent-color)] py-2 rounded-t-lg">
+      <div className="bg-secondary py-2 rounded-t-lg">
         <div className="text-[18px] font-medium text-white text-center">
           {subjects.name}
         </div>

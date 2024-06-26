@@ -5,7 +5,7 @@ export const modalStyle = (width) => ({
   transform: 'translate(-50%, -50%)',
   minWidth: width ? width : 450,
   width: 'auto',
-  bgcolor: 'var(--primary-color)',
+  bgcolor: 'white',
   borderRadius: 5,
   boxShadow: 24,
 });

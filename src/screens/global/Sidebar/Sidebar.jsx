@@ -1,7 +1,6 @@
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+
 import MuiDrawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,23 +16,27 @@ import {
   openedMixin,
 } from '../../../utils/helper/HelperFunctions';
 
-// import "../../../index.scss";
-import { FileCopy } from '@mui/icons-material';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { MdFileCopy } from 'react-icons/md';
+
+import { FaRegCalendarAlt } from 'react-icons/fa';
+
 import { FaBuildingColumns } from 'react-icons/fa6';
 import { GiTeacher } from 'react-icons/gi';
+import { PiStudent } from 'react-icons/pi';
 
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ManagementLogo, PurpleLogoWithText } from '../../../assets';
 const iconMap = {
   Dashboard: <FaBuildingColumns size={19} />,
-  Content: <FileCopy />,
-  Quiz: <CalendarMonthIcon />,
+  Content: <MdFileCopy />,
+  Quiz: <FaRegCalendarAlt />,
 };
 
 const managementIconMap = {
   Dashboard: <FaBuildingColumns size={19} />,
-  'Teacher List': <GiTeacher />,
+  'Teachers List': <GiTeacher />,
+  'Students List': <PiStudent />,
 };
 
 const drawerWidth = 240;
@@ -73,15 +76,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidebar({ handleDrawerClose, open }) {
-  // const user = useSelector((state) => state.user);
-  const user = { role: 'management' };
+  const user = useSelector((state) => state.user);
+  // const user = { role: 'management' };
+  console.log('sidebar role', user?.role);
 
   if (user?.role === 'student') {
-    backGroundColor = 'var(--primary-color)';
-    textColor = 'var(--text-color)';
+    backGroundColor = 'white';
+    textColor = 'secondary';
   } else if (user?.role === 'management') {
-    backGroundColor = 'var(--secondary-color)';
-    textColor = 'var(--primary-color)';
+    backGroundColor = 'primary';
+    textColor = 'white';
   }
   console.log(user);
   const theme = useTheme();
@@ -106,17 +110,17 @@ export default function Sidebar({ handleDrawerClose, open }) {
         </div>
 
         {open && (
-          <IconButton onClick={handleDrawerClose}>
+          <button onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
+              <IoIosArrowForward color="#000" />
             ) : (
-              <ChevronLeftIcon />
+              <IoIosArrowBack color="#000" />
             )}
-          </IconButton>
+          </button>
         )}
       </DrawerHeader>
 
-      {user.role === 'student' ? (
+      {user?.role === 'student' ? (
         <List>
           {['Dashboard', 'Content', 'Quiz'].map((text, index) => {
             const route = text.toLowerCase().replace(' ', '-');
@@ -132,7 +136,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
                     px: 2.5,
-                    backgroundColor: isSelected ? 'var(--secondary-color)' : '',
+                    backgroundColor: isSelected ? 'white' : '',
                     borderTopRightRadius: 18,
                   }}
                 >
@@ -141,7 +145,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
                       minWidth: 0,
                       mr: open ? 3 : 'auto',
                       justifyContent: 'center',
-                      color: isSelected ? '#fff' : 'var(--text-color)',
+                      color: isSelected ? '#fff' : 'secondary',
                     }}
                   >
                     {iconMap[text]}
@@ -150,7 +154,7 @@ export default function Sidebar({ handleDrawerClose, open }) {
                     primary={text}
                     sx={{
                       opacity: open ? 1 : 0,
-                      color: isSelected ? '#fff' : 'var(--text-color)',
+                      color: isSelected ? '#fff' : 'secondary',
                     }}
                   />
                 </ListItemButton>
@@ -160,49 +164,48 @@ export default function Sidebar({ handleDrawerClose, open }) {
         </List>
       ) : (
         <List>
-          {['Dashboard', 'Teacher List'].map((text, index) => {
-            const route = text.toLowerCase().replace(' ', '-');
-            const isSelected =
-              location.pathname === `/management-dashboard/${route}` ||
-              (text === 'Dashboard' && location.pathname === '/');
-            return (
-              <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  component={Link}
-                  to={`/management-dashboard/${route}`}
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                    backgroundColor: isSelected ? 'var(--primary-color)' : '',
-                    borderTopRightRadius: 18,
-                  }}
-                >
-                  <ListItemIcon
+          {['Dashboard', 'Teachers List', 'Students List'].map(
+            (text, index) => {
+              const route = text.toLowerCase().replace(' ', '-');
+              const isSelected =
+                location.pathname === `/management-dashboard/${route}` ||
+                (text === 'Dashboard' && location.pathname === '/');
+
+              return (
+                <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                  <ListItemButton
+                    component={Link}
+                    to={`/management-dashboard/${route}`}
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                      color: isSelected
-                        ? 'var(--secondary-color)'
-                        : 'var(--primary-color)',
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: isSelected ? 'white' : '',
+                      borderTopRightRadius: 18,
                     }}
                   >
-                    {managementIconMap[text]}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={text}
-                    sx={{
-                      opacity: open ? 1 : 0,
-                      color: isSelected
-                        ? 'var(--secondary-color)'
-                        : 'var(--primary-color)',
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                        color: isSelected ? 'primary' : 'white',
+                      }}
+                    >
+                      {managementIconMap[text]}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={text}
+                      sx={{
+                        opacity: open ? 1 : 0,
+                        color: isSelected ? 'primary' : 'white', // Set text color to purple
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            }
+          )}
         </List>
       )}
     </Drawer>

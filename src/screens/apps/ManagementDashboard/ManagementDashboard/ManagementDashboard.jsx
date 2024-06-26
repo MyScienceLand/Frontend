@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import CreateClass from '../../../../components/MannagementComponents/CreateClass/CreateClass';
+import MainCreateUser from '../../../../components/MannagementComponents/CreateUser/index';
 import Dashboard from '../../../../components/MannagementComponents/Dashboard/Dashboard';
 
 const ManagementDashboard = () => {
   const [displayCreateClass, setDisplayCreateClass] = useState(false);
-  console.log(displayCreateClass);
+  const [displayCreateUser, setDisplayCreateUser] = useState(false);
+
   return (
     <>
-      {displayCreateClass == true ? (
+      {displayCreateClass ? (
         <CreateClass />
+      ) : displayCreateUser ? (
+        <MainCreateUser />
       ) : (
-        <>
-          <Dashboard setDisplayCreateClass={setDisplayCreateClass} />
-        </>
+        <Dashboard
+          setDisplayCreateClass={setDisplayCreateClass}
+          setDisplayCreateUser={setDisplayCreateUser}
+        />
       )}
     </>
   );

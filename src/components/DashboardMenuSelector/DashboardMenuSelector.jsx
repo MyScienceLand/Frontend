@@ -1,10 +1,10 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from 'react';
+import { IoIosArrowDown } from 'react-icons/io';
 import useFetch from '../../hooks/useFetch';
 import { API_ROUTES } from '../../routes/apiRoutes';
+import Button from '../common/buttons/Button/Button';
 
 const DashboardMenuSelector = ({
   selectedSubject,
@@ -56,23 +56,10 @@ const DashboardMenuSelector = ({
       {/* {JSON.stringify(data.data)} */}
       <div>
         <Button
-          aria-controls="subjects-menu"
-          aria-haspopup="true"
           onClick={handleClickSubjects}
-          endIcon={<KeyboardArrowDownIcon />}
-          variant="outlined"
-          sx={{
-            color: 'gray',
-            '&:hover': {
-              backgroundColor: '#f5f5f5',
-            },
-            border: '1px solid var(--secondary-color)',
-            textTransform: 'none',
-            fontWeight: 'bold',
-          }}
-        >
-          {selectedSubject}
-        </Button>
+          icon={<IoIosArrowDown />}
+          title={selectedSubject}
+        ></Button>
         {/* <Menu
           id="subjects-menu"
           anchorEl={anchorElSubjects}
@@ -110,23 +97,10 @@ const DashboardMenuSelector = ({
       </div>
       <div>
         <Button
-          aria-controls="topic-menu"
-          aria-haspopup="true"
-          onClick={handleClickTopic}
-          endIcon={<KeyboardArrowDownIcon />}
-          variant="outlined"
-          sx={{
-            color: 'gray',
-            '&:hover': {
-              backgroundColor: '#f5f5f5',
-            },
-            border: '1px solid var(--secondary-color)',
-            textTransform: 'none',
-            fontWeight: 'bold',
-          }}
-        >
-          {selectedTopic}
-        </Button>
+          onClick={handleClickSubjects}
+          icon={<IoIosArrowDown />}
+          title={selectedTopic}
+        ></Button>
         <Menu
           id="topic-menu"
           anchorEl={anchorElTopic}
@@ -140,7 +114,7 @@ const DashboardMenuSelector = ({
                 key={index}
                 onClick={() => handleSelectTopic(topic.name)}
               >
-                {topic.name}
+                {topic.name}1
               </MenuItem>
             ))}
         </Menu>

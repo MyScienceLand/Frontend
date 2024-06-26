@@ -1,7 +1,7 @@
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -104,7 +104,7 @@ const SignUp = () => {
           {signupInputs.map((input) => (
             <div key={input.id} className="mt-6 flex flex-col gap-2">
               <label
-                className="text-[var(--text-color)] text-[18px] font-medium"
+                className="text-[secondary] text-[18px] font-medium"
                 htmlFor={input.id}
               >
                 {input.label}
@@ -124,13 +124,9 @@ const SignUp = () => {
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 px-3 flex items-center text-[var(--text-color)]"
+                    className="absolute inset-y-0 right-0 px-3 flex items-center text-[secondary]"
                   >
-                    {showPassword ? (
-                      <RemoveRedEyeIcon />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
+                    {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
                   </button>
                 </div>
               ) : input.type === 'password' &&
@@ -149,13 +145,9 @@ const SignUp = () => {
                   <button
                     type="button"
                     onClick={toggleConfirmPasswordVisibility}
-                    className="absolute inset-y-0 right-0 px-3 flex items-center text-[var(--text-color)]"
+                    className="absolute inset-y-0 right-0 px-3 flex items-center text-[secondary]"
                   >
-                    {showConfirmPassword ? (
-                      <RemoveRedEyeIcon />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
+                    {showConfirmPassword ? <IoMdEyeOff /> : <IoMdEye />}
                   </button>
                 </div>
               ) : (
@@ -187,20 +179,20 @@ const SignUp = () => {
                 checked={confirmPrivacy}
               />
             </div>
-            <h2 className="text-[18px] text-[var(--text-color)] font-normal text-center py-5">
+            <h2 className="text-[18px] text-[secondary] font-normal text-center py-5">
               By creating an account you agree to our
-              <span className="underline text-[18px] font-normal cursor-pointer text-[var(--secondary-color)]">
+              <span className="underline text-[18px] font-normal cursor-pointer text-primary">
                 Terms & Conditions and Privacy Policy
               </span>
             </h2>
           </div>
 
           <Button title="Create Account" type="submit" />
-          <h2 className="text-[18px] text-[var(--text-color)] font-normal text-center py-5">
+          <h2 className="text-[18px] text-[secondary] font-normal text-center py-5">
             Already have an account?{' '}
             <Link
               to={'/login'}
-              className="underline text-[18px] font-normal cursor-pointer text-[var(--secondary-color)]"
+              className="underline text-[18px] font-normal cursor-pointer text-primary"
             >
               Log In
             </Link>

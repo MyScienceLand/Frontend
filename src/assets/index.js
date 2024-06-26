@@ -1,3 +1,4 @@
+import CreateClassFile from './files/csv/createClass.csv';
 import Google from './icons/Google.png';
 import Lock from './icons/Lock.png';
 import Logo from './icons/Logo.png';
@@ -16,10 +17,12 @@ import StudentBg from './icons/dashboard/studentBg.png';
 import JoinUs from './icons/joinus.png';
 import signUpBg from './icons/signUpBg.png';
 import Error404PageImage from './images/Error.png';
+import MalePic from './images/MalePic.png';
 import NightScene from './images/NightScene.png';
 import StudentImage from './images/Student.png';
 export {
   Bio,
+  CreateClassFile,
   // Bio,
   CrossIcon,
   Error404PageImage,
@@ -28,6 +31,7 @@ export {
   Lab,
   Lock,
   Logo,
+  MalePic,
   ManagementLogo,
   NightScene,
   Otp,

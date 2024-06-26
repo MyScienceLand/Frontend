@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const SearchDropdown = ({ data, setStudents, students }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  console.log(students);
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -16,16 +15,16 @@ const SearchDropdown = ({ data, setStudents, students }) => {
     );
   };
 
-  const filteredData = data?.filter((teacher) =>
-    (teacher.name || teacher.firstName)
+  const filteredData = data?.filter((teacher) => {
+    return (teacher.firstName || teacher.email)
       .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+      .includes(searchTerm?.toLowerCase());
+  });
 
   return (
     <div className="relative">
       <button
-        className="w-full px-4 text-start text-white bg-[var(--secondary-color)] py-3 rounded"
+        className="w-full px-4 text-start text-white bg-primary py-3 rounded"
         onClick={() => setIsOpen(!isOpen)}
       >
         Dropdown Search
@@ -40,22 +39,23 @@ const SearchDropdown = ({ data, setStudents, students }) => {
             onChange={handleSearch}
           />
           <ul className="max-h-60 overflow-y-auto">
-            {filteredData.map((teacher) => (
-              <li
-                key={teacher._id}
-                className="flex items-center p-2 hover:bg-gray-100"
-              >
-                <span className="ml-4">
-                  {teacher.name || teacher.firstName}
-                </span>
-                <input
-                  type="checkbox"
-                  className="ml-auto"
-                  checked={students.includes(teacher._id)}
-                  onChange={() => handleCheckboxChange(teacher._id)}
-                />
-              </li>
-            ))}
+            {filteredData &&
+              filteredData?.map((teacher) => (
+                <li
+                  key={teacher._id}
+                  className="flex items-center p-2 hover:bg-gray-100"
+                >
+                  <span className="ml-4">
+                    {teacher.name || teacher.firstName || teacher.email}
+                  </span>
+                  <input
+                    type="checkbox"
+                    className="ml-auto"
+                    checked={students.includes(teacher._id)}
+                    onChange={() => handleCheckboxChange(teacher._id)}
+                  />
+                </li>
+              ))}
           </ul>
         </div>
       )}

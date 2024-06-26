@@ -1,4 +1,3 @@
-import Pagination from '@mui/material/Pagination';
 import React, { useState } from 'react';
 import PreLoader from '../../common/Preloader/PreLoader';
 
@@ -74,13 +73,13 @@ const TeacherListComponent = ({
                 </div>
               </div>
             ))}
-          <Pagination
+          {/* <Pagination // Todo: Ask Usama to add this
             count={Math.ceil(totalRecords / rowsPerPage)}
             page={pageNumber}
             onChange={handlePageChange}
             color="primary"
             className="flex justify-center mt-6"
-          />
+          /> */}
         </div>
       )}
     </>

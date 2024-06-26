@@ -14,11 +14,7 @@ const Content = () => {
   const { data, loading, error } = useFetch(API_ROUTES.PREFERENCES);
 
   const classesArray = [
-    [
-      'bg-[var(--secondary-color)] text-white',
-      'bg-[var(--secondary-color)] text-white',
-      'bg-[var(--secondary-color)] text-white',
-    ],
+    ['bg-primary text-white', 'bg-primary text-white', 'bg-primary text-white'],
     [
       'bg-[#006C8D] text-white',
       'bg-[#006C8D] text-white',

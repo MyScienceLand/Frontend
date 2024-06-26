@@ -1,10 +1,11 @@
 // src/App.js
 
-import React, { useContext } from "react";
-import { IconButton } from "@mui/material";
-import { ThemeContext } from "../../theme/ThemeContext";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { IoMdSunny } from 'react-icons/io';
+
+import React, { useContext } from 'react';
+import { IoMoonOutline } from 'react-icons/io5';
+import { ThemeContext } from '../../theme/ThemeContext';
+
 const ThemeToggleButton = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -14,13 +15,17 @@ const ThemeToggleButton = () => {
         Switch to {theme === "light" ? "Dark" : "Light"} Theme
       </Button> */}
 
-      <IconButton onClick={toggleTheme}>
-        {theme === "light" ? (
-          <DarkModeOutlinedIcon />
+      <button // Todo: test this after removing the MUI
+        type="button"
+        className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500 black"
+        onClick={toggleTheme}
+      >
+        {theme === 'light' ? (
+          <IoMoonOutline color="#000" />
         ) : (
-          <LightModeOutlinedIcon />
+          <IoMdSunny color="#000" />
         )}
-      </IconButton>
+      </button>
     </div>
   );
 };

@@ -25,7 +25,7 @@ const DashboardSubjectCard = ({ cardsArray }) => {
             <div key={index} className={item?.className}>
               <div className="flex justify-end mt-4">
                 <button
-                  className="py-1 px-4 rounded-md bg-[var(--primary-color)]"
+                  className="py-1 px-4 rounded-md bg-white"
                   onClick={() =>
                     handelContinueQuiz(
                       item?.quizId,
@@ -39,15 +39,13 @@ const DashboardSubjectCard = ({ cardsArray }) => {
               <div className="flex justify-start items-center gap-2">
                 <img src={item?.image} alt={item?.text} />
                 <div>
-                  <span className="text-[var(--primary-color)]">
-                    {item.subjects?.name}
-                  </span>
-                  <p className="text-[16px] text-[var(--primary-color)] font-normal">
+                  <span className="text-white">{item.subjects?.name}</span>
+                  <p className="text-[16px] text-white font-normal">
                     {item.topic?.name}
                   </p>
                   <div className="flex gap-2 justify-center items-center">
                     <img src={ProgressArrow} alt="Uper Icon" />
-                    <p className="text-[var(--primary-color)] text-[12px] font-normal">
+                    <p className="text-white text-[12px] font-normal">
                       {item?.progress}% higher than last month
                     </p>
                   </div>

@@ -60,7 +60,7 @@ const AssignClassToStudent = () => {
                 key={index}
                 className={`px-4 py-2 border border-[#696969] border-opacity-45 rounded ${
                   selectedClass?._id === option?._id
-                    ? 'bg-[var(--secondary-color)] text-white'
+                    ? 'bg-primary text-white'
                     : 'bg-white'
                 }`}
                 onClick={() => handleSelect(option)}

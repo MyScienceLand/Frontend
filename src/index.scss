@@ -5,45 +5,43 @@
 @import './scss/variables.scss';
 @import './scss/fonts.scss';
 
-// Light Theme
-body.light-theme {
-  --primary-color: #{$primary-color};
-  --secondary-color: #{$secondary-color};
-  --accent-color: #{$accent-color};
-  --background-color: #{$background-color};
-  --text-color: #{$text-color};
-}
+// // Light Theme
+// body.light-theme {
+//   --primary-color: #{$primary-color};
+//   --secondary-color: #{$secondary-color};
+//   --accent-color: #{$accent-color};
+//   --background-color: #{$background-color};
+//   // --text-color: #{$text-color};
+// }
 
-// Dark Theme
-body.dark-theme {
-  --primary-color: #{$primary-color-dark};
-  --secondary-color: #{$secondary-color-dark};
-  --accent-color: #{$accent-color-dark};
-  --background-color: #{$background-color-dark};
-  --text-color: #{$text-color-dark};
-}
+// // Dark Theme
+// body.dark-theme {
+//   --primary-color: #{$primary-color-dark};
+//   --secondary-color: #{$secondary-color-dark};
+//   --accent-color: #{$accent-color-dark};
+//   --background-color: #{$background-color-dark};
+//   // --text-color: #{$text-color-dark};
+// }
 
 // Global styles using CSS variables
 body {
   font-family: 'CabinetGrotesk', sans-serif;
   background-color: var(--background-color);
-  color: var(--text-color);
+  // color: secondary;
 }
 // In your Sidebar component's CSS
 
 .slick-dots li button:before {
-  content: "" !important;
-
+  content: '' !important;
 }
 
 .slick-dots li {
- width:4rem 
+  width: 4rem;
 }
-
 
 .slick-dots li button {
   cursor: pointer;
-  background: #FFFFFF;
+  background: #ffffff;
   height: 0.1px;
   width: 60px;
   padding: 1px;
@@ -51,7 +49,7 @@ body {
 }
 .slick-dots li button:active {
   cursor: pointer;
-  background: #FFFFFF;
+  background: #ffffff;
   width: 60px;
   padding: 1px;
 }

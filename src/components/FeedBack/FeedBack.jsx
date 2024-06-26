@@ -6,13 +6,13 @@ const FeedBack = ({ feedbackData }) => {
     <div>
       {feedbackData?.detail.length > 0 ? (
         <div className="shadow-lg rounded-md">
-          <div className="bg-[var(--primary-color)] px-8 rounded py-2">
+          <div className="bg-white px-8 rounded py-2">
             <h1 className="text-[18px] font-medium">Feedback</h1>
           </div>
-          <div className="bg-[var(--primary-color)] px-6 py-4">
+          <div className="bg-white px-6 py-4">
             <div className="flex justify-start mb-12 items-center gap-6">
               <p className="text-[18px] font-medium text-secondary">Score</p>
-              <span className="bg-[var(--secondary-color)] text-[var(--primary-color)] px-4 py-1 rounded-md">
+              <span className="bg-primary text-white px-4 py-1 rounded-md">
                 {feedbackData.score}
               </span>
             </div>
