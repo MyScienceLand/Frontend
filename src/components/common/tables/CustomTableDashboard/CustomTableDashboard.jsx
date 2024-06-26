@@ -1,14 +1,14 @@
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
-import { dashboardTablePeople } from '../../../../data/dashboard';
-import EmptyDataFields from '../../../EmptyDataFields/EmptyDataFields';
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
+import { dashboardTablePeople } from "../../../../data/dashboard";
+import EmptyDataFields from "../../../EmptyDataFields/EmptyDataFields";
 export default function CustomTableDashboard({ progress }) {
   return (
     <>
       {dashboardTablePeople.length > 0 ? (
         <div className="#fefefe mt-6 ">
-          <div className="px-4 sm:px-6 lg:px-0 rounded-md">
-            <div className="bg-[var(--primary-color)] px-8 rounded py-2">
+          <div className="px-4 sm:px-6 lg:px-0  rounded-md">
+            <div className="bg-[var(--primary-color)] h-full px-8 rounded py-2">
               <h1 className="text-[18px] font-medium">Your Progress</h1>
             </div>
             <div className=" flow-root">
@@ -47,7 +47,7 @@ export default function CustomTableDashboard({ progress }) {
                               </td>
 
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                <Box sx={{ width: '80%' }}>
+                                <Box sx={{ width: "80%" }}>
                                   <LinearProgress
                                     variant="determinate"
                                     value={person.progress}
@@ -68,7 +68,7 @@ export default function CustomTableDashboard({ progress }) {
           </div>
         </div>
       ) : (
-        <EmptyDataFields title={'Subject'} message="Data does not exist" />
+        <EmptyDataFields title={"Subject"} message="Data does not exist" />
       )}
     </>
   );

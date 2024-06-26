@@ -111,26 +111,26 @@
 
 // export default Quiz;
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { useSelector } from 'react-redux';
-import QuizComponent from '../../components/QuizComponent/QuizComponent';
-import QuizSummary from '../../components/QuizSummary/QuizSummary';
-import PaperCard from '../../components/common/cards/PaperCard/PaperCard';
-import { mapDataToSectionData } from '../../data/quiz';
-import useFetch from '../../hooks/useFetch';
-import usePost from '../../hooks/usePost';
-import { API_ROUTES } from '../../routes/apiRoutes';
+import { useSelector } from "react-redux";
+import QuizComponent from "../../components/QuizComponent/QuizComponent";
+import QuizSummary from "../../components/QuizSummary/QuizSummary";
+import PaperCard from "../../components/common/cards/PaperCard/PaperCard";
+import { mapDataToSectionData } from "../../data/quiz";
+import useFetch from "../../hooks/useFetch";
+import usePost from "../../hooks/usePost";
+import { API_ROUTES } from "../../routes/apiRoutes";
 
 function Quiz() {
-  const [paperId, setPaperId] = useState('');
+  const [paperId, setPaperId] = useState("");
   const [selectPaper, setSelectPaper] = useState(false);
-  const [topicAndStartPaper, setTopicAndStartPaper] = useState('');
-  const [subjectId, setSubjectId] = useState('');
-  const [qualificationId, setQualificationId] = useState('');
-  const [boardLevelId, setBoardLevelId] = useState('');
-  const [subjectName, setSubjectName] = useState('');
-  const [paperName, setPaperName] = useState('');
+  const [topicAndStartPaper, setTopicAndStartPaper] = useState("");
+  const [subjectId, setSubjectId] = useState("");
+  const [qualificationId, setQualificationId] = useState("");
+  const [boardLevelId, setBoardLevelId] = useState("");
+  const [subjectName, setSubjectName] = useState("");
+  const [paperName, setPaperName] = useState("");
 
   const { data } = useFetch(API_ROUTES.PREFERENCES);
   const sectionData = data ? mapDataToSectionData(data.data) : [];
@@ -157,7 +157,7 @@ function Quiz() {
   }, [topicAndStartPaper]);
   const quizState = useSelector((state) => state.quiz.quiz);
   console.log(quizState);
-  const [actualQuizId, setActualQuizId] = useState('');
+  const [actualQuizId, setActualQuizId] = useState("");
   const [displayQuizComponent, setDisplayQuizComponent] = useState(false);
   useEffect(() => {
     if (quizState?.isPending == true) {
@@ -178,9 +178,9 @@ function Quiz() {
   } = useFetch(`/quiz/get-quiz/${actualQuizId}`);
   const [displayQuizSummery, setDisplayQuizSummery] = useState(false);
   console.log(
-    'topic id is = ',
+    "topic id is = ",
     topicAndStartPaper,
-    'and quiz id =',
+    "and quiz id =",
     actualQuizId
   );
 

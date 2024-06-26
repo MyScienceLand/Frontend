@@ -1,10 +1,7 @@
-
 // Import variables
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-
-
 @import './scss/variables.scss';
 @import './scss/fonts.scss';
 
@@ -34,3 +31,27 @@ body {
 }
 // In your Sidebar component's CSS
 
+.slick-dots li button:before {
+  content: "" !important;
+
+}
+
+.slick-dots li {
+ width:4rem 
+}
+
+
+.slick-dots li button {
+  cursor: pointer;
+  background: #FFFFFF;
+  height: 0.1px;
+  width: 60px;
+  padding: 1px;
+  opacity: 0.8;
+}
+.slick-dots li button:active {
+  cursor: pointer;
+  background: #FFFFFF;
+  width: 60px;
+  padding: 1px;
+}

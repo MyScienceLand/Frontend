@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
+import React, { useRef } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const AutoSlider = ({ imagesData, title }) => {
   const sliderRef = useRef(null);
@@ -35,7 +35,7 @@ const AutoSlider = ({ imagesData, title }) => {
   };
 
   // Set a fixed height for the images
-  const imageHeight = '300px'; // Adjust as needed
+  // Adjust as needed
 
   return (
     <div className="py-[100px] max-w-[456px] h-[590px] rounded-lg bg-mygradient1 bg-opacity-25 pb-11">
@@ -44,11 +44,7 @@ const AutoSlider = ({ imagesData, title }) => {
           <div key={index} className="custom-slide flex-1 px-8">
             <div className="">
               <div className="flex justify-center items-center mb-6 gap-2">
-                <img
-                  src={item.avatar}
-                  alt={item.name}
-                  style={{ height: imageHeight }}
-                />
+                <img src={item.avatar} alt={item.name} />
               </div>
               <div className="flex justify-center items-center flex-col gap-2">
                 <h1 className="text-[22px] font-semibold text-[var(--primary-color)]">
