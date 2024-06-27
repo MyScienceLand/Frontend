@@ -163,6 +163,8 @@ function App() {
           path="*"
           element={<Navigate to={token ? "/student-dashboard" : "/login"} />}
         />
+        <Route path="/teachers-list" element={<TeachersList />} />
+
         <Route
           path="/management-dashboard/*"
           element={
@@ -172,7 +174,7 @@ function App() {
                 <Route path="/" element={<ManagementDashboard />} />
                 <Route path="/dashboard" element={<ManagementDashboard />} />
                 <Route path="/students-list" element={<StudentList />} />
-                <Route path="/teachers-list" element={<TeachersList />} />
+                {/* <Route path="/teachers-list" element={<TeachersList />} /> */}
                 <Route path="*" element={<Error404Page />} />
               </Routes>
             ) : // </ContentWarper>

@@ -36,15 +36,19 @@ const drawerWidth = 240;
 // }));
 
 export default function Layout({
-  handleDrawerOpen,
-  handleDrawerClose,
-  open,
   display,
   toggleFullScreen,
   isFullScreen,
   children,
 }) {
   const match = useMatch("/student-dashboard/primarily-quiz");
+
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setSidebarOpen(!sidebarOpen); // Toggles the sidebarOpen state
+  };
+  console.log("🚀 ~ sidebarOpen:", sidebarOpen);
 
   return (
     // <div className={`${match ? "hidden" : display}`}>
@@ -66,14 +70,20 @@ export default function Layout({
     //   {/* <ContentWarper open={open} isFullScreen={isFullScreen} /> Todo: add full screen functionality here */}
     // </div>
     <>
-      <div className="grid  grid-cols-[1.2fr_7fr]">
+      <div
+        className={`grid ${
+          sidebarOpen ? "grid grid-cols-[100px_1fr]" : "grid-cols-[1.2fr_7fr]"
+        }`}
+      >
         <div className="">
-          <TailwindSidebar />
+          <TailwindSidebar
+            sidebarOpen={sidebarOpen}
+            handleDrawerOpen={handleDrawerOpen}
+          />
         </div>
         <div>
           <Topbar
-            handleDrawerOpen={handleDrawerOpen}
-            open={open}
+            handleDrawerOpen={handleDrawerOpen} // Passes the function to Topbar
             toggleFullScreen={toggleFullScreen}
             isFullScreen={isFullScreen}
           />

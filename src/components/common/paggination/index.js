@@ -15,9 +15,13 @@ const TeacherListComponent = ({
 
   const startIndex = (pageNumber - 1) * rowsPerPage;
 
-  const handlePageChange = (event, value) => {
-    setPageNumber(value);
+  const handlePageChange = (pageNumber) => {
+    setPageNumber(pageNumber);
   };
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalRecords / rowsPerPage);
+
   return (
     <>
       <h1 className="text-[#000000] text-[26px] font-medium">
@@ -65,23 +69,16 @@ const TeacherListComponent = ({
                   <p className="text-sm text-black ">{teacher.subjectName}</p>
                 </div>
                 <div className="col-span-1.5 justify-center flex items-center">
-                  <p className="text-sm text-meta-3">${teacher.email}</p>
+                  <p className="text-sm text-meta-3">{teacher.email}</p>
                 </div>
                 <div className="col-span-1.5 flex justify-center items-center">
-                  <button className="bg-transparent rounded-sm border border-[#5E196C]   text-primary hover:bg-primary hover:text-white px-6 py-1">
+                  <button className="bg-transparent rounded-sm border border-[#5E196C] text-primary hover:bg-primary hover:text-white px-6 py-1">
                     View All
                   </button>
                 </div>
               </div>
             ))}
-          {/* <Pagination // Todo: Ask Usama to add this
-            count={Math.ceil(totalRecords / rowsPerPage)}
-            page={pageNumber}
-            onChange={handlePageChange}
-            color="primary"
-            className="flex justify-center mt-6"
-          /> */}
-          {/* <Pagination totalPages={totalPages} onPageChange={handlePageChange} /> */}
+          <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
       )}
     </>
