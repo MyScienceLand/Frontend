@@ -98,26 +98,29 @@ function Quiz() {
               className="flex gap-6 justify-center mb-4 items-center"
             >
               <div className={item.className}>{item.course}</div>
-              <div className="bg-gray-300 text-black px-4 py-2 text-[16px] font-normal cursor-pointer w-24 rounded-sm">
+              <div className="bg-primary text-white px-4 py-2 text-[16px] font-normal cursor-pointer w-24 rounded-sm">
                 {item.subject}
               </div>
-
-              {item.papers.map((paper, idx) => (
-                <button
-                  key={idx}
-                  className="text-[16px] px-40 py-2 font-normal border border-gray-400 rounded-sm"
-                  onClick={() => {
-                    handleSelectPaper(paper._id);
-                    setSubjectId(item.subjectId);
-                    setQualificationId(item.qualificationId);
-                    setBoardLevelId(item.boardLevelId);
-                    setSubjectName(item.subject);
-                    setPaperName(paper.name);
-                  }}
-                >
-                  {paper.name}
-                </button>
-              ))}
+              {item.papers.length > 1 ? (
+                item.papers.map((paper, idx) => (
+                  <button
+                    key={idx}
+                    className="text-[16px] px-40 py-2 font-normal border border-gray-400 rounded-sm"
+                    onClick={() => {
+                      handleSelectPaper(paper._id);
+                      setSubjectId(item.subjectId);
+                      setQualificationId(item.qualificationId);
+                      setBoardLevelId(item.boardLevelId);
+                      setSubjectName(item.subject);
+                      setPaperName(paper.name);
+                    }}
+                  >
+                    {paper.name}
+                  </button>
+                ))
+              ) : (
+                <p className="ml-96">No Paper Found</p>
+              )}
             </div>
           ))}
         </div>

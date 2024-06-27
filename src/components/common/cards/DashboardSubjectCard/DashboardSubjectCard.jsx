@@ -15,7 +15,7 @@ const DashboardSubjectCard = ({ cardsArray }) => {
         totalCountOfAttemptedQuestion: totalCountOfAttemptedQuestion,
       })
     );
-    navigate('/quiz');
+    navigate('/student-dashboard/quiz');
   };
   return (
     <>

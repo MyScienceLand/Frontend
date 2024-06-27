@@ -48,8 +48,9 @@ const mapDataToSectionData = (data) => {
     const papers = item.papers.map((paper) => paper);
 
     let className;
+
     switch (course) {
-      case 'A Levels':
+      case 'A Level':
         className =
           'bg-purple-800 text-white px-4 py-2 text-[16px] font-normal cursor-pointer w-24  rounded-sm';
         break;

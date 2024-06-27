@@ -1,40 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Navigate,
   Route,
   Routes,
   useLocation,
   useNavigate,
-} from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ResetPasswordSuccess from "./components/ResetPasswordSuccess/ResetPasswordSuccess";
-import useFetch from "./hooks/useFetch";
-import { setUser } from "./redux/slices/userSlice";
-import { API_ROUTES } from "./routes/apiRoutes";
-import ForgotPassword from "./screens/Auth/ForgotPassword/ForgotPassword";
-import Login from "./screens/Auth/Login/Login";
-import OtpError from "./screens/Auth/OtpError/OtpError";
-import OtpVerification from "./screens/Auth/OtpVerification/OtpVerification";
-import ResetPasswordForm from "./screens/Auth/ResetPasswordForm/ResetPasswordForm";
-import SignUp from "./screens/Auth/SignUp/SignUp";
-import Content from "./screens/Content/Content";
-import Dashboard from "./screens/Dashboard/Dashboard";
-import Error404Page from "./screens/Error404Page/Error404Page";
-import PrimarilyQuiz from "./screens/PrimarilyQuiz/PrimarilyQuiz";
-import Quiz from "./screens/Quiz/Quiz";
-import StartQuiz from "./screens/StartQuiz/StartQuiz";
-import ManagementDashboard from "./screens/apps/ManagementDashboard/ManagementDashboard/ManagementDashboard";
-import StudentList from "./screens/apps/ManagementDashboard/StudentList/StudentList";
-import TeachersList from "./screens/apps/ManagementDashboard/TeachersList/TeachersList";
+} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ResetPasswordSuccess from './components/ResetPasswordSuccess/ResetPasswordSuccess';
+import useFetch from './hooks/useFetch';
+import { setUser } from './redux/slices/userSlice';
+import { API_ROUTES } from './routes/apiRoutes';
+import ForgotPassword from './screens/Auth/ForgotPassword/ForgotPassword';
+import Login from './screens/Auth/Login/Login';
+import OtpError from './screens/Auth/OtpError/OtpError';
+import OtpVerification from './screens/Auth/OtpVerification/OtpVerification';
+import ResetPasswordForm from './screens/Auth/ResetPasswordForm/ResetPasswordForm';
+import SignUp from './screens/Auth/SignUp/SignUp';
+import Content from './screens/Content/Content';
+import Dashboard from './screens/Dashboard/Dashboard';
+import Error404Page from './screens/Error404Page/Error404Page';
+import PrimarilyQuiz from './screens/PrimarilyQuiz/PrimarilyQuiz';
+import Quiz from './screens/Quiz/Quiz';
+import StartQuiz from './screens/StartQuiz/StartQuiz';
+import ManagementDashboard from './screens/apps/ManagementDashboard/ManagementDashboard/ManagementDashboard';
+import StudentList from './screens/apps/ManagementDashboard/StudentList/StudentList';
+import TeachersList from './screens/apps/ManagementDashboard/TeachersList/TeachersList';
 // import ContentWarper from './screens/global/ContentWarper/ContentWarper';
-import Layout from "./screens/global/Layout/Layout";
+import Layout from './screens/global/Layout/Layout';
 
 function App() {
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const { data: userData } = useFetch(API_ROUTES.USER);
   const user = useSelector((state) => state.user);
   // user.role = 'management';
@@ -57,14 +57,14 @@ function App() {
   };
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape" && isFullScreen) {
+      if (event.key === 'Escape' && isFullScreen) {
         setIsFullScreen(false);
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isFullScreen]);
   const location = useLocation();
@@ -72,9 +72,9 @@ function App() {
   let mainRoute = `/${user?.role}-dashboard`;
   console.log(user?.role);
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
-      navigate("/login");
+      navigate('/login');
     } else {
       navigate(location.pathname);
     }
@@ -120,49 +120,33 @@ function App() {
           path="/otp-error"
           element={!token ? <OtpError /> : <Navigate to={mainRoute} />}
         />
+
         <Route
-          path="/*"
+          path="/student-dashboard/*"
           element={
             token ? (
-              <Layout
-                handleDrawerOpen={handleDrawerOpen}
-                handleDrawerClose={handleDrawerClose}
-                open={open}
-                display={token ? "flex" : "none"}
-                toggleFullScreen={toggleFullScreen}
-                isFullScreen={isFullScreen}
-              >
-                <Routes>
-                  <Route path="/student-dashboard" element={<Dashboard />} />
-                  <Route
-                    path="/student-dashboard/dashboard"
-                    element={<Dashboard />}
-                  />
-                  <Route
-                    path="/student-dashboard/content"
-                    element={<Content />}
-                  />
-                  <Route path="/student-dashboard/quiz" element={<Quiz />} />
-                  <Route
-                    path="/student-dashboard/start-quiz"
-                    element={<StartQuiz />}
-                  />
-                  <Route
-                    path="/student-dashboard/primarily-quiz"
-                    element={<PrimarilyQuiz />}
-                  />
-                  <Route path="*" element={<Error404Page />} />
-                </Routes>
-              </Layout>
+              <>
+                <Layout
+                  toggleFullScreen={toggleFullScreen}
+                  isFullScreen={isFullScreen}
+                >
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/content" element={<Content />} />
+                    <Route path="/quiz" element={<Quiz />} />
+                    <Route path="/start-quiz" element={<StartQuiz />} />
+                    <Route path="/primarily-quiz" element={<PrimarilyQuiz />} />
+                    <Route path="*" element={<Error404Page />} />
+                  </Routes>
+                </Layout>
+              </>
             ) : (
               <Navigate to="/login" />
             )
           }
         />
-        <Route
-          path="*"
-          element={<Navigate to={token ? "/student-dashboard" : "/login"} />}
-        />
+
         <Route
           path="/management-dashboard/*"
           element={
