@@ -16,6 +16,8 @@ import { Children, Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { VscBellDot } from "react-icons/vsc";
 import { IoExpandSharp } from "react-icons/io5";
+import { GiGreekTemple } from "react-icons/gi";
+import { LuFiles } from "react-icons/lu";
 
 import {
   Bars3Icon,
@@ -38,17 +40,19 @@ import {
   Dashboard,
   Logo,
   LogoWhite,
+  PurpleLogoWithText,
   Quiz,
   logo,
 } from "../../../assets";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { SlCalender } from "react-icons/sl";
 
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: "", current: true },
-  { name: "Content", href: "#", icon: "", current: false },
-  { name: "Quiz", href: "#", icon: "", current: false },
+  { name: "Dashboard", href: "#", icon: <GiGreekTemple />, current: true },
+  { name: "Content", href: "#", icon: <LuFiles />, current: false },
+  { name: "Quiz", href: "#", icon: <SlCalender />, current: false },
 ];
 const teams = [
   { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
@@ -105,8 +109,8 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
         This example requires updating your template:
 
         ```
-        <html class="h-full bg-white">
-        <body class="h-full">
+        <html className="h-full bg-white">
+        <body className="h-full">
         ```
       */}
       <>
@@ -135,7 +139,11 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
                       pathName.includes("/cells") ||
                       pathName.includes("/quiz-summary") ||
                       pathName.includes("/student-dashboard") ? (
-                        <img className="w-24" src={Logo} alt="First Image" />
+                        <img
+                          className="w-24"
+                          src={PurpleLogoWithText}
+                          alt="First Image"
+                        />
                       ) : (
                         <img className="" src={Logo} alt="Second Image" />
                       )}
@@ -170,7 +178,7 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
                                     "group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
-                                  <img src={item.icon} alt={item.name} />
+                                  <div>{item.icon}</div>
                                   {item.name}
                                 </a>
                               </li>
@@ -229,8 +237,8 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
 
                             return (
                               <li key={item.name}>
-                                <a
-                                  href={item.href}
+                                <Link
+                                  to={item.href}
                                   className={classNames(
                                     isActive && isPathMatch
                                       ? "bg-primary rounded-tr-lg px-12 text-white"
@@ -240,8 +248,8 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
                                     "group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
-                                  <img src={item.icon} alt={item.name} />
-                                </a>
+                                  <div>{item.icon}</div>
+                                </Link>
                               </li>
                             );
                           })}
@@ -254,29 +262,6 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
             )}
           </>
         )}
-        <div
-          className={`${
-            pathName.includes("/student-dashboard") ||
-            pathName.includes("/course-content") ||
-            pathName.includes("/next-quiz") ||
-            pathName.includes("/quiz-desktop") ||
-            pathName.includes("/cells") ||
-            pathName.includes("/quiz-summary") ||
-            pathName.includes("/managment-classes") ||
-            pathName.includes("/managment-dashboard") ||
-            pathName.includes("/create-class") ||
-            pathName.includes("/create-user") ||
-            pathName.includes("/teacher-list") ||
-            pathName.includes("/create-student") ||
-            pathName.includes("/select-class")
-              ? "lg:pl-72 transition-all duration-300"
-              : null
-          }`}
-        >
-          {/* <div className="bg-[#f0f1f7] px-8 py-6">
-      <DefaultLayout>{Children}</DefaultLayout>
-    </div> */}
-        </div>
       </>
     </>
   );

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import CreateClass from '../../../../components/MannagementComponents/CreateClass/CreateClass';
-import MainCreateUser from '../../../../components/MannagementComponents/CreateUser/index';
-import Dashboard from '../../../../components/MannagementComponents/Dashboard/Dashboard';
+import React, { useState } from "react";
+import CreateClass from "../../../../components/MannagementComponents/CreateClass/CreateClass";
+import MainCreateUser from "../../../../components/MannagementComponents/CreateUser/index";
+import Dashboard from "../../../../components/MannagementComponents/Dashboard/Dashboard";
 
 const ManagementDashboard = () => {
   const [displayCreateClass, setDisplayCreateClass] = useState(false);
@@ -15,7 +15,7 @@ const ManagementDashboard = () => {
         <MainCreateUser />
       ) : (
         <Dashboard
-          setDisplayCreateClass={setDisplayCreateClass}
+          setDisplayCreateclassName={setDisplayCreateClass}
           setDisplayCreateUser={setDisplayCreateUser}
         />
       )}

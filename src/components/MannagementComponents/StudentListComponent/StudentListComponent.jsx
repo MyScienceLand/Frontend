@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { RiDeleteBinLine } from 'react-icons/ri';
-import { MalePic } from '../../../assets';
-import useDelete from '../../../hooks/useDelete';
-import { API_ROUTES } from '../../../routes/apiRoutes';
-import ToastNotification from '../../ToastNotification/ToastNotification';
-import PreLoader from '../../common/Preloader/PreLoader';
+import React, { useEffect, useState } from "react";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { MalePic } from "../../../assets";
+import useDelete from "../../../hooks/useDelete";
+import { API_ROUTES } from "../../../routes/apiRoutes";
+import ToastNotification from "../../ToastNotification/ToastNotification";
+import PreLoader from "../../common/Preloader/PreLoader";
+import Pagination from "../../common/Pagination";
 
 const StudentListComponent = ({
   studentsData,
@@ -41,6 +42,24 @@ const StudentListComponent = ({
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 8;
+  const hasNextPage = true;
+  const hasPrevPage = false;
+  const pageLimit = 12;
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handlePagesChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -93,8 +112,8 @@ const StudentListComponent = ({
                   </div>
                   <div className="col-span-1.5 hidden justify-center items-center sm:flex">
                     <p className="text-sm text-black ">{`${
-                      product.firstName || ''
-                    } ${product.lastName || ''}`}</p>
+                      product.firstName || ""
+                    } ${product.lastName || ""}`}</p>
                   </div>
                   <div className="col-span-1.5 justify-center flex items-center">
                     <p className="text-sm text-black ">{product.email}</p>
@@ -107,7 +126,7 @@ const StudentListComponent = ({
                   <div className="col-span-1.5 justify-center flex items-center">
                     <div
                       className={`rounded-full p-2 ${
-                        selectedItemIndex === key ? 'bg-[#F6F1FF]' : ''
+                        selectedItemIndex === key ? "bg-[#F6F1FF]" : ""
                       }`}
                       onClick={() => {
                         setSelectedItemIndex(
@@ -122,13 +141,17 @@ const StudentListComponent = ({
                 </div>
               ))}
           </div>
-          {/* <Pagination // Todo: Ask Usama to add this
-            count={Math.ceil(totalRecords / rowsPerPage)}
-            page={pageNumber}
-            onChange={handlePageChange}
-            color="primary"
-            className="flex justify-center mt-6"
-          /> */}
+          <div className="mt-6 mb-2">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              hasNext={hasNextPage}
+              hasPrev={hasPrevPage}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
+              onPageChange={handlePagesChange}
+            />
+          </div>
         </>
       )}
     </div>

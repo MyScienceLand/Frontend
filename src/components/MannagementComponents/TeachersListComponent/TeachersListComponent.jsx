@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PreLoader from "../../common/Preloader/PreLoader";
-import Pagination from "../../common/paggination";
+import Pagination from "../../common/Pagination";
 
 const TeacherListComponent = ({
   teacherData,
@@ -17,6 +17,24 @@ const TeacherListComponent = ({
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 8;
+  const hasNextPage = true;
+  const hasPrevPage = false;
+  const pageLimit = 12;
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handlePagesChange = (page) => {
+    setCurrentPage(page);
   };
   return (
     <>
@@ -74,14 +92,17 @@ const TeacherListComponent = ({
                 </div>
               </div>
             ))}
-          {/* <Pagination // Todo: Ask Usama to add this
-            count={Math.ceil(totalRecords / rowsPerPage)}
-            page={pageNumber}
-            onChange={handlePageChange}
-            color="primary"
-            className="flex justify-center mt-6"
-          /> */}
-          {/* <Pagination totalPages={totalPages} onPageChange={handlePageChange} /> */}
+          <div className="mt-6 mb-2">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              hasNext={hasNextPage}
+              hasPrev={hasPrevPage}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
+              onPageChange={handlePagesChange}
+            />
+          </div>
         </div>
       )}
     </>
