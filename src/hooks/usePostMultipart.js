@@ -1,15 +1,14 @@
 import { useCallback, useState } from 'react';
 import { baseUrl } from '../constants';
 
-const usePost = (endpoint, options = {}) => {
+const usePostMultipart = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // const token = getToken();
   const token = localStorage.getItem('token');
   const postData = useCallback(
-    async (body) => {
+    async (formData) => {
       setLoading(true);
       setError(null);
 
@@ -17,16 +16,12 @@ const usePost = (endpoint, options = {}) => {
         const response = await fetch(`${baseUrl}${endpoint}`, {
           method: 'POST',
           credentials: 'include',
-
           ...options,
           headers: {
-            'Content-Type': 'application/json',
             ...options.headers,
             Authorization: `Bearer ${token}`,
           },
-          // credentials: 'include',
-          // credentials: 'same-origin',
-          body: JSON.stringify(body),
+          body: formData,
         });
 
         if (!response.ok) {
@@ -41,21 +36,24 @@ const usePost = (endpoint, options = {}) => {
         setLoading(false);
       }
     },
-    [endpoint]
+    [endpoint, options, token]
   );
 
   return { data, loading, error, postData };
 };
 
-export default usePost;
+export default usePostMultipart;
 
 /**
  *
  *   
-  const { data, loading, error, postData } = usePost("/submit");
+  const { data, loading, error, postData } = usePostMultipart("/submit");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postData({ input });
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('otherField', 'value');
+    postData(formData);
   };
  */

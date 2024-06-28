@@ -30,12 +30,14 @@ const CreateUser = ({ setDisplayAssignClass }) => {
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const roleData = [{ name: 'Teacher' }, { name: 'Student' }];
 
   const handelSubmitTeacher = () => {
     postTeacherData({
       firstName: firstName,
+      lastName: lastName,
       email: email,
       boardId: boards?._id,
       qualificationId: qualification?._id,
@@ -54,6 +56,7 @@ const CreateUser = ({ setDisplayAssignClass }) => {
   const handelSubmitStudent = () => {
     postStudentData({
       firstName: firstName,
+      lastName: lastName,
       email: email,
       boardId: boards?._id,
       qualificationId: qualification?._id,
@@ -88,19 +91,31 @@ const CreateUser = ({ setDisplayAssignClass }) => {
             placeholder="Select Role"
           />
           <div className="flex flex-col justify-center  rounded-md">
-            <label className="px-4 mb-1 text-[16px] font-medium text-[#2a2a2a]">
-              Name
+            <label className=" mb-1 text-[16px] font-medium text-[#2a2a2a]">
+              First Name
             </label>
             <input
               className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
-              placeholder="name"
+              placeholder="First Name"
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="flex flex-col justify-center  rounded-md">
-            <label className="px-4 mb-1 text-[16px] font-medium text-[#2a2a2a]">
+            <label className=" mb-1 text-[16px] font-medium text-[#2a2a2a]">
+              Last Name
+            </label>
+            <input
+              className="border h-10  px-2 py-6 border-[#696969] border-opacity-55 rounded-sm"
+              placeholder="Last Name"
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col justify-center  rounded-md">
+            <label className="mb-1 text-[16px] font-medium text-[#2a2a2a]">
               Email Address
             </label>
             <input

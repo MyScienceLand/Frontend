@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsDownload } from 'react-icons/bs';
 
-const Upload = ({ filePath }) => {
-  const [files, setFiles] = useState([]);
-
+const Upload = ({ filePath, file, setFile }) => {
   const handleFiles = (selectedFiles) => {
-    setFiles(Array.from(selectedFiles));
+    if (selectedFiles.length > 0) {
+      const selectedFile = selectedFiles[0];
+      if (selectedFile.type === 'text/csv') {
+        setFile(selectedFile);
+        console.log(selectedFile);
+      } else {
+        alert('Only CSV files are allowed');
+      }
+    }
   };
 
   const handleDrop = (event) => {
@@ -17,25 +23,10 @@ const Upload = ({ filePath }) => {
     event.preventDefault();
   };
 
-  // const downloadCSV = () => {
-  //   if (files.length === 0) return;
-
-  //   const csvContent =
-  //     'data:text/csv;charset=utf-8,' +
-  //     files.map((file) => file.name).join('\n');
-
-  //   const encodedUri = encodeURI(csvContent);
-  //   const link = document.createElement('a');
-  //   link.setAttribute('href', encodedUri);
-  //   link.setAttribute('download', 'files.csv');
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
   const downloadCSV = () => {
     const link = document.createElement('a');
     link.href = filePath;
-    link.download = 'createClass.csv'; // Set the desired filename
+    link.download = 'createClass.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -48,7 +39,7 @@ const Upload = ({ filePath }) => {
           type="file"
           id="fileInput"
           className="hidden"
-          multiple
+          accept=".csv"
           onChange={(e) => handleFiles(e.target.files)}
         />
         <div
@@ -71,17 +62,15 @@ const Upload = ({ filePath }) => {
           </div>
         </div>
         <div id="fileList" className="mt-4">
-          {files.map((file, index) => (
-            <p key={index}>{file.name}</p>
-          ))}
+          {file && <p>{file.name}</p>}
         </div>
       </div>
       <button
         onClick={downloadCSV}
-        className="absolute flex justify-center items-center gap-2 right-4 px-4 py-2  text-primary"
+        className="absolute flex justify-center items-center gap-2 right-4 px-4 py-2 text-primary"
       >
         <BsDownload className="text-primary" />
-        Download CSV File{' '}
+        Download CSV File
       </button>
     </div>
   );

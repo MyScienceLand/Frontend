@@ -51,7 +51,8 @@ const Dropdown = ({
             className="inline-flex justify-between items-center gap-2.5  bg-transparent rounded-md   border border-[#696969] border-opacity-55 py-3 px-8 w-full font-medium text-[#696969] hover:bg-opacity-90"
           >
             {selectedItem
-              ? selectedItem.firstName ||
+              ? selectedItem.name ||
+                selectedItem.firstName ||
                 selectedItem.email ||
                 selectedItem.className
               : placeholder}
@@ -97,7 +98,10 @@ const Dropdown = ({
                       }}
                       className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
                     >
-                      {item.firstName || item.email || item.className}
+                      {item.name ||
+                        item.firstName ||
+                        item.email ||
+                        item.className}
                     </Link>
                   </li>
                 ))}

@@ -4,6 +4,8 @@ import usePost from '../../../hooks/usePost';
 
 import Swal from 'sweetalert2';
 import { CreateClassFile } from '../../../assets';
+import { years } from '../../../data/management';
+import usePostMultipart from '../../../hooks/usePostMultipart';
 import { API_ROUTES } from '../../../routes/apiRoutes';
 import ToastNotification from '../../ToastNotification/ToastNotification';
 import Button from '../common/buttons/Button/Button';
@@ -12,12 +14,13 @@ import SearchDropdown from '../common/dropdowns/SearchDropdown/SearchDropdown';
 import Upload from '../common/uploads/Uploads/Uploads';
 
 const CreateClass = () => {
-  const [files, setFiles] = useState([]);
+  const [file, setFile] = useState(null);
   const [qualification, setQualification] = useState(null);
   const [year, setYear] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [students, setStudents] = useState([]);
+  const [uploadFileCheckBox, setUploadFileCheckBox] = useState(false);
   const [teacherAssigned, setTeacherAssigned] = useState([]);
   const { data: qualificationsData } = useFetch(API_ROUTES.QUALIFICATIONS);
   const { data: allStudentsData } = useFetch(API_ROUTES.EXCLUDED_STUDENTS);
@@ -28,10 +31,6 @@ const CreateClass = () => {
     postData,
     error: createClassError,
   } = usePost(API_ROUTES.CREATE_CLASS);
-
-  const handleFiles = (selectedFiles) => {
-    setFiles(Array.from(selectedFiles));
-  };
 
   const handleTeacherAssignment = (subjectId, teacherId) => {
     setTeacherAssigned((prevAssignments) => {
@@ -77,13 +76,31 @@ const CreateClass = () => {
     }
   }, [createClassResponse, createClassError]);
 
-  const years = [
-    { to: '#', name: 'year-1', value: 'year-1' },
-    { to: '#', name: 'year-2', value: 'year-2' },
-    { to: '#', name: 'year-3', value: 'year-3' },
-    { to: '#', name: 'year-4', value: 'year-4' },
-  ];
+  const {
+    data: postCsvFileResponse,
+    loading: postCsvFileLoading,
+    error: postCsvFileError,
+    postData: postCsvFile,
+  } = usePostMultipart('/management/csv/upload');
 
+  const handelCreateClassByCSVUpload = (e) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    postCsvFile(formData);
+  };
+  useEffect(() => {
+    if (postCsvFileError) {
+      ToastNotification.error(postCsvFileError);
+      return;
+    } else if (postCsvFileResponse?.statusCode == 200) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Class Created Successfully!',
+        showConfirmButton: true,
+        timer: 1500,
+      });
+    }
+  }, [postCsvFileResponse, postCsvFileError]);
   return (
     <>
       <div className="flex justify-end mr-4 mb-6 mt-6">
@@ -131,7 +148,16 @@ const CreateClass = () => {
             />
           </div>
 
-          <Upload filePath={CreateClassFile} />
+          <div className="flex gap-3">
+            <Upload filePath={CreateClassFile} file={file} setFile={setFile} />
+            <input
+              type="checkbox"
+              // className="w-2"
+              checked={uploadFileCheckBox}
+              onChange={() => setUploadFileCheckBox(!uploadFileCheckBox)}
+            />
+          </div>
+
           {allStudentsData && (
             <SearchDropdown
               data={allStudentsData?.data}
@@ -140,7 +166,7 @@ const CreateClass = () => {
             />
           )}
         </div>
-        <h1 className="text-[20px] font-medium mt-20">
+        <h1 className="text-[20px] fonthandelCreateClassByCSVUpload-medium mt-20">
           Select Subject And Teacher
         </h1>
 
@@ -181,7 +207,15 @@ const CreateClass = () => {
       </div>
 
       <div className="flex justify-center mt-6">
-        <Button title="Continue" onClick={handleCreateClass} />
+        <Button
+          title="Continue"
+          // onClick={handleCreateClass}
+          onClick={
+            uploadFileCheckBox
+              ? handelCreateClassByCSVUpload
+              : handleCreateClass
+          }
+        />
       </div>
     </>
   );

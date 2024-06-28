@@ -29,6 +29,7 @@ import ManagementDashboard from './screens/apps/ManagementDashboard/ManagementDa
 import StudentList from './screens/apps/ManagementDashboard/StudentList/StudentList';
 import TeachersList from './screens/apps/ManagementDashboard/TeachersList/TeachersList';
 // import ContentWarper from './screens/global/ContentWarper/ContentWarper';
+import Classes from './screens/apps/ManagementDashboard/Classes/Classes';
 import Layout from './screens/global/Layout/Layout';
 
 function App() {
@@ -151,16 +152,21 @@ function App() {
           path="/management-dashboard/*"
           element={
             token ? (
-              // <ContentWarper open={open}>
-              <Routes>
-                <Route path="/" element={<ManagementDashboard />} />
-                <Route path="/dashboard" element={<ManagementDashboard />} />
-                <Route path="/students-list" element={<StudentList />} />
-                <Route path="/teachers-list" element={<TeachersList />} />
-                <Route path="*" element={<Error404Page />} />
-              </Routes>
-            ) : // </ContentWarper>
-            token === undefined || null ? (
+              <Layout
+                toggleFullScreen={toggleFullScreen}
+                isFullScreen={isFullScreen}
+              >
+                <Routes>
+                  <Route path="/" element={<ManagementDashboard />} />
+                  <Route path="/dashboard" element={<ManagementDashboard />} />
+                  <Route path="/students-list" element={<StudentList />} />
+                  <Route path="/teachers-list" element={<TeachersList />} />
+                  <Route path="/classes" element={<Classes />} />
+
+                  <Route path="*" element={<Error404Page />} />
+                </Routes>
+              </Layout>
+            ) : token === undefined || null ? (
               <Navigate to="/login" />
             ) : (
               <Navigate to={mainRoute} />

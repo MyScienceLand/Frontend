@@ -48,6 +48,16 @@ export const API_ROUTES = {
   CREATE_STUDENT: '/management/create-student',
   ALL_CLASSES: '/management/classes',
 
+  // DASHBOARD
+  YEAR_ONE_GRAPH: '/management/managementDashboard-year1',
+  YEAR_TWO_GRAPH: '/management/managementDashboard-year2',
+  YEAR_TEN_GRAPH: '/management/managementDashboard-year10',
+  YEAR_ELEVEN_GRAPH: '/management/managementDashboard-year11',
+
+  // CLASSES
+  CLASS_PERCENTAGE_AND_REVIEW: (id) => `/management/classPercentage/${id}`,
+  STUDENT_PERCENTAGE_AND_SCORE: (id) => `/management/studentPercentage/${id}`,
+
   ASSIGN_CLASS_TO_STUDENTS: '/management/create-multipleStudent',
 
   DELETE_STUDENT: '/management/delete-student',

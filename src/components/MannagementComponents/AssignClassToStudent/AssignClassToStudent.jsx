@@ -21,7 +21,6 @@ const AssignClassToStudent = () => {
   const handleSelect = (option) => {
     setSelectedClass(option);
   };
-  // console.log(selectedClass);
   const handelAssignClass = () => {
     postAssignClassData({
       classId: selectedClass?._id,

@@ -30,4 +30,27 @@ const closedMixin = (theme, backGroundColor, textColor) => ({
   },
 });
 
-export { closedMixin, handelLogout, openedMixin };
+const setColor = (value) => {
+  if (value > 69 && value < 101) {
+    return '#3AC55E';
+  } else if (value > 49 && value < 70) {
+    return '#EAB309';
+  } else if (value < 50) {
+    return '#EF4444';
+  }
+};
+
+const setColorAndBackgroundColors = (value) => {
+  if (value > 69 && value < 101) {
+    return 'text-[#54B17E] bg-[#DDFAEA]';
+  } else if (value < 50) {
+    return 'text-[#CD5E5E] bg-[#FFEAEA]';
+  }
+};
+export {
+  closedMixin,
+  handelLogout,
+  openedMixin,
+  setColor,
+  setColorAndBackgroundColors,
+};
