@@ -1,6 +1,4 @@
-import React from "react";
-import Sidebar from "../Sidebar/Sidebar";
-import TailwindSidebar from "../TailwindSidebar";
+import React from 'react';
 
 const ContentWrapper = ({ children }) => {
   return (

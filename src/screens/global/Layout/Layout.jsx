@@ -1,11 +1,8 @@
-import MuiAppBar from "@mui/material/AppBar";
-import { styled } from "@mui/material/styles";
-import * as React from "react";
-import { useMatch } from "react-router-dom";
-import Sidebar from "../Sidebar/Sidebar";
-import Topbar from "../Topbar/Topbar";
-import TailwindSidebar from "../TailwindSidebar";
-import ContentWrapper from "../ContentWrapper";
+import * as React from 'react';
+import { useMatch } from 'react-router-dom';
+import ContentWrapper from '../ContentWrapper';
+import TailwindSidebar from '../TailwindSidebar';
+import Topbar from '../Topbar/Topbar';
 
 const drawerWidth = 240;
 
@@ -41,14 +38,14 @@ export default function Layout({
   isFullScreen,
   children,
 }) {
-  const match = useMatch("/student-dashboard/primarily-quiz");
+  const match = useMatch('/student-dashboard/primarily-quiz');
 
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setSidebarOpen(!sidebarOpen); // Toggles the sidebarOpen state
   };
-  console.log("🚀 ~ sidebarOpen:", sidebarOpen);
+  console.log('🚀 ~ sidebarOpen:', sidebarOpen);
 
   return (
     // <div className={`${match ? "hidden" : display}`}>
@@ -72,7 +69,7 @@ export default function Layout({
     <>
       <div
         className={`grid ${
-          sidebarOpen ? "grid grid-cols-[100px_1fr]" : "grid-cols-[1.2fr_7fr]"
+          sidebarOpen ? 'grid grid-cols-[100px_1fr]' : 'grid-cols-[1.2fr_7fr]'
         }`}
       >
         <div className="">

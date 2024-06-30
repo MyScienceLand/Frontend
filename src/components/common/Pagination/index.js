@@ -1,5 +1,5 @@
-import React from "react";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import React from 'react';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 const Pagination = ({
   currentPage,
   totalPages,
@@ -29,8 +29,8 @@ const Pagination = ({
                 onClick={() => onPageChange(page)}
                 className={`flex items-center justify-center py-[5px] px-4 font-medium${
                   page === currentPage
-                    ? "border-primary bg-primary text-white"
-                    : ""
+                    ? 'border-primary bg-primary text-white'
+                    : ''
                 }`}
               >
                 {page}
