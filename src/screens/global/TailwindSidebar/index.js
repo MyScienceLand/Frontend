@@ -50,15 +50,21 @@ import { SlCalender } from "react-icons/sl";
 import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: <GiGreekTemple />, current: true },
-  { name: "Content", href: "#", icon: <LuFiles />, current: false },
+  {
+    name: "Dashboard",
+    href: "/student-dashboard1",
+    icon: <GiGreekTemple />,
+    current: true,
+  },
+  {
+    name: "Content",
+    href: "/student-dashboard",
+    icon: <LuFiles />,
+    current: false,
+  },
   { name: "Quiz", href: "#", icon: <SlCalender />, current: false },
 ];
-const teams = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
-];
+
 const userNavigation = [
   { name: "Your profile", href: "#" },
   { name: "Sign out", href: "#" },
@@ -73,6 +79,7 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
 
   const location = useLocation();
   let pathName = location.pathname;
+  console.log("🚀 ~ TailwindSidebar ~ pathName:", pathName);
 
   const shouldRenderSidebar =
     pathName.includes("/student-dashboard") ||
@@ -155,25 +162,15 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
                       <li>
                         <ul role="list" className="-mx-2 space-y-1">
                           {navigation.map((item) => {
-                            const isActive = item.current;
-                            const isPathMatch =
-                              pathName.includes("/course-content") ||
-                              pathName.includes("/next-quiz") ||
-                              pathName.includes("/quiz-desktop") ||
-                              pathName.includes("/cells") ||
-                              pathName.includes("/quiz-summary") ||
-                              pathName.includes("/managment-dashboard") ||
-                              pathName.includes("/teacher-list");
+                            const isActive = item.href === pathName;
 
                             return (
                               <li key={item.name}>
                                 <a
                                   href={item.href}
                                   className={classNames(
-                                    isActive && isPathMatch
+                                    isActive
                                       ? "bg-primary rounded-tr-lg px-12 text-white"
-                                      : isActive
-                                      ? "bg-primary text-white rounded-tr-lg px-12"
                                       : "text-primary px-12 hover:text-primary hover:bg-white",
                                     "group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
@@ -225,9 +222,10 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
                       <li>
                         <ul role="list" className="-mx-2 space-y-1">
                           {navigation.map((item) => {
-                            const isActive = item.current;
+                            const isActive = pathName === item.href;
                             const isPathMatch =
                               pathName.includes("/course-content") ||
+                              pathName.includes("/student-dashboard") ||
                               pathName.includes("/next-quiz") ||
                               pathName.includes("/quiz-desktop") ||
                               pathName.includes("/cells") ||
@@ -240,10 +238,8 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
                                 <Link
                                   to={item.href}
                                   className={classNames(
-                                    isActive && isPathMatch
+                                    isActive
                                       ? "bg-primary rounded-tr-lg px-12 text-white"
-                                      : isActive
-                                      ? "bg-primary text-white rounded-tr-lg px-12"
                                       : "text-primary px-12 hover:text-primary hover:bg-white",
                                     "group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}

@@ -119,51 +119,35 @@ function App() {
         <Route
           path="/otp-error"
           element={!token ? <OtpError /> : <Navigate to={mainRoute} />}
-          
         />
         <Route
-          path="/*"
+          path="/student-dashboard/*"
           element={
             token ? (
-              <Layout
-                handleDrawerOpen={handleDrawerOpen}
-                handleDrawerClose={handleDrawerClose}
-                open={open}
-                display={token ? "flex" : "none"}
-                toggleFullScreen={toggleFullScreen}
-                isFullScreen={isFullScreen}
-              >
-                <Routes>
-                  <Route path="/student-dashboard" element={<Dashboard />} />
-                  {/* <Route
-                    path="/student-dashboard/dashboard"
-                    element={<Dashboard />}
-                  /> */}
-                  <Route
-                    path="/student-dashboard/content"
-                    element={<Content />}
-                  />
-                  <Route path="/student-dashboard/quiz" element={<Quiz />} />
-                  <Route
-                    path="/student-dashboard/start-quiz"
-                    element={<StartQuiz />}
-                  />
-                  <Route
-                    path="/student-dashboard/primarily-quiz"
-                    element={<PrimarilyQuiz />}
-                  />
-                  <Route path="*" element={<Error404Page />} />
-                </Routes>
-              </Layout>
-            ) : (
+              <>
+                <Layout
+                  toggleFullScreen={toggleFullScreen}
+                  isFullScreen={isFullScreen}
+                >
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/content" element={<Content />} />
+                    <Route path="/quiz" element={<Quiz />} />
+                    <Route path="/start-quiz" element={<StartQuiz />} />
+                    <Route path="/primarily-quiz" element={<PrimarilyQuiz />} />
+                    <Route path="*" element={<Error404Page />} />
+                  </Routes>
+                </Layout>
+              </>
+            ) : token === undefined || null ? (
               <Navigate to="/login" />
+            ) : (
+              <Navigate to={mainRoute} />
             )
           }
         />
-        <Route
-          path="*"
-          element={<Navigate to={token ? "/student-dashboard" : "/login"} />}
-        />
+
         <Route path="/teachers-list" element={<TeachersList />} />
 
         <Route

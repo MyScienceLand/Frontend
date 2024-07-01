@@ -5,6 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import useFetch from "../../hooks/useFetch";
 import { API_ROUTES } from "../../routes/apiRoutes";
 import Button from "../common/buttons/Button/Button";
+import SelectorStyle from "../common/selector-style";
 
 const DashboardMenuSelector = ({
   selectedSubject,
@@ -55,11 +56,11 @@ const DashboardMenuSelector = ({
     <div className="flex gap-6 mb-6">
       {/* {JSON.stringify(data.data)} */}
       <div>
-        <Button
+        <SelectorStyle
           onClick={handleClickSubjects}
           icon={<IoIosArrowDown />}
           title={selectedSubject}
-        ></Button>
+        ></SelectorStyle>
         {/* <Menu
           id="subjects-menu"
           anchorEl={anchorElSubjects}
@@ -96,17 +97,18 @@ const DashboardMenuSelector = ({
         </Menu>
       </div>
       <div>
-        <Button
+        <SelectorStyle
           onClick={handleClickSubjects}
           icon={<IoIosArrowDown />}
           title={selectedTopic}
-        ></Button>
+        ></SelectorStyle>
         <Menu
           id="topic-menu"
           anchorEl={anchorElTopic}
           keepMounted
           open={Boolean(anchorElTopic)}
           onClose={handleCloseTopic}
+          className="text-primary"
         >
           {topics &&
             topics?.data?.map((topic, index) => (
