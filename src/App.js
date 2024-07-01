@@ -119,6 +119,7 @@ function App() {
         <Route
           path="/otp-error"
           element={!token ? <OtpError /> : <Navigate to={mainRoute} />}
+          
         />
         <Route
           path="/*"
@@ -134,10 +135,10 @@ function App() {
               >
                 <Routes>
                   <Route path="/student-dashboard" element={<Dashboard />} />
-                  <Route
+                  {/* <Route
                     path="/student-dashboard/dashboard"
                     element={<Dashboard />}
-                  />
+                  /> */}
                   <Route
                     path="/student-dashboard/content"
                     element={<Content />}

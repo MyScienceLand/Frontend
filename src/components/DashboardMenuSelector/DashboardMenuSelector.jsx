@@ -1,10 +1,10 @@
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import React, { useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
-import useFetch from '../../hooks/useFetch';
-import { API_ROUTES } from '../../routes/apiRoutes';
-import Button from '../common/buttons/Button/Button';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import React, { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
+import useFetch from "../../hooks/useFetch";
+import { API_ROUTES } from "../../routes/apiRoutes";
+import Button from "../common/buttons/Button/Button";
 
 const DashboardMenuSelector = ({
   selectedSubject,
@@ -14,7 +14,7 @@ const DashboardMenuSelector = ({
 }) => {
   const [anchorElSubjects, setAnchorElSubjects] = useState(null);
   const [anchorElTopic, setAnchorElTopic] = useState(null);
-  const [subjectId, setSubjectId] = useState('');
+  const [subjectId, setSubjectId] = useState("");
   const { data } = useFetch(API_ROUTES.PREFERENCES);
   const { data: topics } = useFetch(
     API_ROUTES.TOPICS_FIND_BY_SUBJECT_ID(subjectId)
