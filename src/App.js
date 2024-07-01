@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Navigate,
   Route,
@@ -10,9 +10,6 @@ import {
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPasswordSuccess from './components/ResetPasswordSuccess/ResetPasswordSuccess';
-import useFetch from './hooks/useFetch';
-import { setUser } from './redux/slices/userSlice';
-import { API_ROUTES } from './routes/apiRoutes';
 import ForgotPassword from './screens/Auth/ForgotPassword/ForgotPassword';
 import Login from './screens/Auth/Login/Login';
 import OtpError from './screens/Auth/OtpError/OtpError';
@@ -36,14 +33,8 @@ function App() {
   const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const token = localStorage.getItem('token');
-  const { data: userData } = useFetch(API_ROUTES.USER);
   const user = useSelector((state) => state.user);
   // user.role = 'management';
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setUser(userData?.data));
-  }, [userData]);
 
   // const token = 1;
   const navigate = useNavigate();

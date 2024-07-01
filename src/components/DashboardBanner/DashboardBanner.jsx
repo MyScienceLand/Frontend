@@ -22,7 +22,7 @@ const DashboardBanner = ({ completedQuiz, userData }) => {
     >
       <div>
         <h1 className="text-white text-[42px] font-bold ">
-          {`${user?.firstName} ${user?.lastName}`}
+          {`${user?.firstName || ''} ${user?.lastName || ''}`}
         </h1>
         <p className="text-white text-[28px] font-bold leading-9 ">
           You have complete {completedQuiz} quiz in last ten days.

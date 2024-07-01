@@ -10,6 +10,7 @@ import Button from '../../../components/common/buttons/Button/Button';
 import { authLogoWidth } from '../../../constants';
 import usePost from '../../../hooks/usePost';
 import { registerUser } from '../../../redux/slices/authSlice';
+import { setUser } from '../../../redux/slices/userSlice';
 import { API_ROUTES } from '../../../routes/apiRoutes';
 
 const OtpVerification = () => {
@@ -67,6 +68,7 @@ const OtpVerification = () => {
       ToastNotification.success(data?.verifyOtp?.message);
       if (user.otpType === 'forgetPassword') {
         navigate('/reset-password');
+        return;
       }
       localStorage.setItem(
         'token',
@@ -77,8 +79,8 @@ const OtpVerification = () => {
     }
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/student-dashboard/dashboard');
-      window.location.reload();
+      navigate(`/${data?.verifyOtp?.role}-dashboard`);
+      dispatch(setUser({ role: data?.verifyOtp?.role }));
     }
   }, [data, error]);
 

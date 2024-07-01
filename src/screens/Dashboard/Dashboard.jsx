@@ -11,6 +11,7 @@ import ApexChart from '../../components/common/charts/Chart';
 import CustomTableDashboard from '../../components/common/tables/CustomTableDashboard/CustomTableDashboard';
 import useFetch from '../../hooks/useFetch';
 import { updateQuiz } from '../../redux/slices/quizSlice';
+import { setUser } from '../../redux/slices/userSlice';
 import { API_ROUTES } from '../../routes/apiRoutes';
 
 const StudentDashboard = () => {
@@ -24,7 +25,11 @@ const StudentDashboard = () => {
   const { data: barGraphData } = useFetch(API_ROUTES.SPENT_TIME_GRAPH);
   const { data: subjectGraphData } = useFetch(API_ROUTES.SUBJECTS_GRAPH);
   const { data: feedbackData } = useFetch(API_ROUTES.FEEDBACK);
+  const { data: userData } = useFetch(API_ROUTES.USER);
 
+  useEffect(() => {
+    dispatch(setUser(userData?.data));
+  }, [userData]);
   const cardStyle = [
     {
       image: Physics,
@@ -39,10 +44,6 @@ const StudentDashboard = () => {
       className: 'bg-[#007353] px-8 py2 rounded-lg min-w-[484px]',
     },
   ];
-  // const cardsArray = cardStyle.map((card, index) => {
-  //   const studyData = continueStudy?.data[index];
-  //   return studyData ? { ...card, ...studyData } : card;
-  // });
 
   const relevantCards = continueStudy?.data.slice(0, cardStyle.length) || [];
 

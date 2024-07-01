@@ -1,8 +1,6 @@
 const handelLogout = () => {
   localStorage.removeItem('token');
-  // also naviagate to / login
   window.location.href = '/login';
-  // window.location.reload();
 };
 
 const openedMixin = (theme, drawerWidth, backGroundColor, textColor) => ({
