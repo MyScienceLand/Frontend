@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { MdOutlineReportProblem } from 'react-icons/md';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { PurpleLogoWithText } from '../../assets';
-import usePost from '../../hooks/usePost';
-import { API_ROUTES } from '../../routes/apiRoutes';
-import { handelLogout } from '../../utils/helper/HelperFunctions';
-import ReportQuestion from '../ReportQuestion/ReportQuestion';
-import ToastNotification from '../ToastNotification/ToastNotification';
-import PreLoader from '../common/Preloader/PreLoader';
-import CustomModal from '../common/modals/CustomModal/CustomModal';
+import React, { useEffect, useState } from "react";
+import { MdOutlineReportProblem } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { PurpleLogoWithText } from "../../assets";
+import usePost from "../../hooks/usePost";
+import { API_ROUTES } from "../../routes/apiRoutes";
+import { handelLogout } from "../../utils/helper/HelperFunctions";
+import ReportQuestion from "../ReportQuestion/ReportQuestion";
+import ToastNotification from "../ToastNotification/ToastNotification";
+import PreLoader from "../common/Preloader/PreLoader";
+import CustomModal from "../common/modals/CustomModal/CustomModal";
+import { Tooltip } from "react-tooltip";
+import { TbBulb } from "react-icons/tb";
+
 const QuizComponent = ({
   topicAndStartPaper,
   quizId,
@@ -42,7 +45,7 @@ const QuizComponent = ({
   //   totalCountOfAttemptedQuestion + 1
   // );
   const [questionNumber, setQuestionNumber] = useState(
-    typeof quizState?.totalCountOfAttemptedQuestion === 'number'
+    typeof quizState?.totalCountOfAttemptedQuestion === "number"
       ? quizState?.totalCountOfAttemptedQuestion + 1
       : 1
   );
@@ -50,7 +53,7 @@ const QuizComponent = ({
   const [selectedOption, setSelectedOption] = useState(undefined);
   const [displayExplanation, setDisplayExplanation] = useState(false);
   const [isOptionChecked, setIsOptionChecked] = useState(false);
-  const [correctOption, setCorrectOption] = useState('');
+  const [correctOption, setCorrectOption] = useState("");
 
   const {
     data: submitQuestionResponse,
@@ -63,12 +66,12 @@ const QuizComponent = ({
     loading: finishQuizLoading,
   } = usePost(API_ROUTES.FINISH_QUIZ(quizId));
   const [optionColors, setOptionColors] = useState(
-    answers ? answers.map(() => 'white') : []
+    answers ? answers.map(() => "white") : []
   );
 
   const commonFunction = () => {
     setSelectedOption(undefined);
-    setOptionColors(answers.map(() => 'white'));
+    setOptionColors(answers.map(() => "white"));
     setDisplayExplanation(false);
     setQuestionNumber(questionNumber + 1);
   };
@@ -77,7 +80,7 @@ const QuizComponent = ({
 
   const handleCheckAnswer = () => {
     if (selectedOption === undefined) {
-      alert('Please select any option');
+      alert("Please select any option");
       return;
     }
 
@@ -116,8 +119,8 @@ const QuizComponent = ({
     if (isOptionChecked) {
       return;
     }
-    const newOptionColors = answers.map(() => 'white');
-    newOptionColors[index] = 'grey'; // Indicate selected option
+    const newOptionColors = answers.map(() => "white");
+    newOptionColors[index] = "grey"; // Indicate selected option
     setOptionColors(newOptionColors);
     setSelectedOption(index);
     setCorrectOption(answers[index]);
@@ -129,8 +132,8 @@ const QuizComponent = ({
     }
   }, [finishQuizResponse]);
 
-  const wrongQuizColor = '#DA525D';
-  const correctQuizColor = '#65BF7A';
+  const wrongQuizColor = "#DA525D";
+  const correctQuizColor = "#65BF7A";
 
   useEffect(() => {
     if (submitQuestionResponse) {
@@ -185,6 +188,17 @@ const QuizComponent = ({
                           <div className="mt-1">Hint</div>
                         </div>
                       </Tooltip> */}
+
+                      <a
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content={hint}
+                      >
+                        <Tooltip id="my-tooltip" style={{ fontSize: "12px" }} />
+                        <div className="bg-primary py-1 px-4 text-white flex items-center  rounded-sm gap-1">
+                          <TbBulb />
+                          <div className="mt-1">Hint</div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -245,7 +259,7 @@ const QuizComponent = ({
               </button>
             ) : (
               <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate("/")}
                 className="bg-transparent text-[#232B3E] mt-6 px-6 py-2 hover:bg-slate-100 hover:text-black rounded-sm border border-[#232B3E]"
               >
                 Home
@@ -258,10 +272,10 @@ const QuizComponent = ({
                 onClick={submitQuestionLoading ? null : handelOpenNewQuestion}
               >
                 {submitQuestionLoading
-                  ? 'Checking...'
+                  ? "Checking..."
                   : questionNumber === 20
-                  ? 'Complete'
-                  : 'Continue'}
+                  ? "Complete"
+                  : "Continue"}
               </button>
             ) : (
               <button
@@ -279,3 +293,5 @@ const QuizComponent = ({
 };
 
 export default QuizComponent;
+
+// this is quiz component
