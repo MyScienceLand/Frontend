@@ -34,23 +34,19 @@ import Classes from './screens/apps/ManagementDashboard/Classes/Classes';
 import Layout from './screens/global/Layout/Layout';
 
 function App() {
-  const [open, setOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const token = localStorage.getItem('token');
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // user.role = 'management';
-
-  // const token = 1;
   const navigate = useNavigate();
   const { data: userData } = useFetch(API_ROUTES.USER);
 
   useEffect(() => {
     dispatch(setUser(userData?.data));
-    localStorage.setItem('role', JSON.stringify(userData?.data.role));
   }, [userData]);
-  // const role = JSON.parse(localStorage.getItem('role'));
+
   const role = localStorage.getItem('role');
+
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
@@ -69,17 +65,20 @@ function App() {
   const location = useLocation();
 
   let mainRoute = `/${role}-dashboard`;
-  console.log(user?.role);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
     } else {
-      navigate(location.pathname === '/' ? mainRoute : location.pathname);
+      const baseRoute = location.pathname.split('/')[1];
+      if (baseRoute === '') {
+        navigate(mainRoute);
+      } else if (`/${baseRoute}` !== mainRoute) {
+        navigate(mainRoute);
+      }
     }
-  }, [token, userData?.role, user?.role]);
-
+  }, [userData?.role, user?.role]);
   return (
     <div className="app">
       <ToastContainer />

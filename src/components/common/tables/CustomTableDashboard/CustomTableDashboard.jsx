@@ -1,5 +1,5 @@
-import { dashboardTablePeople } from "../../../../data/dashboard";
-import EmptyDataFields from "../../../EmptyDataFields/EmptyDataFields";
+import { dashboardTablePeople } from '../../../../data/dashboard';
+import EmptyDataFields from '../../../EmptyDataFields/EmptyDataFields';
 export default function CustomTableDashboard({ progress }) {
   return (
     <>
@@ -38,21 +38,24 @@ export default function CustomTableDashboard({ progress }) {
                       </thead>
                       <tbody className="divide-y divide-gray-200 bg-white">
                         {progress &&
-                          progress.map((person, index) => (
+                          progress.map((student, index) => (
                             <tr key={index}>
                               <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                {person.subjectName}
+                                {student.subjectName}
                               </td>
                               <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">
-                                <label>{person.label}</label>
-                                <div className="">
+                                <label>{student.progress}</label>
+                                <div>
                                   <div className="relative h-2.5 w-full rounded-full bg-[#BECFFA] bg-opacity-60 dark:bg-strokedark">
-                                    <div className="absolute left-0 h-full w-[80%] rounded-full bg-secondary"></div>
+                                    <div
+                                      className="absolute left-0 h-full rounded-full bg-secondary"
+                                      style={{ width: `${student.progress}%` }}
+                                    ></div>
                                   </div>
                                 </div>
                               </td>
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {person.duration}
+                                {student.duration}
                               </td>
                             </tr>
                           ))}
@@ -65,7 +68,7 @@ export default function CustomTableDashboard({ progress }) {
           </div>
         </div>
       ) : (
-        <EmptyDataFields title={"Subject"} message="Data does not exist" />
+        <EmptyDataFields title={'Subject'} message="Data does not exist" />
       )}
     </>
   );

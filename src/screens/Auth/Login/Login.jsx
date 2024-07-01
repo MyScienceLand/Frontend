@@ -20,7 +20,6 @@ import { loginInputs } from '../../../data/index';
 import usePost from '../../../hooks/usePost';
 import '../../../index.scss';
 import { registerUser } from '../../../redux/slices/authSlice';
-import { setUser } from '../../../redux/slices/userSlice';
 import { API_ROUTES } from '../../../routes/apiRoutes';
 import { formSchema } from '../../../utils/helper/Schema';
 
@@ -81,7 +80,8 @@ const Login = () => {
       );
       setTimeout(() => {
         navigate(`/${data?.login?.role}-dashboard`);
-        dispatch(setUser({ role: data?.login?.role }));
+
+        localStorage.setItem('role', data?.login?.role);
       }, 10);
     }
   }, [data, navigate, error]);
