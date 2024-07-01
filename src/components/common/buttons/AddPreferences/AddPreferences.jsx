@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { FaPlus } from 'react-icons/fa6';
-import { IoAddCircleOutline } from 'react-icons/io5';
-import { MdDelete } from 'react-icons/md';
-import { useLocation } from 'react-router-dom';
-import useFetch from '../../../../hooks/useFetch';
-import usePost from '../../../../hooks/usePost';
-import { API_ROUTES } from '../../../../routes/apiRoutes';
-import StartAttemptQuiz from '../../../StartAttemptQuiz';
-import ToastNotification from '../../../ToastNotification/ToastNotification';
-import PreLoader from '../../Preloader/PreLoader';
-import Dropdown from '../../dropdowns/Dropdowns/Dropdown';
-import CustomModal from '../../modals/CustomModal/CustomModal';
-import Button from '../Button/Button';
+import React, { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa6";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+import useFetch from "../../../../hooks/useFetch";
+import usePost from "../../../../hooks/usePost";
+import { API_ROUTES } from "../../../../routes/apiRoutes";
+import StartAttemptQuiz from "../../../StartAttemptQuiz";
+import ToastNotification from "../../../ToastNotification/ToastNotification";
+import PreLoader from "../../Preloader/PreLoader";
+import Dropdown from "../../dropdowns/Dropdowns/Dropdown";
+import CustomModal from "../../modals/CustomModal/CustomModal";
+import Button from "../Button/Button";
 
 const AddPreferences = () => {
   const location = useLocation();
   const [preferences, setPreferences] = useState([
     {
-      qualification: 'Please select qualification',
-      subject: 'Please select Subject',
-      examBoard: 'Please select Board',
+      qualification: "Please select qualification",
+      subject: "Please select Subject",
+      examBoard: "Please select Board",
     },
   ]);
   const [modalOpen, setModalOpen] = useState(false);
   const [subjectsData, setSubjectsData] = useState();
   const [qualificationsData, setQualificationsData] = useState();
   const [boardsData, setBoardsData] = useState();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const [displayQuizSummery, setDisplayQuizSummery] = useState(false);
   const [isCloseAbleModal, setIsCloseAbleModal] = useState(true);
 
@@ -74,7 +74,7 @@ const AddPreferences = () => {
 
   const handleAddMore = () => {
     if (preferences.length >= 3) {
-      ToastNotification.error('You can only add up to three preferences.');
+      ToastNotification.error("You can only add up to three preferences.");
       return;
     }
     const firstPreference = preferences[0];
@@ -82,7 +82,7 @@ const AddPreferences = () => {
       ...preferences,
       {
         qualification: firstPreference.qualification,
-        subject: 'Please select Subject',
+        subject: "Please select Subject",
         examBoard: firstPreference.examBoard,
       },
     ]);
@@ -129,13 +129,13 @@ const AddPreferences = () => {
     if (
       preferences.some(
         (pref) =>
-          pref.qualification === 'Please select qualification' ||
-          pref.subject === 'Please select Subject' ||
-          pref.examBoard === 'Please select Board'
+          pref.qualification === "Please select qualification" ||
+          pref.subject === "Please select Subject" ||
+          pref.examBoard === "Please select Board"
       )
     ) {
       ToastNotification.error(
-        'Please complete all preferences before submitting.'
+        "Please complete all preferences before submitting."
       );
       return;
     }
@@ -221,9 +221,9 @@ const AddPreferences = () => {
   const clearPreferences = () => {
     setPreferences([
       {
-        qualification: 'Please select qualification',
-        subject: 'Please select Subject',
-        examBoard: 'Please select Board',
+        qualification: "Please select qualification",
+        subject: "Please select Subject",
+        examBoard: "Please select Board",
       },
     ]);
   };
@@ -242,7 +242,7 @@ const AddPreferences = () => {
     );
   };
   const [isDisabled, setIsDisabled] = useState(false);
-  const route = location.pathname.split('/')[1];
+  const route = location.pathname.split("/")[1];
 
   return (
     <>
@@ -264,8 +264,8 @@ const AddPreferences = () => {
         onClose={handleClose}
         title={
           displayStartQuiz
-            ? 'Please Attempt Preliminary Quiz'
-            : 'Add your preferences'
+            ? "Please Attempt Preliminary Quiz"
+            : "Add your preferences"
         }
         width={800}
         isClosable={isCloseAbleModal}
@@ -295,7 +295,7 @@ const AddPreferences = () => {
                       dropdownItems={qualificationsData}
                       value={preference.qualification}
                       setValue={(value) =>
-                        handleChange(index, 'qualification', value)
+                        handleChange(index, "qualification", value)
                       }
                       // disabled={index !== 0}
                       // disabled={isDisabled}
@@ -308,7 +308,7 @@ const AddPreferences = () => {
                         dropdownItems={getAvailableSubjects(index)}
                         value={preference.subject}
                         setValue={(value) =>
-                          handleChange(index, 'subject', value)
+                          handleChange(index, "subject", value)
                         }
                       />
                     )}
@@ -317,7 +317,7 @@ const AddPreferences = () => {
                       dropdownItems={boardsData}
                       value={preference.examBoard}
                       setValue={(value) =>
-                        handleChange(index, 'examBoard', value)
+                        handleChange(index, "examBoard", value)
                       }
                       disabled={index !== 0 ? isDisabled : false}
                       // disabled={isDisabled}

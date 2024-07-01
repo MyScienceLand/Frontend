@@ -83,7 +83,7 @@ export default function Layout({
         </div>
         <div>
           <Topbar
-            handleDrawerOpen={handleDrawerOpen} // Passes the function to Topbar
+            handleDrawerOpen={handleDrawerOpen} 
             toggleFullScreen={toggleFullScreen}
             isFullScreen={isFullScreen}
           />

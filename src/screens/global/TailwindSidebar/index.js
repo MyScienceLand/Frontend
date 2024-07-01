@@ -124,7 +124,7 @@ export default function TailwindSidebar({ sidebarOpen, handleDrawerOpen }) {
         {shouldRenderSidebar && (
           <>
             {!sidebarOpen ? (
-              <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col transition-all duration-300">
+              <div className="hidden lg:fixed lg:inset-y-0  lg:flex lg:w-72 lg:flex-col transition-all duration-300">
                 {/* Sidebar component, swap this element with another sidebar if you like */}
                 <div
                   className={`${

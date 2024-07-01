@@ -1,12 +1,12 @@
-import React from 'react';
-import EmptyDataFields from '../EmptyDataFields/EmptyDataFields';
+import React from "react";
+import EmptyDataFields from "../EmptyDataFields/EmptyDataFields";
 
 const FeedBack = ({ feedbackData }) => {
   return (
     <div>
       {feedbackData?.detail.length > 0 ? (
         <div className="shadow-lg rounded-md">
-          <div className="bg-white px-8 rounded py-2">
+          <div className="bg-[#f8f8f8] px-8  rounded py-2">
             <h1 className="text-[18px] font-medium">Feedback</h1>
           </div>
           <div className="bg-white px-6 py-4">
@@ -30,7 +30,7 @@ const FeedBack = ({ feedbackData }) => {
           </div>
         </div>
       ) : (
-        <EmptyDataFields title={'Feedbacks'} message={'No data found'} />
+        <EmptyDataFields title={"Feedbacks"} message={"No data found"} />
       )}
     </div>
   );

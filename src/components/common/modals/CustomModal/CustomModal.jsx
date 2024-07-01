@@ -106,14 +106,14 @@
 //         </CustomModal>
 //  */
 // CustomModal.js
-import PropTypes from 'prop-types';
-import React, { useRef } from 'react';
-import '../../../../index.scss';
+import PropTypes from "prop-types";
+import React, { useRef } from "react";
+import "../../../../index.scss";
 
 const CustomModal = ({
   open,
   onClose,
-  title = '',
+  title = "",
   children,
   width,
   isClosable,
@@ -131,7 +131,7 @@ const CustomModal = ({
   return (
     <div
       className={`fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5 ${
-        open ? 'block' : 'hidden'
+        open ? "block" : "hidden"
       }`}
     >
       <div

@@ -19,10 +19,9 @@ const Topbar = ({ handleDrawerOpen, isFullScreen, toggleFullScreen }) => {
   return (
     <div className=" sticky top-0 z-40 justify-between flex h-16 shrink-0 items-center gap-x-4 shadow-bottom bg-white px-4  sm:gap-x-6 sm:px-6 lg:px-12">
       <div>
-     
-          <button onClick={handleDrawerOpen}>
-            <IoMenuOutline color="#000" className="text-[24px]" />
-          </button>
+        <button onClick={handleDrawerOpen}>
+          <IoMenuOutline color="#000" className="text-[24px]" />
+        </button>
       </div>
       <div display="flex " className="flex items-center gap-x-4 lg:gap-x-6">
         {route === "student-dashboard" ? <AddPreferences /> : null}

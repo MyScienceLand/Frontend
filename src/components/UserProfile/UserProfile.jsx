@@ -1,20 +1,20 @@
-import { Menu, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { IoIosArrowDown } from 'react-icons/io';
+import { Menu, MenuItem, MenuItems, Transition } from "@headlessui/react";
+import { IoIosArrowDown } from "react-icons/io";
 
-import React, { Fragment } from 'react';
-import { handelLogout } from '../../utils/helper/HelperFunctions';
+import React, { Fragment } from "react";
+import { handelLogout } from "../../utils/helper/HelperFunctions";
 const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: "Your profile", href: "#" },
+  { name: "Sign out", href: "#" },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 const UserProfile = () => {
   return (
-    <Menu as="div" className="relative">
+    <Menu as="div">
       <Menu.Button className="-m-1.5 flex items-center p-1.5">
         <span className="sr-only">Open user menu</span>
         <img
@@ -44,13 +44,13 @@ const UserProfile = () => {
               {({ isActive }) => (
                 <a
                   href={item.href}
-                  onClick={item.name === 'Sign out' ? handelLogout : undefined}
+                  onClick={item.name === "Sign out" ? handelLogout : undefined}
                   className={classNames(
-                    isActive ? 'bg-gray-50' : '',
-                    'block px-3 py-1 text-sm leading-6',
-                    item.name === 'Sign out'
-                      ? 'text-rose-600'
-                      : 'text-[secondary]'
+                    isActive ? "bg-gray-50" : "",
+                    "block px-3 py-1 text-sm leading-6",
+                    item.name === "Sign out"
+                      ? "text-rose-600"
+                      : "text-[secondary]"
                   )}
                 >
                   {item.name}

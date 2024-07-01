@@ -46,7 +46,7 @@ export default function CustomTableDashboard({ progress }) {
                               <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">
                                 <label>{person.label}</label>
                                 <div className="">
-                                  <div className="relative h-2.5 w-full rounded-full bg-[#BECFFA] bg-opacity-60 dark:bg-strokedark">
+                                  <div className="relative h-2 w-full rounded-full bg-[#BECFFA] bg-opacity-60 dark:bg-strokedark">
                                     <div className="absolute left-0 h-full w-[80%] rounded-full bg-secondary"></div>
                                   </div>
                                 </div>
