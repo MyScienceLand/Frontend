@@ -293,3 +293,5 @@ const QuizComponent = ({
 };
 
 export default QuizComponent;
+
+// this is quiz component
