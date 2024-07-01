@@ -26,6 +26,10 @@ import ManagementDashboard from './screens/apps/ManagementDashboard/ManagementDa
 import StudentList from './screens/apps/ManagementDashboard/StudentList/StudentList';
 import TeachersList from './screens/apps/ManagementDashboard/TeachersList/TeachersList';
 // import ContentWarper from './screens/global/ContentWarper/ContentWarper';
+import { useDispatch } from 'react-redux';
+import useFetch from './hooks/useFetch';
+import { setUser } from './redux/slices/userSlice';
+import { API_ROUTES } from './routes/apiRoutes';
 import Classes from './screens/apps/ManagementDashboard/Classes/Classes';
 import Layout from './screens/global/Layout/Layout';
 
@@ -34,16 +38,19 @@ function App() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const token = localStorage.getItem('token');
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   // user.role = 'management';
 
   // const token = 1;
   const navigate = useNavigate();
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const { data: userData } = useFetch(API_ROUTES.USER);
+
+  useEffect(() => {
+    dispatch(setUser(userData?.data));
+    localStorage.setItem('role', JSON.stringify(userData?.data.role));
+  }, [userData]);
+  // const role = JSON.parse(localStorage.getItem('role'));
+  const role = localStorage.getItem('role');
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
@@ -61,16 +68,18 @@ function App() {
   }, [isFullScreen]);
   const location = useLocation();
 
-  let mainRoute = `/${user?.role}-dashboard`;
+  let mainRoute = `/${role}-dashboard`;
   console.log(user?.role);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
     } else {
-      navigate(location.pathname);
+      navigate(location.pathname === '/' ? mainRoute : location.pathname);
     }
-  }, [token]);
+  }, [token, userData?.role, user?.role]);
+
   return (
     <div className="app">
       <ToastContainer />
@@ -133,8 +142,10 @@ function App() {
                   </Routes>
                 </Layout>
               </>
-            ) : (
+            ) : token === undefined || null ? (
               <Navigate to="/login" />
+            ) : (
+              <Navigate to={mainRoute} />
             )
           }
         />
@@ -153,7 +164,6 @@ function App() {
                   <Route path="/students-list" element={<StudentList />} />
                   <Route path="/teachers-list" element={<TeachersList />} />
                   <Route path="/classes" element={<Classes />} />
-
                   <Route path="*" element={<Error404Page />} />
                 </Routes>
               </Layout>
